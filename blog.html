@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - A2P Financial Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-pro.css">
+    <style>
+        .blog-hero { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 6rem 0; text-align: center; }
+        .blog-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .blog-hero p { font-size: 1.2rem; opacity: 0.9; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin: 4rem 0; }
+        .blog-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
+        html[data-theme="dark"] .blog-card { background: rgba(26, 32, 44, 0.8); }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); border-color: var(--primary); }
+        .blog-card-image { height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .blog-card-image.cat2 { background: linear-gradient(135deg, #f5576c, #f093fb); }
+        .blog-card-image.cat3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .blog-card-image.cat4 { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .blog-card-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .blog-card-meta { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .blog-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark); }
+        .blog-card p { color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; }
+        .blog-card-tag { display: inline-block; background: rgba(102, 126, 234, 0.1); color: var(--primary); padding: 0.35rem 0.75rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
+        .blog-card a.read-more { color: var(--primary); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .blog-card a.read-more:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle">🌙</button>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Financial Insights & Tips</h1>
+            <p>Expert guidance, wealth-building strategies, and financial wisdom</p>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="container">
+        <div class="blog-grid">
+
+            <!-- Blog 1 -->
+            <div class="blog-card fade-in-up">
+                <div class="blog-card-image">🤝</div>
+                <div class="blog-card-content">
+                    <span class="blog-card-tag">Partnerships</span>
+                    <h3>Trusted Partners, Better Plans</h3>
+                    <div class="blog-card-meta">
+                        <span>📅 Aug 22, 2026</span>
+                        <span>⏱️ 5 min</span>
+                    </div>
+                    <p>Why A2P partners with India's most trusted financial institutions to serve you the best investment policies and wealth creation strategies.</p>
+                    <a href="blog-1.html" class="read-more">Read Article →</a>
+                </div>
+            </div>
+
+            <!-- Blog 2 -->
+            <div class="blog-card fade-in-up" style="animation-delay: 0.1s;">
+                <div class="blog-card-image cat2">💰</div>
+                <div class="blog-card-content">
+                    <span class="blog-card-tag">Wealth Building</span>
+                    <h3>You Know How to Earn. We Know How to Build Wealth.</h3>
+                    <div class="blog-card-meta">
+                        <span>📅 Aug 22, 2026</span>
+                        <span>⏱️ 7 min</span>
+                    </div>
+                    <p>Earning money and building wealth are two different skills. Discover how to transform your earnings into lasting wealth and financial security.</p>
+                    <a href="blog-2.html" class="read-more">Read Article →</a>
+                </div>
+            </div>
+
+            <!-- Blog 3 -->
+            <div class="blog-card fade-in-up" style="animation-delay: 0.2s;">
+                <div class="blog-card-image cat3">🎯</div>
+                <div class="blog-card-content">
+                    <span class="blog-card-tag">Investment Strategy</span>
+                    <h3>The Investment Plan Paradox</h3>
+                    <div class="blog-card-meta">
+                        <span>📅 Aug 22, 2026</span>
+                        <span>⏱️ 6 min</span>
+                    </div>
+                    <p>Why more investment options can actually hurt your decisions. Learn how expert filtering helps you choose the right plan and start investing with confidence.</p>
+                    <a href="blog-3.html" class="read-more">Read Article →</a>
+                </div>
+            </div>
+
+            <!-- Blog 4 -->
+            <div class="blog-card fade-in-up" style="animation-delay: 0.3s;">
+                <div class="blog-card-image cat4">🏆</div>
+                <div class="blog-card-content">
+                    <span class="blog-card-tag">Our Philosophy</span>
+                    <h3>Your Achievement is Our Mission</h3>
+                    <div class="blog-card-meta">
+                        <span>📅 Aug 22, 2026</span>
+                        <span>⏱️ 6 min</span>
+                    </div>
+                    <p>We measure success by your financial wins, not commissions. Discover why your achievement is our legacy and how we align our interests with yours.</p>
+                    <a href="blog-4.html" class="read-more">Read Article →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Take Action on Your Finances?</h2>
+            <p>Let's discuss your financial goals and build a personalized strategy.</p>
+            <a href="contact.html" class="btn btn-primary btn-large">Schedule Free Consultation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>A2P Financial Services</h3>
+                    <p>Expert guidance for every earning journey.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
+                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p style="margin-bottom: 10pt;">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</p>
+            <p>&copy; 2026 A2P Financial Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script-pro.js"></script>
+</body>
+</html>

@@ -58,6 +58,11 @@ body {
     padding: 0 2rem;
 }
 
+/* ========================= HEADINGS ========================= */
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+}
+
 /* ========================= NAVIGATION ========================= */
 .navbar {
     position: sticky;
@@ -103,28 +108,22 @@ html[data-theme="dark"] .navbar {
 .nav-link {
     font-weight: 500;
     transition: color 0.3s;
+    color: #333333;
+    text-decoration: none !important;
     position: relative;
 }
 
-.nav-link:hover,
-.nav-link.active {
+html[data-theme="dark"] .nav-link {
+    color: #e0e0e0;
+}
+
+.nav-link:hover {
     color: var(--primary);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s;
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
+.nav-link.active {
+    color: var(--primary);
+    font-weight: 600;
 }
 
 .theme-toggle {
@@ -447,6 +446,79 @@ html[data-theme="dark"] .trust-card {
     line-height: 1.7;
 }
 
+/* ========================= PARTNERS SECTION ========================= */
+.partners-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%);
+}
+
+html[data-theme="dark"] .partners-section {
+    background: linear-gradient(135deg, #1a2332 0%, #151d2a 100%);
+}
+
+.partners-section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.partner-badge {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    padding: 2.5rem;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+html[data-theme="dark"] .partner-badge {
+    background: rgba(26, 32, 44, 0.8);
+    border: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.partner-badge:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    border-color: var(--primary);
+}
+
+.partner-logo {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.partner-logo img {
+    max-height: 80px;
+    max-width: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.partner-badge h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text, var(--text-dark));
+}
+
+.partner-badge p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 /* ========================= FEATURED PRODUCTS ========================= */
 .featured-products {
     padding: 6rem 0;
@@ -677,6 +749,100 @@ html[data-theme="dark"] .testimonial-card {
     color: var(--text-muted);
 }
 
+/* ========================= POPULAR SOLUTIONS ========================= */
+.popular-solutions {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+}
+
+html[data-theme="dark"] .popular-solutions {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+.popular-solutions h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+html[data-theme="dark"] .popular-solutions h2 {
+    color: var(--text-light);
+}
+
+.solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.solution-card {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+html[data-theme="dark"] .solution-card {
+    background: rgba(26, 32, 44, 0.9);
+    border: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.solution-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+    border-color: var(--primary);
+    background: rgba(255,255,255,1);
+}
+
+html[data-theme="dark"] .solution-card:hover {
+    background: rgba(26, 32, 44, 1);
+}
+
+.solution-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.solution-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+html[data-theme="dark"] .solution-card h3 {
+    color: var(--text-light);
+}
+
+.solution-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.solution-card .learn-more {
+    color: var(--primary);
+    font-weight: 600;
+    display: inline-block;
+    margin-top: auto;
+}
+
+.solution-card:hover .learn-more {
+    text-decoration: underline;
+}
+
 /* ========================= CTA SECTION ========================= */
 .cta-section {
     padding: 6rem 0;
@@ -735,21 +901,34 @@ html[data-theme="dark"] .page-header {
     padding: 4rem 0 2rem;
 }
 
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
 .footer-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 3rem;
     margin-bottom: 3rem;
 }
 
+.footer-section {
+    padding: 0.5rem 0;
+}
+
 .footer-section h3,
 .footer-section h4 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .footer-section p {
     color: rgba(255,255,255,0.7);
     line-height: 1.8;
+    margin-bottom: 0.8rem;
 }
 
 .footer-section ul {
@@ -899,6 +1078,102 @@ html[data-theme="dark"] .comparison-table {
 
 .comparison-table tr:hover {
     background: rgba(102, 126, 234, 0.1);
+}
+
+/* ========================= SERVICES GRID (NEW CARD LAYOUT) ========================= */
+.service-category {
+    margin-bottom: 4rem;
+}
+
+.service-category h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text, var(--text-dark));
+}
+
+.category-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.service-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+html[data-theme="dark"] .service-card {
+    background: rgba(26, 32, 44, 0.8);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text, var(--text-dark));
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.card-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(102, 126, 234, 0.1);
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.card-features span {
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.btn-sm {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
 }
 
 /* ========================= HOW IT WORKS ========================= */
@@ -1463,13 +1738,21 @@ html[data-theme="dark"] .contact-method {
 .form-group textarea,
 .form-group select {
     padding: 1rem;
+    padding-right: 2.5rem;
     border: 1px solid rgba(102, 126, 234, 0.3);
     border-radius: 8px;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E") no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     color: var(--text, var(--text-dark));
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     transition: all 0.3s;
+    cursor: pointer;
+    width: 100%;
 }
 
 html[data-theme="dark"] .form-group input,
@@ -1592,7 +1875,21 @@ html[data-theme="dark"] .why-contact {
     .product-detail:nth-child(even) .product-content {
         order: initial;
     }
-    
+
+    .service-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
     .timeline-item {
         padding-left: 0;
     }
