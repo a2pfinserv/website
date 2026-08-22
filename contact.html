@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact A2P Financial Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-pro.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+            <button class="theme-toggle">🌙</button>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Get in Touch With Us</h1>
+        <p>We're here to help. Reach out for a free consultation.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <!-- Contact Info -->
+                <div class="contact-info fade-in-up">
+                    <h2>Connect With Us</h2>
+                    <p>Have questions? We'd love to hear from you. Get in touch and let's start your financial journey together.</p>
+                    
+                    <div class="contact-methods">
+                        <!-- Phone -->
+                        <div class="contact-method">
+                            <div class="method-icon">📞</div>
+                            <div>
+                                <h3>Phone</h3>
+                                <p><a href="tel:+919910210883">+91 9910210883</a></p>
+                                <p class="method-desc">Monday - Friday, 9 AM - 6 PM IST</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="contact-method">
+                            <div class="method-icon">📧</div>
+                            <div>
+                                <h3>Email</h3>
+                                <p><a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
+                                <p class="method-desc">We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Office -->
+                        <div class="contact-method">
+                            <div class="method-icon">🏢</div>
+                            <div>
+                                <h3>Office Hours</h3>
+                                <p>Monday - Friday: 9 AM - 6 PM IST</p>
+                                <p class="method-desc">Saturday: 10 AM - 2 PM IST</p>
+                            </div>
+                        </div>
+
+                        <!-- Support -->
+                        <div class="contact-method">
+                            <div class="method-icon">🤝</div>
+                            <div>
+                                <h3>Customer Support</h3>
+                                <p>24/7 Support Available</p>
+                                <p class="method-desc">For urgent matters, call us anytime</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time -->
+                    <div class="response-time">
+                        <h3>Our Response Commitment</h3>
+                        <div class="response-box">
+                            <div class="response-item">
+                                <span class="response-icon">⚡</span>
+                                <div>
+                                    <h4>Phone Calls</h4>
+                                    <p>Answered within 5 minutes</p>
+                                </div>
+                            </div>
+                            <div class="response-item">
+                                <span class="response-icon">📧</span>
+                                <div>
+                                    <h4>Emails</h4>
+                                    <p>Replied within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper fade-in-up" style="animation-delay: 0.2s;">
+                    <h2>Send Us a Message</h2>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" pattern="[0-9+ ]{10,}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest">Interest In *</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select a service</option>
+                                <option value="investment">Investment Advisory</option>
+                                <option value="portfolio">Portfolio Management</option>
+                                <option value="retirement">Retirement Planning</option>
+                                <option value="tax">Tax Optimization</option>
+                                <option value="wealth">Wealth Management</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your financial goals..." rows="5"></textarea>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <label for="consent">I agree to be contacted about my inquiry</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                        
+                        <div class="form-message" id="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Contact Us -->
+    <section class="why-contact">
+        <div class="container">
+            <h2>Why Connect With A2P?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Personalized Consultation</h3>
+                    <p>Every inquiry is unique. We provide customized solutions for your specific situation.</p>
+                </div>
+                <div class="benefit-card fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Quick Response</h3>
+                    <p>Get answers fast. We prioritize your questions and respond quickly.</p>
+                </div>
+                <div class="benefit-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="benefit-icon">💡</div>
+                    <h3>Expert Guidance</h3>
+                    <p>Talk to certified advisors with years of experience in wealth management.</p>
+                </div>
+                <div class="benefit-card fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>Confidentiality</h3>
+                    <p>Your financial information is treated with utmost confidentiality and security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>A2P Financial Services</h3>
+                    <p>Expert guidance for every earning journey.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
+                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Security</h4>
+                    <p>🔒 SEBI Registered</p>
+                    <p>🛡️ SIPC Protected</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 A2P Financial Services. All rights reserved. Offices across India.</p>
+        </div>
+    </footer>
+
+    <script src="script-pro.js"></script>
+</body>
+</html>
