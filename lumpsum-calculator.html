@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIP Calculator - A2P Financial Services</title>
+    <title>Lumpsum Calculator - A2P Financial Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -58,7 +58,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Row 1 - Two input fields */
         .input-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -109,7 +108,6 @@
             background: rgba(26, 32, 44, 0.95);
         }
 
-        /* Row 2 - Return % input and button */
         .input-button-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -137,7 +135,6 @@
             box-shadow: 0 12px 28px rgba(102, 126, 234, 0.4);
         }
 
-        /* Results Container - Row 3 */
         .results-container {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.06));
             border: 2px solid rgba(102, 126, 234, 0.2);
@@ -187,7 +184,6 @@
             color: var(--accent-green);
         }
 
-        /* Horizontal Chart - Row 4 */
         .chart-container {
             margin-bottom: 1.2rem;
         }
@@ -255,7 +251,6 @@
             background: linear-gradient(90deg, #10b981 0%, rgba(16, 185, 129, 0.7) 100%);
         }
 
-        /* Disclaimer - Row 5 */
         .disclaimer {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.08));
             border-left: 4px solid var(--primary);
@@ -266,7 +261,16 @@
             line-height: 1.5;
         }
 
-        /* Popular Calculators Card */
+        .cta-above-cards {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cta-below-cards {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
         .popular-calculators-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -341,17 +345,6 @@
             font-weight: 600;
         }
 
-        .cta-section {
-            text-align: center;
-            margin-top: 0.8rem;
-            margin-bottom: 2rem;
-            background: transparent !important;
-        }
-
-        .cta-section .btn {
-            padding: 0.2rem 1.5rem !important;
-        }
-
         .btn-card-cta {
             display: block;
             width: 100%;
@@ -360,16 +353,6 @@
             text-align: center;
             font-size: 0.95rem;
             font-weight: 600;
-        }
-
-        .cta-above-cards {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .cta-below-cards {
-            text-align: center;
-            margin-top: 2rem;
         }
 
         @media (max-width: 768px) {
@@ -395,7 +378,8 @@
                 padding: 1.5rem;
             }
 
-            .cta-section .btn {
+            .cta-above-cards .btn,
+            .cta-below-cards .btn {
                 width: 100%;
             }
         }
@@ -429,16 +413,16 @@
             </div>
 
             <div class="calculators-grid">
-                <!-- Left: SIP Calculator Card -->
+                <!-- Left: Lumpsum Calculator Card -->
                 <div class="calculator-card">
-                    <h2>Calculate Your SIP</h2>
+                    <h2>Calculate Your Lumpsum</h2>
                     <p class="calculator-subtitle">Estimate your investment growth</p>
 
-                    <!-- Row 1: Monthly Amount & Time Period -->
+                    <!-- Row 1: Lumpsum Amount & Time Period -->
                     <div class="input-row">
                         <div class="input-field-group">
-                            <label for="monthlyAmount">Monthly SIP Amount (₹)</label>
-                            <input type="number" id="monthlyAmount" placeholder="25000" value="25000" min="0">
+                            <label for="lumpsumAmount">Lump sum Amount (₹)</label>
+                            <input type="number" id="lumpsumAmount" placeholder="100000" value="100000" min="0">
                         </div>
                         <div class="input-field-group">
                             <label for="timePeriod">Time Period (Years)</label>
@@ -459,15 +443,15 @@
                     <div class="results-container">
                         <div class="result-row">
                             <span class="result-label">Invested Amount</span>
-                            <span class="result-value" id="investedAmount">₹3,00,000</span>
+                            <span class="result-value" id="investedAmount">₹1,00,000</span>
                         </div>
                         <div class="result-row">
                             <span class="result-label">Profit / Gains</span>
-                            <span class="result-value" id="profitAmount">₹2,81,477</span>
+                            <span class="result-value" id="profitAmount">₹2,10,585</span>
                         </div>
                         <div class="result-row">
                             <span class="result-label">Total Maturity Amount</span>
-                            <span class="result-value green" id="totalAmount">₹5,81,477</span>
+                            <span class="result-value green" id="totalAmount">₹3,10,585</span>
                         </div>
                     </div>
 
@@ -477,14 +461,14 @@
                             <div class="bar-item">
                                 <div class="bar-label-row">
                                     <span class="bar-name">Invested Amount</span>
-                                    <span class="bar-value-display" id="chartInvestedValue">₹30L</span>
+                                    <span class="bar-value-display" id="chartInvestedValue">₹1,00,000</span>
                                 </div>
-                                <div class="horizontal-bar bar-invested" id="investedBar" style="width: 51.65%;"></div>
+                                <div class="horizontal-bar bar-invested" id="investedBar" style="width: 32%;"></div>
                             </div>
                             <div class="bar-item">
                                 <div class="bar-label-row">
                                     <span class="bar-name">Total Maturity Amount</span>
-                                    <span class="bar-value-display green" id="chartTotalValue">₹58L</span>
+                                    <span class="bar-value-display green" id="chartTotalValue">₹3,10,585</span>
                                 </div>
                                 <div class="horizontal-bar bar-maturity" id="maturityBar" style="width: 100%;"></div>
                             </div>
@@ -501,10 +485,10 @@
                 <div class="popular-calculators-card">
                     <h2>Popular Calculators</h2>
                     <div class="calculators-list">
-                        <div class="calculator-item active" data-calculator="sip">
+                        <div class="calculator-item" data-calculator="sip">
                             <span class="calculator-name">SIP Calculator</span>
                         </div>
-                        <div class="calculator-item" data-calculator="lumpsum">
+                        <div class="calculator-item active" data-calculator="lumpsum">
                             <span class="calculator-name">Lumpsum Calculator</span>
                         </div>
                         <div class="calculator-item" data-calculator="stepup">
@@ -549,6 +533,7 @@
                     <h4>Useful Links</h4>
                     <ul>
                         <li><a href="sip-calculator.html">SIP Calculator</a></li>
+                        <li><a href="lumpsum-calculator.html">Lumpsum Calculator</a></li>
                         <li><a href="blog.html">Financial Blog</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
@@ -568,7 +553,7 @@
 
     <script src="script-pro.js"></script>
     <script>
-        const monthlyInput = document.getElementById('monthlyAmount');
+        const lumpsumInput = document.getElementById('lumpsumAmount');
         const timeInput = document.getElementById('timePeriod');
         const returnInput = document.getElementById('expectedReturn');
         const calculateBtn = document.getElementById('calculateBtn');
@@ -577,60 +562,48 @@
             return '₹' + Math.round(value).toLocaleString('en-IN');
         }
 
-        function calculateSIP() {
-            let monthly = parseFloat(monthlyInput.value) || 0;
+        function calculateLumpsum() {
+            let lumpsum = parseFloat(lumpsumInput.value) || 0;
             let years = parseFloat(timeInput.value) || 0;
             let annualRate = parseFloat(returnInput.value) || 0;
 
-            if (monthly <= 0 || years <= 0) {
+            if (lumpsum <= 0 || years <= 0) {
                 return;
             }
 
-            const months = years * 12;
-            const monthlyRate = annualRate / 12 / 100;
-
-            let futureValue;
-            if (monthlyRate === 0) {
-                futureValue = monthly * months;
-            } else {
-                futureValue = monthly * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
-            }
-
-            const investedAmount = monthly * months;
-            const profit = futureValue - investedAmount;
+            const rate = 1 + (annualRate / 100);
+            const futureValue = lumpsum * Math.pow(rate, years);
+            const profit = futureValue - lumpsum;
 
             // Update results
-            document.getElementById('investedAmount').textContent = formatCurrency(investedAmount);
+            document.getElementById('investedAmount').textContent = formatCurrency(lumpsum);
             document.getElementById('profitAmount').textContent = formatCurrency(profit);
             document.getElementById('totalAmount').textContent = formatCurrency(futureValue);
 
             // Update chart bars
-            const maxValue = futureValue * 1.1; // 10% padding
-            const investedPercent = (investedAmount / maxValue) * 100;
+            const maxValue = futureValue * 1.1;
+            const lumpsumPercent = (lumpsum / maxValue) * 100;
 
-            document.getElementById('investedBar').style.width = Math.min(investedPercent, 100) + '%';
+            document.getElementById('investedBar').style.width = Math.min(lumpsumPercent, 100) + '%';
             document.getElementById('maturityBar').style.width = '100%';
 
-            document.getElementById('chartInvestedValue').textContent = formatCurrency(investedAmount);
+            document.getElementById('chartInvestedValue').textContent = formatCurrency(lumpsum);
             document.getElementById('chartTotalValue').textContent = formatCurrency(futureValue);
         }
 
-        // Calculate on button click
-        calculateBtn.addEventListener('click', calculateSIP);
-
-        // Also calculate on Enter key
-        monthlyInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+        calculateBtn.addEventListener('click', calculateLumpsum);
+        lumpsumInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateLumpsum();
         });
         timeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+            if (e.key === 'Enter') calculateLumpsum();
         });
         returnInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+            if (e.key === 'Enter') calculateLumpsum();
         });
 
         // Validate inputs
-        monthlyInput.addEventListener('blur', function() {
+        lumpsumInput.addEventListener('blur', function() {
             if (this.value < 0) this.value = 0;
         });
 
@@ -645,7 +618,7 @@
         });
 
         // Calculate on page load
-        calculateSIP();
+        calculateLumpsum();
 
         // Popular Calculators Selection
         const calculatorItems = document.querySelectorAll('.calculator-item');

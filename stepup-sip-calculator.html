@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIP Calculator - A2P Financial Services</title>
+    <title>Step-Up SIP Calculator - A2P Financial Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -58,7 +58,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Row 1 - Two input fields */
         .input-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -109,7 +108,6 @@
             background: rgba(26, 32, 44, 0.95);
         }
 
-        /* Row 2 - Return % input and button */
         .input-button-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -137,7 +135,6 @@
             box-shadow: 0 12px 28px rgba(102, 126, 234, 0.4);
         }
 
-        /* Results Container - Row 3 */
         .results-container {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.06));
             border: 2px solid rgba(102, 126, 234, 0.2);
@@ -187,7 +184,6 @@
             color: var(--accent-green);
         }
 
-        /* Horizontal Chart - Row 4 */
         .chart-container {
             margin-bottom: 1.2rem;
         }
@@ -255,7 +251,6 @@
             background: linear-gradient(90deg, #10b981 0%, rgba(16, 185, 129, 0.7) 100%);
         }
 
-        /* Disclaimer - Row 5 */
         .disclaimer {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.08));
             border-left: 4px solid var(--primary);
@@ -266,7 +261,16 @@
             line-height: 1.5;
         }
 
-        /* Popular Calculators Card */
+        .cta-above-cards {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cta-below-cards {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
         .popular-calculators-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -341,17 +345,6 @@
             font-weight: 600;
         }
 
-        .cta-section {
-            text-align: center;
-            margin-top: 0.8rem;
-            margin-bottom: 2rem;
-            background: transparent !important;
-        }
-
-        .cta-section .btn {
-            padding: 0.2rem 1.5rem !important;
-        }
-
         .btn-card-cta {
             display: block;
             width: 100%;
@@ -360,16 +353,6 @@
             text-align: center;
             font-size: 0.95rem;
             font-weight: 600;
-        }
-
-        .cta-above-cards {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .cta-below-cards {
-            text-align: center;
-            margin-top: 2rem;
         }
 
         @media (max-width: 768px) {
@@ -395,7 +378,8 @@
                 padding: 1.5rem;
             }
 
-            .cta-section .btn {
+            .cta-above-cards .btn,
+            .cta-below-cards .btn {
                 width: 100%;
             }
         }
@@ -429,16 +413,28 @@
             </div>
 
             <div class="calculators-grid">
-                <!-- Left: SIP Calculator Card -->
+                <!-- Left: Step-Up SIP Calculator Card -->
                 <div class="calculator-card">
-                    <h2>Calculate Your SIP</h2>
-                    <p class="calculator-subtitle">Estimate your investment growth</p>
+                    <h2>Calculate Step-Up SIP</h2>
+                    <p class="calculator-subtitle">Estimate your investment growth with annual increases</p>
 
-                    <!-- Row 1: Monthly Amount & Time Period -->
+                    <!-- Row 1: Initial Amount & Annual Step up -->
                     <div class="input-row">
                         <div class="input-field-group">
-                            <label for="monthlyAmount">Monthly SIP Amount (₹)</label>
-                            <input type="number" id="monthlyAmount" placeholder="25000" value="25000" min="0">
+                            <label for="initialAmount">Initial Monthly Amount (₹)</label>
+                            <input type="number" id="initialAmount" placeholder="10000" value="10000" min="0">
+                        </div>
+                        <div class="input-field-group">
+                            <label for="stepUpPercent">Annual Step up (%)</label>
+                            <input type="number" id="stepUpPercent" placeholder="10" value="10" min="0" max="100" step="0.5">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Expected Return & Years -->
+                    <div class="input-row">
+                        <div class="input-field-group">
+                            <label for="expectedReturn">Expected Annual Return (%)</label>
+                            <input type="number" id="expectedReturn" placeholder="12" value="12" min="0" max="100" step="0.5">
                         </div>
                         <div class="input-field-group">
                             <label for="timePeriod">Time Period (Years)</label>
@@ -446,52 +442,48 @@
                         </div>
                     </div>
 
-                    <!-- Row 2: Expected Return & Calculate Button -->
-                    <div class="input-button-row">
-                        <div class="input-field-group">
-                            <label for="expectedReturn">Expected Annual Return (%)</label>
-                            <input type="number" id="expectedReturn" placeholder="12" value="12" min="0" max="100" step="0.5">
-                        </div>
+                    <!-- Row 3: Calculate Button -->
+                    <div style="text-align: center; margin-bottom: 1.2rem;">
                         <button class="calculate-btn" id="calculateBtn">Calculate Returns</button>
                     </div>
 
-                    <!-- Row 3: Results Box -->
+                    <!-- Row 4: Results Box -->
                     <div class="results-container">
                         <div class="result-row">
-                            <span class="result-label">Invested Amount</span>
-                            <span class="result-value" id="investedAmount">₹3,00,000</span>
+                            <span class="result-label">Total Investment</span>
+                            <span class="result-value" id="investedAmount">₹12,00,000</span>
                         </div>
                         <div class="result-row">
                             <span class="result-label">Profit / Gains</span>
-                            <span class="result-value" id="profitAmount">₹2,81,477</span>
+                            <span class="result-value" id="profitAmount">₹5,00,000</span>
                         </div>
                         <div class="result-row">
                             <span class="result-label">Total Maturity Amount</span>
-                            <span class="result-value green" id="totalAmount">₹5,81,477</span>
+                            <span class="result-value green" id="totalAmount">₹17,00,000</span>
                         </div>
                     </div>
 
-                    <!-- Row 4: Horizontal Chart -->
+                    <!-- Row 5: Horizontal Chart -->
                     <div class="chart-container">
                         <div class="horizontal-bars">
                             <div class="bar-item">
                                 <div class="bar-label-row">
-                                    <span class="bar-name">Invested Amount</span>
-                                    <span class="bar-value-display" id="chartInvestedValue">₹30L</span>
+                                    <span class="bar-name">Total Investment</span>
+                                    <span class="bar-value-display" id="chartInvestedValue">₹12,00,000</span>
                                 </div>
-                                <div class="horizontal-bar bar-invested" id="investedBar" style="width: 51.65%;"></div>
+                                <div class="horizontal-bar bar-invested" id="investedBar" style="width: 41%;"></div>
                             </div>
                             <div class="bar-item">
                                 <div class="bar-label-row">
                                     <span class="bar-name">Total Maturity Amount</span>
-                                    <span class="bar-value-display green" id="chartTotalValue">₹58L</span>
+                                    <span class="bar-value-display green" id="chartTotalValue">₹17,00,000</span>
                                 </div>
                                 <div class="horizontal-bar bar-maturity" id="maturityBar" style="width: 100%;"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Row 5: Disclaimer -->
+                    <!-- Row 6: Disclaimer -->
                     <div class="disclaimer">
                         <strong>⚠️ Disclaimer:</strong> This calculator provides estimates based on assumptions. Actual returns may vary based on market conditions and investment choices. Consult with a financial advisor for personalized guidance.
                     </div>
@@ -501,13 +493,13 @@
                 <div class="popular-calculators-card">
                     <h2>Popular Calculators</h2>
                     <div class="calculators-list">
-                        <div class="calculator-item active" data-calculator="sip">
+                        <div class="calculator-item" data-calculator="sip">
                             <span class="calculator-name">SIP Calculator</span>
                         </div>
                         <div class="calculator-item" data-calculator="lumpsum">
                             <span class="calculator-name">Lumpsum Calculator</span>
                         </div>
-                        <div class="calculator-item" data-calculator="stepup">
+                        <div class="calculator-item active" data-calculator="stepup">
                             <span class="calculator-name">Step-up SIP Calculator</span>
                         </div>
                         <div class="calculator-item" data-calculator="swp">
@@ -549,6 +541,8 @@
                     <h4>Useful Links</h4>
                     <ul>
                         <li><a href="sip-calculator.html">SIP Calculator</a></li>
+                        <li><a href="lumpsum-calculator.html">Lumpsum Calculator</a></li>
+                        <li><a href="stepup-sip-calculator.html">Step-Up SIP Calculator</a></li>
                         <li><a href="blog.html">Financial Blog</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
@@ -568,74 +562,88 @@
 
     <script src="script-pro.js"></script>
     <script>
-        const monthlyInput = document.getElementById('monthlyAmount');
-        const timeInput = document.getElementById('timePeriod');
+        const initialInput = document.getElementById('initialAmount');
+        const stepUpInput = document.getElementById('stepUpPercent');
         const returnInput = document.getElementById('expectedReturn');
+        const timeInput = document.getElementById('timePeriod');
         const calculateBtn = document.getElementById('calculateBtn');
 
         function formatCurrency(value) {
             return '₹' + Math.round(value).toLocaleString('en-IN');
         }
 
-        function calculateSIP() {
-            let monthly = parseFloat(monthlyInput.value) || 0;
-            let years = parseFloat(timeInput.value) || 0;
+        function calculateStepUpSIP() {
+            let initial = parseFloat(initialInput.value) || 0;
+            let stepUp = parseFloat(stepUpInput.value) || 0;
             let annualRate = parseFloat(returnInput.value) || 0;
+            let years = parseFloat(timeInput.value) || 0;
 
-            if (monthly <= 0 || years <= 0) {
+            if (initial <= 0 || years <= 0) {
                 return;
             }
 
-            const months = years * 12;
             const monthlyRate = annualRate / 12 / 100;
+            let totalInvestment = 0;
+            let totalMaturity = 0;
 
-            let futureValue;
-            if (monthlyRate === 0) {
-                futureValue = monthly * months;
-            } else {
-                futureValue = monthly * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+            // Calculate for each year
+            for (let year = 0; year < years; year++) {
+                // Monthly investment for this year (increases by step-up % each year)
+                const monthlyInvestment = initial * Math.pow(1 + (stepUp / 100), year);
+
+                // Calculate months remaining after this year
+                const monthsRemaining = (years - year) * 12;
+
+                // Add yearly investment
+                for (let month = 1; month <= 12; month++) {
+                    totalInvestment += monthlyInvestment;
+
+                    // Calculate maturity value for this month's investment
+                    const monthsToMaturity = monthsRemaining - (12 - month);
+                    const fv = monthlyInvestment * Math.pow(1 + monthlyRate, monthsToMaturity);
+                    totalMaturity += fv;
+                }
             }
 
-            const investedAmount = monthly * months;
-            const profit = futureValue - investedAmount;
+            const profit = totalMaturity - totalInvestment;
 
             // Update results
-            document.getElementById('investedAmount').textContent = formatCurrency(investedAmount);
+            document.getElementById('investedAmount').textContent = formatCurrency(totalInvestment);
             document.getElementById('profitAmount').textContent = formatCurrency(profit);
-            document.getElementById('totalAmount').textContent = formatCurrency(futureValue);
+            document.getElementById('totalAmount').textContent = formatCurrency(totalMaturity);
 
             // Update chart bars
-            const maxValue = futureValue * 1.1; // 10% padding
-            const investedPercent = (investedAmount / maxValue) * 100;
+            const maxValue = totalMaturity * 1.1;
+            const investmentPercent = (totalInvestment / maxValue) * 100;
 
-            document.getElementById('investedBar').style.width = Math.min(investedPercent, 100) + '%';
+            document.getElementById('investedBar').style.width = Math.min(investmentPercent, 100) + '%';
             document.getElementById('maturityBar').style.width = '100%';
 
-            document.getElementById('chartInvestedValue').textContent = formatCurrency(investedAmount);
-            document.getElementById('chartTotalValue').textContent = formatCurrency(futureValue);
+            document.getElementById('chartInvestedValue').textContent = formatCurrency(totalInvestment);
+            document.getElementById('chartTotalValue').textContent = formatCurrency(totalMaturity);
         }
 
-        // Calculate on button click
-        calculateBtn.addEventListener('click', calculateSIP);
-
-        // Also calculate on Enter key
-        monthlyInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+        calculateBtn.addEventListener('click', calculateStepUpSIP);
+        initialInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateStepUpSIP();
         });
-        timeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+        stepUpInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateStepUpSIP();
         });
         returnInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+            if (e.key === 'Enter') calculateStepUpSIP();
+        });
+        timeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateStepUpSIP();
         });
 
         // Validate inputs
-        monthlyInput.addEventListener('blur', function() {
+        initialInput.addEventListener('blur', function() {
             if (this.value < 0) this.value = 0;
         });
 
-        timeInput.addEventListener('blur', function() {
-            if (this.value < 1) this.value = 1;
+        stepUpInput.addEventListener('blur', function() {
+            if (this.value < 0) this.value = 0;
             if (this.value > 100) this.value = 100;
         });
 
@@ -644,8 +652,13 @@
             if (this.value > 100) this.value = 100;
         });
 
+        timeInput.addEventListener('blur', function() {
+            if (this.value < 1) this.value = 1;
+            if (this.value > 100) this.value = 100;
+        });
+
         // Calculate on page load
-        calculateSIP();
+        calculateStepUpSIP();
 
         // Popular Calculators Selection
         const calculatorItems = document.querySelectorAll('.calculator-item');
@@ -659,7 +672,7 @@
                 const calculatorMap = {
                     sip: 'sip-calculator.html',
                     lumpsum: 'lumpsum-calculator.html',
-                    stepup: '#',
+                    stepup: 'stepup-sip-calculator.html',
                     swp: '#',
                     fd: '#'
                 };
