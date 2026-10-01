@@ -82,34 +82,63 @@
         .hm-fact span { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
         .hm-fact-note { margin-top: 0.75rem; font-size: 0.72rem; color: #9ca3af; max-width: 560px; line-height: 1.5; }
 
-        /* Chat hero: a friendly planner conversation the visitor can tap through */
-        .hm-hero:has(.hm-chat-grid) { padding: 2rem 0; }
-        .hm-chat-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: center; width: 100%; position: relative; z-index: 1; }
-        .hm-chat { max-width: 420px; width: 100%; margin: 0 auto; border-radius: 28px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.18); box-shadow: 0 30px 70px rgba(55, 65, 140, 0.18); overflow: hidden; }
-        .ch-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.1rem; background: linear-gradient(135deg, #667eea, #5568d3); color: #fff; }
-        .ch-av { width: 40px; height: 40px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; flex: none; }
-        .ch-av img { width: 30px; height: 30px; object-fit: contain; }
-        .ch-head strong { display: block; font-size: 0.95rem; line-height: 1.2; }
-        .ch-head small { display: flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; opacity: 0.9; }
-        .ch-head small i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; }
-        .ch-body { height: 480px; padding: 1rem; display: flex; flex-direction: column; gap: 0.55rem; overflow: hidden; background: linear-gradient(180deg, #f5f7ff, #fff); }
-        .ch-msg { max-width: 86%; padding: 0.65rem 0.9rem; border-radius: 18px; font-size: 0.9rem; line-height: 1.5; animation: chIn 0.35s ease both; }
-        .ch-bot { align-self: flex-start; background: #fff; border: 1px solid #e5e9ff; border-bottom-left-radius: 6px; color: #1f2937; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.07); }
-        .ch-me { align-self: flex-end; background: linear-gradient(135deg, #667eea, #5568d3); color: #fff; border-bottom-right-radius: 6px; }
-        @keyframes chIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
-        .ch-typing { display: inline-flex; gap: 4px; padding: 0.85rem 0.9rem; }
-        .ch-typing span { width: 7px; height: 7px; border-radius: 50%; background: #a5b0f5; animation: chDot 1s ease-in-out infinite; }
-        .ch-typing span:nth-child(2) { animation-delay: 0.15s; }
-        .ch-typing span:nth-child(3) { animation-delay: 0.3s; }
-        @keyframes chDot { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-4px); opacity: 1; } }
-        .ch-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-        .ch-chip { font: inherit; font-size: 0.82rem; font-weight: 600; padding: 0.45rem 0.8rem; border-radius: 999px; background: #fff; color: #4a5bd0; border: 1.5px solid #c7d0fb; cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.2s, border-color 0.2s; }
-        .ch-chip:hover { transform: translateY(-2px); border-color: #667eea; }
-        .ch-chip.sel { background: #667eea; border-color: #667eea; color: #fff; }
-        .ch-cta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: flex-start; animation: chIn 0.35s ease both; }
-        .ch-cta a { font-size: 0.82rem; font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 999px; text-decoration: none; background: #667eea; color: #fff; }
-        .ch-cta a + a { background: #fff; color: #4a5bd0; border: 1.5px solid #c7d0fb; }
-        .ch-foot { padding: 0.55rem 1rem; font-size: 0.7rem; color: #9ca3af; text-align: center; border-top: 1px solid #eef0ff; background: #fff; }
+        /* Dream journey hero: centred headline + a road of life goals with a ₹ coin travelling along it */
+        .hm-hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(102, 126, 234, 0.18) 1.2px, transparent 1.3px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); }
+        .hm-stage { position: relative; z-index: 1; width: 100%; text-align: center; }
+        .hm-intro { max-width: 860px; margin: 0 auto; }
+        .hm-stage h1 { font-size: 3.2rem; margin-bottom: 0.8rem; }
+        .hm-hero:has(.hm-stage) { padding: 1.6rem 0 1.4rem; }
+        .hm-word-wrap { display: inline-block; position: relative; }
+        .hm-word { display: inline-block; color: var(--w, var(--primary)); transition: opacity 0.28s ease, transform 0.28s ease, filter 0.28s ease; }
+        .hm-word::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 0.14em; border-radius: 99px; background: var(--w, var(--primary)); opacity: 0.22; }
+        .hm-word.out { opacity: 0; transform: translateY(0.35em); filter: blur(4px); }
+        .hm-stage .hm-hero-lead { margin: 0 auto 1.4rem; max-width: 620px; font-size: 1.08rem; line-height: 1.65; }
+        .hm-stage .hm-actions { justify-content: center; margin-bottom: 0.5rem; }
+
+        .hm-journey { position: relative; height: 205px; margin: 0.4rem auto 0.9rem; max-width: 1100px; }
+        .jn-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .jn-road { fill: none; stroke: #e7ebff; stroke-width: 26; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+        .jn-dash { fill: none; stroke: #fff; stroke-width: 2.5; stroke-dasharray: 10 12; vector-effect: non-scaling-stroke; animation: jnDash 1.2s linear infinite; }
+        .jn-trail { fill: none; stroke: url(#jnGrad); stroke-width: 8; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: 0.9; }
+        @keyframes jnDash { to { stroke-dashoffset: -22; } }
+        .jn-coin {
+            position: absolute; left: 0; top: 0; z-index: 3;
+            width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
+            display: grid; place-items: center;
+            background: radial-gradient(circle at 35% 30%, #fff7d6, #fbbf24 55%, #d97706);
+            color: #7c4a03; font-weight: 800; font-size: 1rem;
+            box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.22), 0 8px 18px rgba(217, 119, 6, 0.35);
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .jn-coin::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(251, 191, 36, 0.5); animation: jnRipple 1.6s ease-out infinite; }
+        @keyframes jnRipple { from { transform: scale(0.8); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
+        .jn-node {
+            position: absolute; left: 0; top: 0; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            width: 150px; margin-left: -75px; margin-top: -27px;
+            text-decoration: none; color: inherit;
+        }
+        .jn-ic {
+            width: 54px; height: 54px; border-radius: 18px;
+            display: grid; place-items: center; font-size: 1.55rem;
+            background: #fff; border: 2px solid #e5e7eb;
+            box-shadow: 0 8px 20px rgba(31, 41, 55, 0.08);
+            filter: grayscale(0.85); opacity: 0.75;
+            transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1), filter 0.35s, opacity 0.35s, border-color 0.35s, box-shadow 0.35s;
+        }
+        .jn-lbl { margin-top: 0.55rem; font-size: 0.86rem; font-weight: 700; color: #6b7280; line-height: 1.25; transition: color 0.3s; }
+        .jn-sub { font-size: 0.74rem; color: var(--text-muted); line-height: 1.35; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.35s ease; }
+        .jn-node.on .jn-ic { filter: none; opacity: 1; border-color: var(--c); }
+        .jn-node.on .jn-lbl { color: #1f2937; }
+        .jn-node.cur .jn-ic { transform: translateY(-6px) scale(1.12); box-shadow: 0 0 0 7px color-mix(in srgb, var(--c) 18%, transparent), 0 14px 26px rgba(31, 41, 55, 0.14); }
+        .jn-node.cur .jn-lbl { color: var(--c-text, var(--c)); }
+        .jn-node.cur .jn-sub { max-height: 3em; opacity: 1; }
+        .jn-node:focus-visible { outline: none; }
+        .jn-node:focus-visible .jn-ic { outline: 3px solid var(--primary); outline-offset: 3px; }
+        .jn-caption { display: none; }
+        .hm-stage .hm-facts { margin: 0 auto; }
+        .hm-stage .hm-fact-note { margin: 0.6rem auto 0; }
 
         /* ---------- Open an account ---------- */
         .hm-accounts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
@@ -192,7 +221,6 @@
         .hm-way.primary strong, .hm-way.primary small, .hm-way.primary em { color: #fff; }
         .hm-way.primary .hm-way-icon { background: rgba(255, 255, 255, 0.2); }
 
-
         .hm-disclaimer { padding: 2rem 0; border-top: 1px solid rgba(102, 126, 234, 0.15); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7; text-align: center; }
         .hm-disclaimer strong { color: #374151; }
 
@@ -215,8 +243,18 @@
             .hm-fact + .hm-fact { border-left: none; }
             .hm-fact:nth-child(even) { border-left: 1px solid rgba(102, 126, 234, 0.15); }
             .hm-fact:nth-child(n+3) { border-top: 1px solid rgba(102, 126, 234, 0.15); }
-            .hm-chat-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .ch-body { height: 560px; }
+            .hm-stage h1 { font-size: 2.15rem; }
+            .hm-word-wrap { display: inline; }
+            .hm-journey { height: 150px; margin: 1.6rem auto 0; }
+            .jn-node { width: 44px; margin-left: -22px; margin-top: -21px; }
+            .jn-ic { width: 42px; height: 42px; border-radius: 14px; font-size: 1.2rem; }
+            .jn-lbl, .jn-sub { display: none; }
+            .jn-road { stroke-width: 18; }
+            .jn-trail { stroke-width: 6; }
+            .jn-coin { width: 28px; height: 28px; margin: -14px 0 0 -14px; font-size: 0.85rem; }
+            .jn-caption { display: block; min-height: 3.6rem; margin: 0 auto 1.4rem; padding: 0.7rem 1rem; max-width: 340px; border-radius: 16px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(102, 126, 234, 0.16); }
+            .jn-caption strong { display: block; font-size: 0.95rem; color: var(--c-text, #1f2937); }
+            .jn-caption span { font-size: 0.82rem; color: var(--text-muted); }
             .hm-section { padding: 3.5rem 0; }
             .hm-head h2 { font-size: 1.85rem; }
             .hm-accounts { grid-template-columns: 1fr; }
@@ -227,7 +265,7 @@
             .hm-connect h2 { font-size: 1.8rem; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .hm-dot, .hm-btn-shine::after, .ch-typing span, .ic-bar, .ic-candle { animation: none !important; }
+            .jn-dash, .jn-coin::after, .hm-dot, .hm-btn-shine::after, .ic-bar, .ic-candle { animation: none !important; }
             .hm-js .hm-reveal { opacity: 1; transform: none; transition: none; }
         }
     </style>
@@ -255,15 +293,36 @@
     <!-- 1. Hero -->
     <section class="hm-hero">
         <div class="hm-rain" id="hm-rain" aria-hidden="true"></div>
-        <div class="container hm-chat-grid">
-            <div class="hm-reveal">
+        <div class="container hm-stage">
+            <div class="hm-intro hm-reveal">
                 <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
-                <h1>Every investment service, <span class="hm-gradient-text">one trusted partner</span></h1>
+                <h1>Plan your <span class="hm-word-wrap"><span class="hm-word" id="hm-word">wealth</span></span><br><span class="hm-gradient-text">with one trusted partner</span></h1>
                 <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
                 <div class="hm-actions">
                     <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
                     <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
                 </div>
+            </div>
+
+            <!-- Dream journey: a ₹ coin travels the road of life goals -->
+            <div class="hm-journey hm-reveal" id="hm-journey">
+                <svg class="jn-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+                    <defs><linearGradient id="jnGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#10b981"/><stop offset="55%" stop-color="#667eea"/><stop offset="100%" stop-color="#f5576c"/></linearGradient></defs>
+                    <path class="jn-road" id="jn-road" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                    <path class="jn-dash" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                    <path class="jn-trail" id="jn-trail" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                </svg>
+                <a class="jn-node" href="products.html#mf" data-at="0.07" data-word="wealth" style="--c:#667eea;--c-text:#5568d3;"><span class="jn-ic">📈</span><span class="jn-lbl">Mutual Funds &amp; SIPs</span><span class="jn-sub">Grow wealth month by month</span></a>
+                <a class="jn-node" href="#open-account" data-at="0.245" data-word="stock portfolio" style="--c:#10b981;--c-text:#047857;"><span class="jn-ic">💹</span><span class="jn-lbl">Stocks</span><span class="jn-sub">Demat &amp; trading via our partner platform</span></a>
+                <a class="jn-node" href="products.html#health" data-at="0.42" data-word="family's safety" style="--c:#f5576c;--c-text:#be123c;"><span class="jn-ic">🛡️</span><span class="jn-lbl">Health · Term · LIC</span><span class="jn-sub">Term with lifetime cover, health &amp; LIC</span></a>
+                <a class="jn-node" href="products.html#child" data-at="0.595" data-word="child's education" style="--c:#8b5cf6;--c-text:#6d28d9;"><span class="jn-ic">🎓</span><span class="jn-lbl">Child Education</span><span class="jn-sub">A fund for school and college</span></a>
+                <a class="jn-node" href="products.html#tax" data-at="0.77" data-word="tax savings" style="--c:#f4a700;--c-text:#a16207;"><span class="jn-ic">🧾</span><span class="jn-lbl">Tax Planning</span><span class="jn-sub">Tax-saving &amp; tax-free guaranteed plans</span></a>
+                <a class="jn-node" href="products.html#retire" data-at="0.94" data-word="retirement" style="--c:#0ea5e9;--c-text:#0369a1;"><span class="jn-ic">🌅</span><span class="jn-lbl">Retirement</span><span class="jn-sub">Steady income after work</span></a>
+                <div class="jn-coin" id="jn-coin" aria-hidden="true">₹</div>
+            </div>
+            <div class="jn-caption" id="jn-caption" aria-live="polite" style="--c-text:#5568d3;"><strong>Mutual Funds &amp; SIPs</strong><span>Grow wealth month by month</span></div>
+
+            <div class="hm-reveal">
                 <div class="hm-facts" role="list">
                     <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
                     <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
@@ -271,16 +330,6 @@
                     <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
                 </div>
                 <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
-            </div>
-
-            <!-- Planner chat: tap a goal to see how we would start -->
-            <div class="hm-chat hm-reveal" id="hm-chat" aria-label="Sample planner conversation">
-                <div class="ch-head">
-                    <span class="ch-av"><img src="Images/logo.jpg" alt=""></span>
-                    <div><strong>A2P Financial Planner</strong><small><i></i>Aapke Sapno Ka Financial Planner</small></div>
-                </div>
-                <div class="ch-body" id="ch-body" aria-live="polite"></div>
-                <div class="ch-foot">Sample conversation. Your real plan is made with our team in a goal meeting.</div>
             </div>
         </div>
     </section>
@@ -459,44 +508,103 @@
             });
         }
 
-        // Planner chat: tap a goal (or watch the demo cycle through them)
-        const chBody = document.getElementById('ch-body');
-        const GOALS = [
-            { k: '🎓 Bachche ki padhai', a: 'Bachche ki padhai ke liye ek disciplined SIP ya child plan achha raha hai. Hum bachche ki age aur target ke hisaab se plan banate hain.', href: 'products.html#child' },
-            { k: '🌅 Retirement', a: 'Retirement ke liye jaldi shuru karna sabse bada fayda deta hai. Hum monthly SIP aur steady-income options ka plan banate hain.', href: 'products.html#retire' },
-            { k: '🛡️ Family ki suraksha', a: 'Health aur Term insurance (lifetime cover) se family ki suraksha pakki hoti hai. Hum aapki zaroorat ke hisaab se cover samjhate hain.', href: 'products.html#health' },
-            { k: '🧾 Tax bachana', a: 'Tax bachane ke liye tax-saving funds aur tax-free guaranteed plans hain. Hum aapke liye sahi mix chunte hain.', href: 'products.html#tax' },
-            { k: '📈 Wealth banana', a: 'Mutual Fund SIP se chhoti raashi se lambe samay mein wealth banti hai. Stocks ke liye Demat account bhi partner platform par khulwate hain.', href: 'products.html#mf' }
-        ];
-        const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; if (html) d.innerHTML = html; return d; };
-        let chips = [], dyn = [], timers = [], auto = !reduce, idx = 0, chatVisible = false;
-        const later = (fn, ms) => { const t = setTimeout(fn, ms); timers.push(t); };
-        const clearDyn = () => { timers.forEach(clearTimeout); timers = []; dyn.forEach((n) => n.remove()); dyn = []; };
-        const add = (n) => { chBody.appendChild(n); dyn.push(n); };
-        const ask = (i) => {
-            clearDyn();
-            chips.forEach((c, k) => c.classList.toggle('sel', k === i));
-            const g = GOALS[i];
-            add(el('ch-msg ch-me', g.k));
-            const typing = el('ch-msg ch-bot ch-typing', '<span></span><span></span><span></span>');
-            later(() => add(typing), reduce ? 0 : 500);
-            later(() => { typing.remove(); add(el('ch-msg ch-bot', g.a)); }, reduce ? 0 : 1600);
-            later(() => add(Object.assign(el('ch-cta'), { innerHTML: '<a href="' + g.href + '">See this plan →</a><a href="contact.html">Book a Goal Meeting</a>' })), reduce ? 0 : 2200);
+        // Dream journey: the ₹ coin travels the road, lighting up each goal and changing the headline word
+        const journey = document.getElementById('hm-journey');
+        const road = document.getElementById('jn-road');
+        const trail = document.getElementById('jn-trail');
+        const coin = document.getElementById('jn-coin');
+        const word = document.getElementById('hm-word');
+        const caption = document.getElementById('jn-caption');
+        const nodes = [...journey.querySelectorAll('.jn-node')];
+        const total = road.getTotalLength();
+        const place = (el, f) => { const p = road.getPointAtLength(total * f); el.style.left = (p.x / 10) + '%'; el.style.top = (p.y / 2) + '%'; };
+        const stops = nodes.map((n) => parseFloat(n.dataset.at));
+        nodes.forEach((n, i) => place(n, stops[i]));
+
+        let cur = -1;
+        const setWord = (text, color) => {
+            word.classList.add('out');
+            setTimeout(() => { word.textContent = text; word.style.setProperty('--w', color); word.classList.remove('out'); }, 260);
         };
-        chBody.appendChild(el('ch-msg ch-bot', 'Namaste 🙏 Main A2P ka financial planner hoon. Aapka sabse bada goal kya hai?'));
-        const row = el('ch-chips');
-        GOALS.forEach((g, i) => {
-            const b = document.createElement('button');
-            b.type = 'button'; b.className = 'ch-chip'; b.textContent = g.k;
-            b.addEventListener('click', () => { auto = false; idx = i; ask(i); });
-            row.appendChild(b); chips.push(b);
-        });
-        chBody.appendChild(row);
-        if (reduce) { ask(0); }
-        else {
-            const cycle = () => { if (auto && chatVisible && !document.hidden) { ask(idx); idx = (idx + 1) % GOALS.length; } if (auto) setTimeout(cycle, 6500); };
-            new IntersectionObserver((es) => { chatVisible = es[0].isIntersecting; }, { threshold: 0.3 }).observe(document.getElementById('hm-chat'));
-            setTimeout(cycle, 1800);
+        const activate = (i) => {
+            if (i === cur) return;
+            cur = i;
+            nodes.forEach((n, k) => { n.classList.toggle('on', k <= i); n.classList.toggle('cur', k === i); });
+            const n = nodes[i];
+            const c = getComputedStyle(n).getPropertyValue('--c-text').trim();
+            setWord(n.dataset.word, c);
+            caption.style.setProperty('--c-text', c);
+            caption.querySelector('strong').textContent = n.querySelector('.jn-lbl').textContent;
+            caption.querySelector('span').textContent = n.querySelector('.jn-sub').textContent;
+        };
+        // The trail is drawn in screen pixels (non-scaling stroke), so measure its on-screen length
+        let cum = [], LEN = 1;
+        const measure = () => {
+            const r = journey.getBoundingClientRect(), N = 240;
+            cum = [0];
+            let prev = road.getPointAtLength(0);
+            for (let i = 1; i <= N; i++) {
+                const p = road.getPointAtLength(total * i / N);
+                cum.push(cum[i - 1] + Math.hypot((p.x - prev.x) * r.width / 1000, (p.y - prev.y) * r.height / 200));
+                prev = p;
+            }
+            LEN = cum[N];
+            trail.style.strokeDasharray = LEN + ' ' + LEN;
+        };
+        const lenAt = (f) => { const x = f * (cum.length - 1), i = Math.floor(x); return i >= cum.length - 1 ? LEN : cum[i] + (cum[i + 1] - cum[i]) * (x - i); };
+        let lastF = 0;
+        const moveTo = (f) => { lastF = f; place(coin, f); trail.style.strokeDashoffset = LEN - lenAt(f); };
+        measure();
+
+        if (reduce) {
+            moveTo(stops[stops.length - 1]);
+            activate(nodes.length - 1);
+        } else {
+            const TRAVEL = 1300, DWELL = 1800, END = 1200;
+            const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+            let seg = 0, phase = 'travel', t0 = null, running = false, hovering = false, visible = true, gen = 0;   // the hero is on screen at load
+            const loop = (now, g) => {
+                if (!running || g !== gen) return;   // a newer loop has taken over
+                if (t0 === null) t0 = now;
+                const dt = now - t0;
+                if (phase === 'travel') {
+                    const from = seg === 0 ? 0 : stops[seg - 1];
+                    const k = Math.min(dt / TRAVEL, 1);
+                    moveTo(from + (stops[seg] - from) * ease(k));
+                    if (k >= 1) { activate(seg); phase = 'dwell'; t0 = now; }
+                } else if (phase === 'dwell') {
+                    if (dt >= DWELL) {
+                        if (seg < stops.length - 1) { seg++; phase = 'travel'; }
+                        else { phase = 'end'; coin.style.opacity = '0'; trail.style.transition = 'stroke-dashoffset 0.8s ease'; trail.style.strokeDashoffset = LEN; }
+                        t0 = now;
+                    }
+                } else if (dt >= END) {
+                    trail.style.transition = '';
+                    nodes.forEach((n) => n.classList.remove('on', 'cur'));
+                    cur = -1; seg = 0; phase = 'travel'; t0 = now;
+                    moveTo(0); coin.style.opacity = '1';
+                }
+                requestAnimationFrame((n) => loop(n, g));
+            };
+            const sync = () => {
+                const should = visible && !hovering && !document.hidden;
+                if (should && !running) { running = true; t0 = null; const g = ++gen; requestAnimationFrame((n) => loop(n, g)); }
+                if (!should) running = false;
+            };
+            new IntersectionObserver((es) => { visible = es[0].isIntersecting; sync(); }, { threshold: 0.2 }).observe(journey);
+            document.addEventListener('visibilitychange', sync);
+            moveTo(0);
+            sync();
+            // Pointing at a goal jumps the coin there and holds it; leaving continues the trip from that goal
+            nodes.forEach((n, i) => {
+                const hold = () => { hovering = true; sync(); trail.style.transition = 'stroke-dashoffset 0.4s ease'; moveTo(stops[i]); activate(i); seg = i; phase = 'dwell'; coin.style.opacity = '1'; };
+                const release = () => { hovering = false; trail.style.transition = ''; sync(); };
+                n.addEventListener('pointerenter', hold);
+                n.addEventListener('focus', hold);
+                n.addEventListener('pointerleave', release);
+                n.addEventListener('blur', release);
+            });
+            window.addEventListener('resize', () => { nodes.forEach((n, i) => place(n, stops[i])); measure(); moveTo(lastF); });
         }
 
         // Services tabs

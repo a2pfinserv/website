@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- This calculator now lives on the Calculators page -->
+    <meta http-equiv="refresh" content="0; url=calculators.html#stepup">
+    <script>location.replace('calculators.html#stepup');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Step-Up SIP Calculator - A2P Financial Services</title>
@@ -12,10 +15,6 @@
         .calculator-section {
             padding: 1rem 0;
             background: linear-gradient(135deg, #f8fafc 0%, #efe7ff 100%);
-        }
-
-        html[data-theme="dark"] .calculator-section {
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
 
         .calculators-grid {
@@ -35,21 +34,11 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
-        html[data-theme="dark"] .calculator-card {
-            background: rgba(26, 32, 44, 0.98);
-            border: 2px solid rgba(102, 126, 234, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
         .calculator-card h2 {
             font-size: 1.5rem;
             margin-bottom: 0.3rem;
             color: var(--text-dark);
             font-weight: 700;
-        }
-
-        html[data-theme="dark"] .calculator-card h2 {
-            color: var(--text-light);
         }
 
         .calculator-subtitle {
@@ -77,10 +66,6 @@
             margin-bottom: 0.4rem;
         }
 
-        html[data-theme="dark"] .input-field-group label {
-            color: var(--text-light);
-        }
-
         .input-field-group input {
             padding: 0.7rem;
             border: 2px solid rgba(102, 126, 234, 0.2);
@@ -92,20 +77,11 @@
             transition: all 0.3s;
         }
 
-        html[data-theme="dark"] .input-field-group input {
-            background: rgba(26, 32, 44, 0.8);
-            color: var(--text-light);
-        }
-
         .input-field-group input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
             background: rgba(255, 255, 255, 0.95);
-        }
-
-        html[data-theme="dark"] .input-field-group input:focus {
-            background: rgba(26, 32, 44, 0.95);
         }
 
         .input-button-row {
@@ -143,11 +119,6 @@
             margin-bottom: 1.2rem;
         }
 
-        html[data-theme="dark"] .results-container {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(16, 185, 129, 0.08));
-            border: 2px solid rgba(102, 126, 234, 0.3);
-        }
-
         .result-row {
             display: flex;
             justify-content: space-between;
@@ -166,18 +137,10 @@
             color: var(--text-dark);
         }
 
-        html[data-theme="dark"] .result-label {
-            color: var(--text-light);
-        }
-
         .result-value {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-dark);
-        }
-
-        html[data-theme="dark"] .result-value {
-            color: var(--text-light);
         }
 
         .result-value.green {
@@ -212,18 +175,10 @@
             color: var(--text-dark);
         }
 
-        html[data-theme="dark"] .bar-name {
-            color: var(--text-light);
-        }
-
         .bar-value-display {
             font-weight: 700;
             font-size: 1.1rem;
             color: var(--text-dark);
-        }
-
-        html[data-theme="dark"] .bar-value-display {
-            color: var(--text-light);
         }
 
         .bar-value-display.green {
@@ -280,21 +235,11 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
-        html[data-theme="dark"] .popular-calculators-card {
-            background: rgba(26, 32, 44, 0.98);
-            border: 2px solid rgba(102, 126, 234, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
         .popular-calculators-card h2 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--text-dark);
             font-weight: 700;
-        }
-
-        html[data-theme="dark"] .popular-calculators-card h2 {
-            color: var(--text-light);
         }
 
         .calculators-list {
@@ -313,20 +258,11 @@
             text-align: center;
         }
 
-        html[data-theme="dark"] .calculator-item {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
         .calculator-name {
             font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-dark);
             display: block;
-        }
-
-        html[data-theme="dark"] .calculator-name {
-            color: var(--text-light);
         }
 
         .calculator-item:hover {
@@ -390,16 +326,15 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+                <img src="Images/logo.jpg" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
                 <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link active">Calculators</a></li>
                 <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
@@ -523,40 +458,10 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>A2P Financial Services</h3>
-                    <p>Expert guidance for every earning journey.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><a href="sip-calculator.html">SIP Calculator</a></li>
-                        <li><a href="lumpsum-calculator.html">Lumpsum Calculator</a></li>
-                        <li><a href="stepup-sip-calculator.html">Step-Up SIP Calculator</a></li>
-                        <li><a href="blog.html">Financial Blog</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
-                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
-                </div>
+            <div class="footer-bottom">
+                <p style="margin-bottom: 10pt;">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</p>
+                <p>&copy; 2026 A2P Financial Services. All rights reserved. EST. 2025</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p style="margin-bottom: 10pt;">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</p>
-            <p>&copy; 2026 A2P Financial Services. All rights reserved. EST. 2025</p>
         </div>
     </footer>
 
@@ -673,7 +578,7 @@
                     sip: 'sip-calculator.html',
                     lumpsum: 'lumpsum-calculator.html',
                     stepup: 'stepup-sip-calculator.html',
-                    swp: '#',
+                    swp: 'swp-calculator.html',
                     fd: '#'
                 };
 

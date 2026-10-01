@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <!-- This calculator now lives on the Calculators page -->
-    <meta http-equiv="refresh" content="0; url=calculators.html#sip">
-    <script>location.replace('calculators.html#sip');</script>
+    <meta http-equiv="refresh" content="0; url=calculators.html#swp">
+    <script>location.replace('calculators.html#swp');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIP Calculator - A2P Financial Services</title>
+    <title>SWP Calculator - A2P Financial Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -47,7 +47,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Row 1 - Two input fields */
         .input-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -85,15 +84,6 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
-        /* Row 2 - Return % input and button */
-        .input-button-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
-            align-items: flex-end;
-        }
-
         .calculate-btn {
             padding: 0.7rem 1.2rem;
             background: linear-gradient(135deg, var(--primary), #764ba2);
@@ -106,6 +96,7 @@
             transition: all 0.3s;
             letter-spacing: 0.5px;
             height: fit-content;
+            width: 100%;
         }
 
         .calculate-btn:hover {
@@ -113,7 +104,6 @@
             box-shadow: 0 12px 28px rgba(102, 126, 234, 0.4);
         }
 
-        /* Results Container - Row 3 */
         .results-container {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.06));
             border: 2px solid rgba(102, 126, 234, 0.2);
@@ -150,7 +140,10 @@
             color: var(--accent-green);
         }
 
-        /* Horizontal Chart - Row 4 */
+        .result-value.red {
+            color: #ef4444;
+        }
+
         .chart-container {
             margin-bottom: 1.2rem;
         }
@@ -189,6 +182,10 @@
             color: var(--accent-green);
         }
 
+        .bar-value-display.red {
+            color: #ef4444;
+        }
+
         .horizontal-bar {
             height: 38px;
             border-radius: 8px;
@@ -202,15 +199,14 @@
             overflow: hidden;
         }
 
-        .bar-invested {
-            background: linear-gradient(90deg, #667eea 0%, rgba(102, 126, 234, 0.7) 100%);
+        .bar-withdrawal {
+            background: linear-gradient(90deg, #f59e0b 0%, rgba(245, 158, 11, 0.7) 100%);
         }
 
-        .bar-maturity {
+        .bar-final {
             background: linear-gradient(90deg, #10b981 0%, rgba(16, 185, 129, 0.7) 100%);
         }
 
-        /* Disclaimer - Row 5 */
         .disclaimer {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(16, 185, 129, 0.08));
             border-left: 4px solid var(--primary);
@@ -221,7 +217,16 @@
             line-height: 1.5;
         }
 
-        /* Popular Calculators Card */
+        .cta-above-cards {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cta-below-cards {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
         .popular-calculators-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -277,17 +282,6 @@
             font-weight: 600;
         }
 
-        .cta-section {
-            text-align: center;
-            margin-top: 0.8rem;
-            margin-bottom: 2rem;
-            background: transparent !important;
-        }
-
-        .cta-section .btn {
-            padding: 0.2rem 1.5rem !important;
-        }
-
         .btn-card-cta {
             display: block;
             width: 100%;
@@ -298,19 +292,9 @@
             font-weight: 600;
         }
 
-        .cta-above-cards {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .cta-below-cards {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
         @media (max-width: 768px) {
             .calculators-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
                 gap: 1.5rem;
             }
 
@@ -318,8 +302,7 @@
                 padding: 2rem;
             }
 
-            .input-row,
-            .input-button-row {
+            .input-row {
                 grid-template-columns: 1fr;
             }
 
@@ -331,7 +314,8 @@
                 padding: 1.5rem;
             }
 
-            .cta-section .btn {
+            .cta-above-cards .btn,
+            .cta-below-cards .btn {
                 width: 100%;
             }
         }
@@ -364,16 +348,28 @@
             </div>
 
             <div class="calculators-grid">
-                <!-- Left: SIP Calculator Card -->
+                <!-- Left: SWP Calculator Card -->
                 <div class="calculator-card">
-                    <h2>Calculate Your SIP</h2>
-                    <p class="calculator-subtitle">Estimate your investment growth</p>
+                    <h2>Calculate Your SWP</h2>
+                    <p class="calculator-subtitle">Estimate your withdrawals from invested corpus</p>
 
-                    <!-- Row 1: Monthly Amount & Time Period -->
+                    <!-- Row 1: Investment Amount & Monthly Withdrawal -->
                     <div class="input-row">
                         <div class="input-field-group">
-                            <label for="monthlyAmount">Monthly SIP Amount (₹)</label>
-                            <input type="number" id="monthlyAmount" placeholder="25000" value="25000" min="0">
+                            <label for="investmentAmount">Investment Amount (₹)</label>
+                            <input type="number" id="investmentAmount" placeholder="1000000000" value="1000000000" min="0">
+                        </div>
+                        <div class="input-field-group">
+                            <label for="monthlyWithdrawal">Monthly Withdrawal (₹)</label>
+                            <input type="number" id="monthlyWithdrawal" placeholder="10000" value="10000" min="0">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Expected Return & Time Period -->
+                    <div class="input-row">
+                        <div class="input-field-group">
+                            <label for="expectedReturn">Expected Annual Returns (%)</label>
+                            <input type="number" id="expectedReturn" placeholder="12" value="12" min="0" max="100" step="0.5">
                         </div>
                         <div class="input-field-group">
                             <label for="timePeriod">Time Period (Years)</label>
@@ -381,52 +377,48 @@
                         </div>
                     </div>
 
-                    <!-- Row 2: Expected Return & Calculate Button -->
-                    <div class="input-button-row">
-                        <div class="input-field-group">
-                            <label for="expectedReturn">Expected Annual Return (%)</label>
-                            <input type="number" id="expectedReturn" placeholder="12" value="12" min="0" max="100" step="0.5">
-                        </div>
-                        <button class="calculate-btn" id="calculateBtn">Calculate Returns</button>
+                    <!-- Row 3: Calculate Button -->
+                    <div style="margin-bottom: 1.2rem;">
+                        <button class="calculate-btn" id="calculateBtn" style="width: 100%;">Calculate Returns</button>
                     </div>
 
-                    <!-- Row 3: Results Box -->
+                    <!-- Row 4: Results Box -->
                     <div class="results-container">
                         <div class="result-row">
-                            <span class="result-label">Invested Amount</span>
-                            <span class="result-value" id="investedAmount">₹3,00,000</span>
+                            <span class="result-label">Total Withdrawal</span>
+                            <span class="result-value" id="totalWithdrawal">₹12,00,000</span>
                         </div>
                         <div class="result-row">
-                            <span class="result-label">Profit / Gains</span>
-                            <span class="result-value" id="profitAmount">₹2,81,477</span>
+                            <span class="result-label">Final Balance</span>
+                            <span class="result-value green" id="finalBalance">₹5,00,000</span>
                         </div>
                         <div class="result-row">
-                            <span class="result-label">Total Maturity Amount</span>
-                            <span class="result-value green" id="totalAmount">₹5,81,477</span>
+                            <span class="result-label">Total Returns / Loss</span>
+                            <span class="result-value" id="totalReturns">₹0</span>
                         </div>
                     </div>
 
-                    <!-- Row 4: Horizontal Chart -->
+                    <!-- Row 5: Horizontal Chart -->
                     <div class="chart-container">
                         <div class="horizontal-bars">
                             <div class="bar-item">
                                 <div class="bar-label-row">
-                                    <span class="bar-name">Invested Amount</span>
-                                    <span class="bar-value-display" id="chartInvestedValue">₹30L</span>
+                                    <span class="bar-name">Total Withdrawal</span>
+                                    <span class="bar-value-display" id="chartWithdrawalValue">₹12,00,000</span>
                                 </div>
-                                <div class="horizontal-bar bar-invested" id="investedBar" style="width: 51.65%;"></div>
+                                <div class="horizontal-bar bar-withdrawal" id="withdrawalBar" style="width: 70%;"></div>
                             </div>
                             <div class="bar-item">
                                 <div class="bar-label-row">
-                                    <span class="bar-name">Total Maturity Amount</span>
-                                    <span class="bar-value-display green" id="chartTotalValue">₹58L</span>
+                                    <span class="bar-name">Final Balance</span>
+                                    <span class="bar-value-display green" id="chartFinalValue">₹5,00,000</span>
                                 </div>
-                                <div class="horizontal-bar bar-maturity" id="maturityBar" style="width: 100%;"></div>
+                                <div class="horizontal-bar bar-final" id="finalBar" style="width: 30%;"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Row 5: Disclaimer -->
+                    <!-- Row 6: Disclaimer -->
                     <div class="disclaimer">
                         <strong>⚠️ Disclaimer:</strong> This calculator provides estimates based on assumptions. Actual returns may vary based on market conditions and investment choices. Consult with a financial advisor for personalized guidance.
                     </div>
@@ -436,7 +428,7 @@
                 <div class="popular-calculators-card">
                     <h2>Popular Calculators</h2>
                     <div class="calculators-list">
-                        <div class="calculator-item active" data-calculator="sip">
+                        <div class="calculator-item" data-calculator="sip">
                             <span class="calculator-name">SIP Calculator</span>
                         </div>
                         <div class="calculator-item" data-calculator="lumpsum">
@@ -445,7 +437,7 @@
                         <div class="calculator-item" data-calculator="stepup">
                             <span class="calculator-name">Step-up SIP Calculator</span>
                         </div>
-                        <div class="calculator-item" data-calculator="swp">
+                        <div class="calculator-item active" data-calculator="swp">
                             <span class="calculator-name">SWP Calculator</span>
                         </div>
                         <div class="calculator-item" data-calculator="fd">
@@ -475,75 +467,92 @@
 
     <script src="script-pro.js"></script>
     <script>
-        const monthlyInput = document.getElementById('monthlyAmount');
-        const timeInput = document.getElementById('timePeriod');
+        const investmentInput = document.getElementById('investmentAmount');
+        const withdrawalInput = document.getElementById('monthlyWithdrawal');
         const returnInput = document.getElementById('expectedReturn');
+        const timeInput = document.getElementById('timePeriod');
         const calculateBtn = document.getElementById('calculateBtn');
 
         function formatCurrency(value) {
             return '₹' + Math.round(value).toLocaleString('en-IN');
         }
 
-        function calculateSIP() {
-            let monthly = parseFloat(monthlyInput.value) || 0;
-            let years = parseFloat(timeInput.value) || 0;
+        function calculateSWP() {
+            let investment = parseFloat(investmentInput.value) || 0;
+            let monthlyWithdrawal = parseFloat(withdrawalInput.value) || 0;
             let annualRate = parseFloat(returnInput.value) || 0;
+            let years = parseFloat(timeInput.value) || 0;
 
-            if (monthly <= 0 || years <= 0) {
+            if (investment <= 0 || years <= 0) {
                 return;
             }
 
-            const months = years * 12;
-            const monthlyRate = annualRate / 12 / 100;
+            // Monthly rate and total months
+            const monthlyRate = annualRate / 100 / 12;
+            const totalMonths = years * 12;
+            const totalWithdrawals = monthlyWithdrawal * totalMonths;
 
-            let futureValue;
-            if (monthlyRate === 0) {
-                futureValue = monthly * months;
-            } else {
-                futureValue = monthly * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
-            }
+            // SWP Formula: FV = P(1+r)^n - W × [(r(1+r)^n - 1) / r] × (1+r)
+            const compound = Math.pow(1 + monthlyRate, totalMonths);
 
-            const investedAmount = monthly * months;
-            const profit = futureValue - investedAmount;
+            // Final balance calculation using annuity formula
+            const futureValueOfInvestment = investment * compound;
+            const annuityComponent = monthlyWithdrawal * ((monthlyRate * compound - 1) / monthlyRate) * (1 + monthlyRate);
+            const finalBalance = futureValueOfInvestment - annuityComponent;
+
+            const totalReturns = (totalWithdrawals + finalBalance) - investment; // Profit = (Withdrawals + Final Balance) - Initial Investment
+
 
             // Update results
-            document.getElementById('investedAmount').textContent = formatCurrency(investedAmount);
-            document.getElementById('profitAmount').textContent = formatCurrency(profit);
-            document.getElementById('totalAmount').textContent = formatCurrency(futureValue);
+            document.getElementById('totalWithdrawal').textContent = formatCurrency(totalWithdrawals);
+            document.getElementById('finalBalance').textContent = formatCurrency(finalBalance);
+
+            const returnsValue = totalReturns;
+            const returnsElement = document.getElementById('totalReturns');
+            if (returnsValue >= 0) {
+                returnsElement.textContent = formatCurrency(returnsValue);
+                returnsElement.classList.remove('red');
+                returnsElement.classList.add('green');
+            } else {
+                returnsElement.textContent = formatCurrency(returnsValue);
+                returnsElement.classList.remove('green');
+                returnsElement.classList.add('red');
+            }
 
             // Update chart bars
-            const maxValue = futureValue * 1.1; // 10% padding
-            const investedPercent = (investedAmount / maxValue) * 100;
+            const totalAmount = totalWithdrawals + finalBalance;
+            const maxValue = totalAmount * 1.1;
+            const withdrawalPercent = (totalWithdrawals / maxValue) * 100;
+            const finalPercent = (finalBalance / maxValue) * 100;
 
-            document.getElementById('investedBar').style.width = Math.min(investedPercent, 100) + '%';
-            document.getElementById('maturityBar').style.width = '100%';
+            document.getElementById('withdrawalBar').style.width = Math.min(withdrawalPercent, 100) + '%';
+            document.getElementById('finalBar').style.width = Math.min(finalPercent, 100) + '%';
 
-            document.getElementById('chartInvestedValue').textContent = formatCurrency(investedAmount);
-            document.getElementById('chartTotalValue').textContent = formatCurrency(futureValue);
+            document.getElementById('chartWithdrawalValue').textContent = formatCurrency(totalWithdrawals);
+            document.getElementById('chartFinalValue').textContent = formatCurrency(finalBalance);
         }
 
-        // Calculate on button click
-        calculateBtn.addEventListener('click', calculateSIP);
-
-        // Also calculate on Enter key
-        monthlyInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+        calculateBtn.addEventListener('click', calculateSWP);
+        investmentInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateSWP();
         });
-        timeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+        withdrawalInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateSWP();
         });
         returnInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') calculateSIP();
+            if (e.key === 'Enter') calculateSWP();
+        });
+        timeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateSWP();
         });
 
         // Validate inputs
-        monthlyInput.addEventListener('blur', function() {
+        investmentInput.addEventListener('blur', function() {
             if (this.value < 0) this.value = 0;
         });
 
-        timeInput.addEventListener('blur', function() {
-            if (this.value < 1) this.value = 1;
-            if (this.value > 100) this.value = 100;
+        withdrawalInput.addEventListener('blur', function() {
+            if (this.value < 0) this.value = 0;
         });
 
         returnInput.addEventListener('blur', function() {
@@ -551,8 +560,13 @@
             if (this.value > 100) this.value = 100;
         });
 
+        timeInput.addEventListener('blur', function() {
+            if (this.value < 1) this.value = 1;
+            if (this.value > 100) this.value = 100;
+        });
+
         // Calculate on page load
-        calculateSIP();
+        calculateSWP();
 
         // Popular Calculators Selection
         const calculatorItems = document.querySelectorAll('.calculator-item');

@@ -3,262 +3,1166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A2P Financial Services products: mutual funds and SIPs, child education plans, retirement plans, tax-free guaranteed plans, tax planning, health insurance, term insurance and LIC plans.">
     <title>Products - A2P Financial Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <style>
+        /* ========================= PRODUCTS PAGE ========================= */
+        :root {
+            --nav-h: 82px;
+            --invest: #667eea;
+            --invest-soft: #eef2ff;
+            --protect: #10b981;
+            --protect-soft: #ecfdf5;
+            --tax: #f4a700;
+            --tax-soft: #fef6e0;
+        }
+        .pd-section { padding: 5.5rem 0; }
+        .pd-section h2 {
+            font-size: 2.4rem;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        .pd-eyebrow {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .pd-center { text-align: center; }
+        .pd-gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pd-tint { background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); }
+
+        .pd-js .pd-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .pd-js .pd-reveal.in { opacity: 1; transform: none; }
+
+        /* ---------- Hero ---------- */
+        .pd-hero {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(245, 87, 108, 0.08), transparent 45%),
+                radial-gradient(circle at 10% 80%, rgba(102, 126, 234, 0.1), transparent 45%),
+                linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+        }
+        .pd-hero h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            max-width: 820px;
+            margin: 0 auto 1.25rem;
+        }
+        .pd-hero-lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+        }
+        .pd-cats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .pd-cat {
+            display: block;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-top: 4px solid var(--c);
+            border-radius: 16px;
+            text-align: left;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pd-cat:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .pd-cat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+        .pd-cat-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            background: var(--soft);
+        }
+        .pd-cat-count { font-size: 0.8rem; font-weight: 700; color: var(--c); }
+        .pd-cat h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .pd-cat p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+
+        /* ---------- Sticky product nav ---------- */
+        .pd-nav {
+            position: sticky;
+            top: var(--nav-h);
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+        }
+        .pd-nav-list {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0.85rem 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .pd-nav-list::-webkit-scrollbar { display: none; }
+        .pd-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            white-space: nowrap;
+            padding: 0.5rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            background: #fff;
+            color: #374151;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .pd-nav a::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--c);
+        }
+        .pd-nav a:hover { border-color: var(--c); }
+        .pd-nav a.active { background: var(--c); border-color: var(--c); color: #fff; }
+        .pd-nav a.active::before { background: #fff; }
+
+        /* ---------- Product rows ---------- */
+        .pd-row-wrap { padding: 5rem 0; scroll-margin-top: calc(var(--nav-h) + 60px); }
+        .pd-row-wrap:nth-of-type(even) { background: linear-gradient(135deg, #f8faff 0%, #fff 100%); }
+        .pd-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+        .pd-row.flip .pd-media { order: 2; }
+        .pd-media {
+            position: relative;
+            border-radius: 24px;
+            padding: 1.25rem;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.9), transparent 55%),
+                var(--soft);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.12);
+        }
+        .pd-media svg { display: block; width: 100%; height: auto; }
+        .pd-media-tag {
+            position: absolute;
+            top: 1.1rem;
+            left: 1.1rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            background: #fff;
+            color: var(--c);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            box-shadow: var(--shadow-sm);
+        }
+        .pd-info h2 { text-align: left; font-size: 2.1rem; margin-bottom: 0.9rem; }
+        .pd-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--c);
+        }
+        .pd-kicker span {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--soft);
+            font-size: 1.05rem;
+        }
+        .pd-lead { color: #4b5563; font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .pd-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .pd-features li { display: flex; gap: 0.6rem; align-items: flex-start; color: #374151; font-size: 0.95rem; line-height: 1.5; }
+        .pd-features li::before {
+            content: '✓';
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: 20px;
+            height: 20px;
+            margin-top: 1px;
+            border-radius: 50%;
+            background: var(--soft);
+            color: var(--c);
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+        .pd-best {
+            padding: 0.9rem 1.1rem;
+            border-left: 3px solid var(--c);
+            border-radius: 0 12px 12px 0;
+            background: var(--soft);
+            color: #374151;
+            font-size: 0.93rem;
+            margin-bottom: 1.25rem;
+        }
+        .pd-best strong { color: #1f2937; }
+        .pd-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+        .pd-chip {
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(102, 126, 234, 0.25);
+            color: #4b5563;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .pd-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+        .pd-actions .btn { padding: 0.85rem 1.5rem; }
+
+        .cat-invest { --c: var(--invest); --soft: var(--invest-soft); }
+        .cat-protect { --c: var(--protect); --soft: var(--protect-soft); }
+        .cat-tax { --c: var(--tax); --soft: var(--tax-soft); }
+        .cat-tax .pd-kicker, .cat-tax .pd-cat-count { color: #b07800; }
+
+        /* ---------- Animations (play only while visible) ---------- */
+        .pd-media svg * { animation-play-state: paused; }
+        .pd-media.playing svg * { animation-play-state: running; }
+        .pd-fb { transform-box: fill-box; }
+        .pd-label { font-size: 12px; font-weight: 600; fill: #374151; }
+        .pd-label-sm { font-size: 10.5px; font-weight: 600; fill: #6b7280; }
+
+        @keyframes pdBar { 0% { transform: scaleY(0); } 14%, 86% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+        @keyframes pdCoin { 0% { transform: translateY(-50px); opacity: 0; } 4% { opacity: 1; } 12% { transform: translateY(0); opacity: 1; } 15%, 100% { transform: translateY(0); opacity: 0; } }
+        @keyframes pdDraw { 0% { stroke-dashoffset: 100; opacity: 1; } 45%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+        @keyframes pdPopLoop { 0%, 40% { transform: scale(0); opacity: 0; } 48%, 90% { transform: scale(1); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
+        @keyframes pdPopLate { 0%, 70% { transform: scale(0); opacity: 0; } 78%, 92% { transform: scale(1); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
+        @keyframes pdFillX { 0% { transform: scaleX(0); } 72%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+        @keyframes pdFillY { 0% { transform: scaleY(0.1); } 70%, 92% { transform: scaleY(1); } 100% { transform: scaleY(0.1); } }
+        @keyframes pdShrinkX { 0% { transform: scaleX(1); } 70%, 92% { transform: scaleX(0.45); } 100% { transform: scaleX(1); } }
+        @keyframes pdGrowUp { 0% { transform: translateX(0) scale(0.72); } 72%, 100% { transform: translateX(255px) scale(1.2); } }
+        @keyframes pdArc {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translate(var(--mx), var(--my)); }
+            90% { opacity: 1; }
+            100% { transform: translate(var(--ex), var(--ey)); opacity: 0; }
+        }
+        @keyframes pdRain { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.9; } 85% { transform: translateY(var(--dist)); opacity: 0.9; } 100% { transform: translateY(var(--dist)); opacity: 0; } }
+        @keyframes pdPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        @keyframes pdBeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } 60% { transform: scale(1); } }
+        @keyframes pdSpin { to { transform: rotate(360deg); } }
+        @keyframes pdBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        @keyframes pdDrop { 0% { transform: translateY(-46px); opacity: 0; } 15% { opacity: 1; } 70% { transform: translateY(0); opacity: 1; } 80%, 100% { transform: translateY(6px); opacity: 0; } }
+        @keyframes pdStamp { 0%, 45% { transform: scale(2.2) rotate(-8deg); opacity: 0; } 55%, 92% { transform: scale(1) rotate(-8deg); opacity: 1; } 100% { transform: scale(1) rotate(-8deg); opacity: 0; } }
+        @keyframes pdWrite { 0% { transform: scaleX(0); } 30%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+
+        .pd-bar { transform-box: fill-box; transform-origin: center bottom; animation: pdBar 6s ease-out infinite; animation-delay: calc(var(--i) * 0.3s); }
+        .pd-coin { animation: pdCoin 6s ease-in infinite; animation-delay: calc(var(--i) * 0.3s); }
+        .pd-draw { animation: pdDraw 6s ease-in-out infinite; }
+        .pd-pop { transform-box: fill-box; transform-origin: center; animation: pdPopLoop 6s ease-out infinite; }
+        .pd-pop-late { transform-box: fill-box; transform-origin: center; animation: pdPopLate 6s ease-out infinite; }
+        .pd-fillx { transform-box: fill-box; transform-origin: left center; animation: pdFillX 6s ease-in-out infinite; }
+        .pd-filly { transform-box: fill-box; transform-origin: center bottom; animation: pdFillY 6s ease-in-out infinite; }
+        .pd-shrinkx { transform-box: fill-box; transform-origin: left center; animation: pdShrinkX 6s ease-in-out infinite; }
+        .pd-growup { transform-box: fill-box; transform-origin: center bottom; animation: pdGrowUp 6s ease-in-out infinite; }
+        .pd-arc { animation: pdArc 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 0.8s); }
+        .pd-rain { animation: pdRain 1.4s linear infinite; animation-delay: calc(var(--i) * 0.17s); }
+        .pd-pulse { transform-box: fill-box; transform-origin: center; animation: pdPulse 2.4s ease-in-out infinite; }
+        .pd-beat { transform-box: fill-box; transform-origin: center; animation: pdBeat 1.6s ease-in-out infinite; }
+        .pd-spin { transform-box: fill-box; transform-origin: center; animation: pdSpin 14s linear infinite; }
+        .pd-bob { animation: pdBob 2.4s ease-in-out infinite; }
+        .pd-drop { animation: pdDrop 2.2s ease-in infinite; animation-delay: calc(var(--i) * 0.73s); }
+        .pd-stamp { transform-box: fill-box; transform-origin: center; animation: pdStamp 6s ease-out infinite; }
+        .pd-write { transform-box: fill-box; transform-origin: left center; animation: pdWrite 6s ease-out infinite; animation-delay: calc(var(--i) * 0.25s); }
+        .pd-ecg { animation: pdDraw 2.6s linear infinite; }
+
+        /* ---------- Goal finder ---------- */
+        .pd-finder {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        .pd-goals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+        .pd-goal {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            border: 1.5px solid rgba(102, 126, 234, 0.2);
+            background: #fff;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #374151;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        .pd-goal span { font-size: 1.4rem; }
+        .pd-goal:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .pd-goal[aria-pressed="true"] {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%);
+            box-shadow: var(--shadow-md);
+        }
+        .pd-result {
+            padding: 2rem;
+            border-radius: 20px;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: var(--shadow-lg);
+        }
+        .pd-result-head { font-size: 0.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.35rem; }
+        .pd-result h3 { font-size: 1.4rem; margin-bottom: 1.25rem; }
+        .pd-result-list { list-style: none; display: grid; gap: 0.85rem; }
+        .pd-result-list a {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            background: var(--soft);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s;
+            animation: fadeInUp 0.45s ease-out both;
+        }
+        .pd-result-list a:hover { transform: translateX(4px); }
+        .pd-result-list .pd-cat-icon { background: #fff; flex-shrink: 0; }
+        .pd-result-list strong { display: block; color: #1f2937; margin-bottom: 0.15rem; }
+        .pd-result-list small { color: #4b5563; font-size: 0.88rem; line-height: 1.5; }
+        .pd-result-list em { margin-left: auto; font-style: normal; color: var(--c); font-weight: 700; }
+
+        /* ---------- Compare table ---------- */
+        .pd-table-wrap {
+            margin-top: 3rem;
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            background: #fff;
+        }
+        .pd-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+        .pd-table th, .pd-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid #eef2ff; font-size: 0.95rem; }
+        .pd-table th { background: #f8faff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; }
+        .pd-table tr:last-child td { border-bottom: none; }
+        .pd-table td:first-child { font-weight: 700; color: #1f2937; white-space: nowrap; }
+        .pd-table tbody tr { transition: background 0.2s; }
+        .pd-table tbody tr:hover { background: #fafbff; }
+        .pd-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 0.6rem; }
+        .pd-pill { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; background: var(--soft); color: var(--c); font-size: 0.8rem; font-weight: 700; }
+        .cat-tax .pd-pill { color: #b07800; }
+
+        /* ---------- CTA ---------- */
+        .pd-cta {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .pd-cta h2 { text-align: left; font-size: 2rem; }
+        .pd-cta p { color: #4b5563; font-size: 1.05rem; }
+        .pd-cta-actions { display: flex; flex-direction: column; gap: 0.9rem; }
+        .pd-cta-actions .btn { text-align: center; }
+        .pd-cta-phone { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .pd-cta-phone a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+        .pd-disclaimer {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .pd-disclaimer strong { color: #374151; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .pd-row { gap: 2.5rem; }
+            .pd-info h2 { font-size: 1.8rem; }
+            .pd-finder { grid-template-columns: 1fr; }
+            .pd-cta { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 860px) {
+            .pd-row { grid-template-columns: 1fr; }
+            .pd-row.flip .pd-media { order: 0; }
+            .pd-media { max-width: 560px; width: 100%; margin: 0 auto; }
+        }
+        @media (max-width: 768px) {
+            .pd-section { padding: 4rem 0; }
+            .pd-section h2 { font-size: 1.9rem; }
+            .pd-hero h1 { font-size: 2.1rem; }
+            .pd-cats { grid-template-columns: 1fr; }
+            .pd-row-wrap { padding: 3.5rem 0; }
+            .pd-cta { padding: 2rem 1.5rem; }
+        }
+        @media (max-width: 560px) {
+            .pd-features, .pd-goals { grid-template-columns: 1fr; }
+            .pd-actions .btn { width: 100%; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pd-media svg * { animation: none !important; }
+            .pd-js .pd-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
 </head>
 <body>
+    <script>document.body.classList.add('pd-js');</script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+                <img src="Images/logo.jpg" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
                 <li><a href="products.html" class="nav-link active">Products</a></li>
+                <li><a href="calculators.html" class="nav-link">Calculators</a></li>
                 <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle">🌙</button>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <h1>Our Products & Services</h1>
-        <p>Comprehensive investment products and financial services designed for wealth building at every life stage</p>
+    <!-- Hero -->
+    <section class="pd-hero">
+        <div class="container pd-reveal">
+            <div class="pd-eyebrow">Our Products</div>
+            <h1>Every product, chosen for <span class="pd-gradient-text">your family's goals</span></h1>
+            <p class="pd-hero-lead">Grow your wealth, protect your family and save tax, all with one trusted partner. We don't push products. We match them to your goals, your timeline and your comfort with risk.</p>
+            <div class="pd-cats">
+                <a href="#mf" class="pd-cat cat-invest">
+                    <div class="pd-cat-top"><span class="pd-cat-icon">📈</span><span class="pd-cat-count">3 products</span></div>
+                    <h3>Invest</h3>
+                    <p>Mutual funds &amp; SIPs, child education and retirement plans.</p>
+                </a>
+                <a href="#guaranteed" class="pd-cat cat-tax">
+                    <div class="pd-cat-top"><span class="pd-cat-icon">🧾</span><span class="pd-cat-count">2 products</span></div>
+                    <h3>Save Tax</h3>
+                    <p>Tax-free guaranteed plans and year-round tax planning.</p>
+                </a>
+                <a href="#health" class="pd-cat cat-protect">
+                    <div class="pd-cat-top"><span class="pd-cat-icon">🛡️</span><span class="pd-cat-count">3 products</span></div>
+                    <h3>Protect</h3>
+                    <p>Health insurance, term insurance and LIC plans.</p>
+                </a>
+            </div>
+        </div>
     </section>
 
-    <!-- Products & Services Section -->
-    <section class="products-section">
+    <!-- Products (the sticky nav stays pinned only while scrolling through these) -->
+    <div class="pd-products">
+    <nav class="pd-nav" aria-label="Products">
         <div class="container">
+            <ul class="pd-nav-list">
+                <li><a href="#mf" class="cat-invest">Mutual Funds &amp; SIPs</a></li>
+                <li><a href="#child" class="cat-invest">Child Education</a></li>
+                <li><a href="#retire" class="cat-invest">Retirement</a></li>
+                <li><a href="#guaranteed" class="cat-tax">Tax-Free Guaranteed</a></li>
+                <li><a href="#tax" class="cat-tax">Tax Planning</a></li>
+                <li><a href="#health" class="cat-protect">Health Insurance</a></li>
+                <li><a href="#term" class="cat-protect">Term Insurance</a></li>
+                <li><a href="#lic" class="cat-protect">LIC Plans</a></li>
+            </ul>
+        </div>
+    </nav>
 
-            <!-- PRODUCTS Category -->
-            <div class="service-category">
-                <h2>Investment Products</h2>
-                <p class="category-subtitle">Build your wealth with our curated investment solutions</p>
-
-                <div class="service-cards-grid">
-                    <!-- Product 1 -->
-                    <div class="service-card fade-in-up">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">📊</div>
-                        <h3>Mutual Funds & SIP</h3>
-                        <p>Build wealth systematically with Systematic Investment Plans (SIP) across diverse mutual fund categories. Expert curation helps you select funds aligned with your risk profile.</p>
-                        <div class="card-features">
-                            <span>✓ Start with ₹500</span>
-                            <span>✓ Diversified selection</span>
-                            <span>✓ Expert guidance</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.1s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">🏦</div>
-                        <h3>Fixed Deposits</h3>
-                        <p>Secure, guaranteed returns from India's most trusted banks. Enjoy competitive interest rates, flexible tenures (7 days to 10 years), and complete capital safety.</p>
-                        <div class="card-features">
-                            <span>✓ Guaranteed returns</span>
-                            <span>✓ Bank-backed security</span>
-                            <span>✓ Flexible tenure</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.2s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">📄</div>
-                        <h3>Government & Corporate Bonds</h3>
-                        <p>Invest in secured debt instruments with fixed income returns. Benefit from predictable returns, tax advantages, and lower risk compared to equity investments.</p>
-                        <div class="card-features">
-                            <span>✓ Predictable income</span>
-                            <span>✓ Tax-efficient</span>
-                            <span>✓ Low-risk</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.3s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">🛡️</div>
-                        <h3>Insurance Solutions</h3>
-                        <p>Comprehensive protection for you and your loved ones. Life, Health, and Motor Insurance with customized plans at competitive premiums from trusted partners.</p>
-                        <div class="card-features">
-                            <span>✓ Life insurance</span>
-                            <span>✓ Health coverage</span>
-                            <span>✓ Motor protection</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.4s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">🏢</div>
-                        <h3>Real Estate Investment Trusts (REITs)</h3>
-                        <p>Own real estate without the burden of direct property management. Earn regular dividends and enjoy professional portfolio management from top-performing REITs.</p>
-                        <div class="card-features">
-                            <span>✓ Regular dividends</span>
-                            <span>✓ Professional management</span>
-                            <span>✓ High liquidity</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.5s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #ff6b9d, #c44569);">📈</div>
-                        <h3>Stocks and Trading</h3>
-                        <p>Invest in quality companies for dividends and returns with safe valuation. Our expert advisory helps you build a robust portfolio from India's most trusted companies.</p>
-                        <div class="card-features">
-                            <span>✓ Dividend income</span>
-                            <span>✓ Safe valuations</span>
-                            <span>✓ Expert company advisory</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Learn More</a>
+    <main>
+        <!-- 1. Mutual Funds & SIPs -->
+        <section class="pd-row-wrap cat-invest" id="mf">
+            <div class="container pd-row">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Invest</span>
+                    <svg viewBox="0 0 400 300">
+                        <defs>
+                            <linearGradient id="pdBarGrad" x1="0" y1="1" x2="0" y2="0">
+                                <stop offset="0%" stop-color="#667eea"/>
+                                <stop offset="100%" stop-color="#a78bfa"/>
+                            </linearGradient>
+                        </defs>
+                        <g>
+                            <rect class="pd-badge" x="236" y="22" width="140" height="32" rx="16" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
+                            <text class="pd-label" x="306" y="43" text-anchor="middle">📅 SIP every month</text>
+                        </g>
+                        <line x1="44" y1="262" x2="364" y2="262" stroke="#c7d2fe" stroke-width="3" stroke-linecap="round"/>
+                        <rect class="pd-bar" style="--i: 0;" x="62" y="222" width="32" height="40" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar" style="--i: 1;" x="112" y="204" width="32" height="58" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar" style="--i: 2;" x="162" y="180" width="32" height="82" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar" style="--i: 3;" x="212" y="150" width="32" height="112" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar" style="--i: 4;" x="262" y="114" width="32" height="148" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar" style="--i: 5;" x="312" y="72" width="32" height="190" rx="6" fill="url(#pdBarGrad)"/>
+                        <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
+                            <g class="pd-coin" style="--i: 0;"><circle cx="78" cy="206" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="78" y="210">₹</text></g>
+                            <g class="pd-coin" style="--i: 1;"><circle cx="128" cy="188" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="128" y="192">₹</text></g>
+                            <g class="pd-coin" style="--i: 2;"><circle cx="178" cy="164" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="178" y="168">₹</text></g>
+                            <g class="pd-coin" style="--i: 3;"><circle cx="228" cy="134" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="228" y="138">₹</text></g>
+                            <g class="pd-coin" style="--i: 4;"><circle cx="278" cy="98" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="278" y="102">₹</text></g>
+                            <g class="pd-coin" style="--i: 5;"><circle cx="328" cy="56" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="328" y="60">₹</text></g>
+                        </g>
+                        <path class="pd-draw" pathLength="100" stroke-dasharray="100" d="M78 214 C 110 206 120 196 128 196 S 160 176 178 172 S 212 146 228 142 S 262 110 278 106 S 314 70 328 64" fill="none" stroke="#f5576c" stroke-width="3.5" stroke-linecap="round"/>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="40" y="70" width="150" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="115" y="90" text-anchor="middle" style="fill:#047857">📈 Compounding at work</text>
+                        </g>
+                        <text class="pd-label-sm" x="204" y="284" text-anchor="middle">Month by month, your wealth grows</text>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>📈</span>Invest</div>
+                    <h2>Mutual Funds &amp; SIPs</h2>
+                    <p class="pd-lead">Invest a fixed amount every month and let discipline and compounding grow your wealth. We pick funds that match your goal, your timeline and your comfort with risk.</p>
+                    <ul class="pd-features">
+                        <li>Start small with monthly SIPs</li>
+                        <li>Equity, debt and hybrid funds</li>
+                        <li>Step-up SIPs that grow with your income</li>
+                        <li>Lump-sum investing for bonuses and savings</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> long-term wealth, your child's future and retirement.</p>
+                    <div class="pd-chips"><span class="pd-chip">3+ years</span><span class="pd-chip">Market-linked</span><span class="pd-chip">Start small</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Plan My SIP</a>
+                        <a href="calculators.html#sip" class="btn btn-outline">SIP Calculator</a>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- SERVICES Category -->
-            <div class="service-category" style="margin-top: 6rem;">
-                <h2>Financial Services</h2>
-                <p class="category-subtitle">Expert guidance to optimize your financial strategy</p>
-
-                <div class="service-cards-grid">
-                    <!-- Service 1 -->
-                    <div class="service-card fade-in-up">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">💼</div>
-                        <h3>Financial Assessment</h3>
-                        <p>Understand your complete financial picture. We analyze income, expenses, assets, and liabilities to identify gaps and growth opportunities.</p>
-                        <div class="card-features">
-                            <span>✓ Complete analysis</span>
-                            <span>✓ Gap identification</span>
-                            <span>✓ Growth roadmap</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Get Started</a>
-                    </div>
-
-                    <!-- Service 2 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.1s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #ff9a9e, #fecfef);">📋</div>
-                        <h3>Tax Planning</h3>
-                        <p>Minimize tax burden legally. We analyze your income and recommend strategies to optimize your tax liability. ITR filing and tax-saving investments included.</p>
-                        <div class="card-features">
-                            <span>✓ Tax optimization</span>
-                            <span>✓ ITR assistance</span>
-                            <span>✓ Savings strategies</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Plan Now</a>
-                    </div>
-
-                    <!-- Service 3 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.2s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #ffd89b, #19547b);">🎯</div>
-                        <h3>Retirement Planning</h3>
-                        <p>Retire with confidence. We calculate your retirement corpus, analyze current savings, and design a personalized strategy to secure your golden years.</p>
-                        <div class="card-features">
-                            <span>✓ Corpus calculation</span>
-                            <span>✓ Gap analysis</span>
-                            <span>✓ Proven strategies</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Start Planning</a>
-                    </div>
-
-                    <!-- Service 4 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.3s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #a1c4fd, #c2e9fb);">📈</div>
-                        <h3>Portfolio Management</h3>
-                        <p>Quarterly portfolio reviews and strategic rebalancing. We ensure alignment with your goals and optimize returns while minimizing risk.</p>
-                        <div class="card-features">
-                            <span>✓ Quarterly reviews</span>
-                            <span>✓ Rebalancing</span>
-                            <span>✓ Risk control</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Review Now</a>
-                    </div>
-
-                    <!-- Service 5 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.4s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">🎓</div>
-                        <h3>Education Planning</h3>
-                        <p>Plan for your child's education needs. Calculate future education costs, design investment strategies, and secure funds for quality education at leading institutions.</p>
-                        <div class="card-features">
-                            <span>✓ Cost estimation</span>
-                            <span>✓ Funding strategy</span>
-                            <span>✓ Tax benefits</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Plan Education</a>
-                    </div>
-
-                    <!-- Service 6 -->
-                    <div class="service-card fade-in-up" style="animation-delay: 0.5s;">
-                        <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">🎯</div>
-                        <h3>Goal-Based Planning</h3>
-                        <p>Define and achieve your financial goals. Whether buying a home, starting a business, or taking a dream vacation—we create actionable plans to make it happen.</p>
-                        <div class="card-features">
-                            <span>✓ Goal definition</span>
-                            <span>✓ Timeline planning</span>
-                            <span>✓ Progress tracking</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary btn-sm">Define Goals</a>
+        <!-- 2. Child Education -->
+        <section class="pd-row-wrap cat-invest" id="child">
+            <div class="container pd-row flip">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Invest</span>
+                    <svg viewBox="0 0 400 300">
+                        <text class="pd-label" x="44" y="66">🎓 Education fund</text>
+                        <rect class="pd-badge" x="44" y="76" width="312" height="14" rx="7" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
+                        <rect class="pd-fillx" x="44" y="76" width="312" height="14" rx="7" fill="#667eea"/>
+                        <line x1="40" y1="242" x2="364" y2="242" stroke="#c7d2fe" stroke-width="3" stroke-linecap="round"/>
+                        <g class="pd-label-sm" text-anchor="middle">
+                            <circle cx="70" cy="242" r="5" fill="#a5b4fc"/><text x="70" y="266">Age 1</text>
+                            <circle cx="155" cy="242" r="5" fill="#a5b4fc"/><text x="155" y="266">Age 5</text>
+                            <circle cx="240" cy="242" r="5" fill="#a5b4fc"/><text x="240" y="266">Age 15</text>
+                            <circle cx="325" cy="242" r="5" fill="#a5b4fc"/><text x="325" y="266">Age 20</text>
+                        </g>
+                        <!-- Child walking & growing -->
+                        <g class="pd-growup">
+                            <circle cx="70" cy="188" r="12" fill="#f5c9a8"/>
+                            <path d="M58 186 A 12 12 0 0 1 82 186 Q 70 179 58 186 Z" fill="#374151"/>
+                            <!-- Arms with hands -->
+                            <rect x="54" y="203" width="6" height="18" rx="3" fill="#e09a00"/>
+                            <rect x="80" y="203" width="6" height="18" rx="3" fill="#e09a00"/>
+                            <circle cx="57" cy="222" r="3.3" fill="#f5c9a8"/>
+                            <circle cx="83" cy="222" r="3.3" fill="#f5c9a8"/>
+                            <!-- Body and legs -->
+                            <rect x="59" y="201" width="22" height="26" rx="9" fill="#f4a700"/>
+                            <rect x="61" y="226" width="7" height="16" rx="3" fill="#5568d3"/>
+                            <rect x="72" y="226" width="7" height="16" rx="3" fill="#5568d3"/>
+                        </g>
+                        <!-- Graduation cap appears when the goal is reached -->
+                        <g class="pd-pop-late">
+                            <rect x="315" y="158" width="20" height="9" rx="2" fill="#1f2937"/>
+                            <polygon points="301,158 325,148 349,158 325,168" fill="#1f2937"/>
+                            <path d="M345 158 L 347 172" stroke="#f4a700" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="347" cy="174" r="2.5" fill="#f4a700"/>
+                        </g>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="150" y="112" width="124" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="212" y="132" text-anchor="middle" style="fill:#047857">✓ Fund ready on time</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>🎓</span>Invest</div>
+                    <h2>Child Education Plan</h2>
+                    <p class="pd-lead">Education costs rise every year. We help you build a dedicated fund, timed to when your child will need it, so their dreams never have to wait on money.</p>
+                    <ul class="pd-features">
+                        <li>Estimate future education costs</li>
+                        <li>Goal-linked SIPs and savings plans</li>
+                        <li>Protection so the plan continues no matter what</li>
+                        <li>Reviewed as your child grows</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> parents planning school, college or higher studies abroad.</p>
+                    <div class="pd-chips"><span class="pd-chip">Up to 20 years</span><span class="pd-chip">Goal-linked</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Plan My Child's Future</a>
+                        <a href="calculators.html#stepup" class="btn btn-outline">Step-Up SIP Calculator</a>
                     </div>
                 </div>
             </div>
+        </section>
 
+        <!-- 3. Retirement -->
+        <section class="pd-row-wrap cat-invest" id="retire">
+            <div class="container pd-row">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Invest</span>
+                    <svg viewBox="0 0 400 300">
+                        <!-- Sun -->
+                        <g class="pd-spin">
+                            <circle cx="338" cy="58" r="20" fill="#fde68a"/>
+                            <g stroke="#f4a700" stroke-width="3" stroke-linecap="round">
+                                <line x1="338" y1="26" x2="338" y2="18"/><line x1="338" y1="90" x2="338" y2="98"/>
+                                <line x1="306" y1="58" x2="298" y2="58"/><line x1="370" y1="58" x2="378" y2="58"/>
+                                <line x1="315" y1="35" x2="309" y2="29"/><line x1="361" y1="81" x2="367" y2="87"/>
+                                <line x1="361" y1="35" x2="367" y2="29"/><line x1="315" y1="81" x2="309" y2="87"/>
+                            </g>
+                        </g>
+                        <!-- Corpus jar -->
+                        <rect x="44" y="118" width="96" height="126" rx="20" fill="#fff" stroke="#c7d2fe" stroke-width="3"/>
+                        <rect x="58" y="106" width="68" height="16" rx="6" fill="#c7d2fe"/>
+                        <clipPath id="pdJar1"><rect x="47" y="121" width="90" height="120" rx="17"/></clipPath>
+                        <g clip-path="url(#pdJar1)"><rect class="pd-filly" x="44" y="150" width="96" height="94" fill="#fde68a"/></g>
+                        <text class="pd-label-sm" x="92" y="266" text-anchor="middle">Retirement corpus</text>
+                        <!-- Income flow -->
+                        <path d="M140 140 Q 190 92 236 196" fill="none" stroke="#c7d2fe" stroke-width="2.5" stroke-dasharray="4 7"/>
+                        <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
+                            <g class="pd-arc" style="--i: 0; --mx: 48px; --my: -40px; --ex: 96px; --ey: 54px;"><circle cx="140" cy="140" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="140" y="144">₹</text></g>
+                            <g class="pd-arc" style="--i: 1; --mx: 48px; --my: -40px; --ex: 96px; --ey: 54px;"><circle cx="140" cy="140" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="140" y="144">₹</text></g>
+                            <g class="pd-arc" style="--i: 2; --mx: 48px; --my: -40px; --ex: 96px; --ey: 54px;"><circle cx="140" cy="140" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="140" y="144">₹</text></g>
+                        </g>
+                        <!-- Wallet -->
+                        <rect x="216" y="200" width="44" height="30" rx="7" fill="#667eea"/>
+                        <rect x="246" y="208" width="18" height="14" rx="4" fill="#5568d3"/>
+                        <!-- Couple on bench -->
+                        <g class="pd-bob">
+                            <circle cx="296" cy="168" r="13" fill="#e9b38f"/>
+                            <path d="M283 166 A 13 13 0 0 1 309 166 Q 296 158 283 166 Z" fill="#d1d5db"/>
+                            <rect x="282" y="183" width="28" height="40" rx="12" fill="#f5576c"/>
+                            <circle cx="336" cy="170" r="12" fill="#f5c9a8"/>
+                            <path d="M324 168 A 12 12 0 0 1 348 168 Q 336 161 324 168 Z" fill="#e5e7eb"/>
+                            <rect x="323" y="184" width="26" height="39" rx="11" fill="#10b981"/>
+                        </g>
+                        <rect x="270" y="222" width="94" height="10" rx="4" fill="#a16207"/>
+                        <rect x="276" y="232" width="6" height="16" rx="2" fill="#a16207"/>
+                        <rect x="352" y="232" width="6" height="16" rx="2" fill="#a16207"/>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="196" y="252" width="130" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="261" y="272" text-anchor="middle" style="fill:#047857">💰 Monthly income</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>🌴</span>Invest</div>
+                    <h2>Retirement Plan</h2>
+                    <p class="pd-lead">Know how much you need to retire comfortably, then build it steadily. When the time comes, we help turn your savings into a regular monthly income.</p>
+                    <ul class="pd-features">
+                        <li>Retirement corpus calculation</li>
+                        <li>Disciplined monthly investing</li>
+                        <li>Regular income through SWP</li>
+                        <li>Health cover planned for later years</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> anyone who wants their income to continue after their salary stops.</p>
+                    <div class="pd-chips"><span class="pd-chip">10+ years</span><span class="pd-chip">Regular income</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Plan My Retirement</a>
+                        <a href="calculators.html#swp" class="btn btn-outline">SWP Calculator</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tax-Free Guaranteed Plans -->
+        <section class="pd-row-wrap cat-tax" id="guaranteed">
+            <div class="container pd-row flip">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Save Tax</span>
+                    <svg viewBox="0 0 400 300">
+                        <rect x="36" y="52" width="328" height="196" rx="16" fill="#fff" stroke="#f3e2b3" stroke-width="2"/>
+                        <g stroke="#fdf3d7" stroke-width="2">
+                            <line x1="60" y1="110" x2="340" y2="110"/><line x1="60" y1="160" x2="340" y2="160"/><line x1="60" y1="210" x2="340" y2="210"/>
+                        </g>
+                        <path d="M60 206 C 90 180 110 222 140 196 S 180 150 210 186 S 260 120 290 160 S 320 110 340 136" fill="none" stroke="#d1d5db" stroke-width="2.5" stroke-dasharray="5 6"/>
+                        <text class="pd-label-sm" x="246" y="238">Market ups &amp; downs</text>
+                        <path class="pd-draw" pathLength="100" stroke-dasharray="100" d="M60 214 Q 200 190 330 106" fill="none" stroke="#10b981" stroke-width="4.5" stroke-linecap="round"/>
+                        <text class="pd-label" x="64" y="150" style="fill:#047857">Guaranteed growth</text>
+                        <g class="pd-pop">
+                            <circle cx="330" cy="106" r="17" fill="#ecfdf5" stroke="#10b981" stroke-width="2.5"/>
+                            <text x="330" y="112" text-anchor="middle" font-size="16">🔒</text>
+                        </g>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="90" y="64" width="152" height="30" rx="15" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/>
+                            <text class="pd-label" x="166" y="84" text-anchor="middle" style="fill:#a16207">✓ Tax-free maturity</text>
+                        </g>
+                        <text class="pd-label-sm" x="200" y="276" text-anchor="middle">Know exactly what you get, and when</text>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>💎</span>Save Tax</div>
+                    <h2>Tax-Free Guaranteed Plans</h2>
+                    <p class="pd-lead">For goals that can't take market risk. These plans offer guaranteed returns with tax-free maturity, so you know exactly what you'll get and when.</p>
+                    <ul class="pd-features">
+                        <li>Guaranteed maturity amount</li>
+                        <li>Tax-free maturity as per tax laws</li>
+                        <li>Life cover during the policy term</li>
+                        <li>Ideal for fixed future goals</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> conservative investors and fixed goals like a child's wedding or a home down payment.</p>
+                    <div class="pd-chips"><span class="pd-chip">Guaranteed</span><span class="pd-chip">Tax-free maturity</span><span class="pd-chip">Low risk</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Explore Guaranteed Plans</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Tax Planning -->
+        <section class="pd-row-wrap cat-tax" id="tax">
+            <div class="container pd-row">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Save Tax</span>
+                    <svg viewBox="0 0 400 300">
+                        <!-- Tax bill -->
+                        <rect x="36" y="70" width="170" height="168" rx="14" fill="#fff" stroke="#f3e2b3" stroke-width="2"/>
+                        <text x="56" y="100" style="font-size: 14px; font-weight: 800; fill: #1f2937;">🧾 Tax payable</text>
+                        <rect x="56" y="118" width="130" height="18" rx="9" fill="#fde2e7"/>
+                        <rect class="pd-shrinkx" x="56" y="118" width="130" height="18" rx="9" fill="#f5576c"/>
+                        <g stroke="#f3f4f6" stroke-width="6" stroke-linecap="round">
+                            <line x1="56" y1="160" x2="186" y2="160"/><line x1="56" y1="178" x2="160" y2="178"/>
+                        </g>
+                        <g class="pd-pop">
+                            <rect class="pd-badge" x="50" y="196" width="142" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="121" y="215" text-anchor="middle" style="fill:#047857">✓ Deductions applied</text>
+                        </g>
+                        <!-- Coins moving to savings -->
+                        <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
+                            <g class="pd-arc" style="--i: 0; --mx: 60px; --my: -54px; --ex: 120px; --ey: 6px;"><circle cx="196" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="196" y="132">₹</text></g>
+                            <g class="pd-arc" style="--i: 1; --mx: 60px; --my: -54px; --ex: 120px; --ey: 6px;"><circle cx="196" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="196" y="132">₹</text></g>
+                            <g class="pd-arc" style="--i: 2; --mx: 60px; --my: -54px; --ex: 120px; --ey: 6px;"><circle cx="196" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="196" y="132">₹</text></g>
+                        </g>
+                        <!-- Savings jar -->
+                        <rect x="266" y="130" width="96" height="112" rx="20" fill="#fff" stroke="#c7d2fe" stroke-width="3"/>
+                        <rect x="280" y="118" width="68" height="16" rx="6" fill="#c7d2fe"/>
+                        <clipPath id="pdJar2"><rect x="269" y="133" width="90" height="106" rx="17"/></clipPath>
+                        <g clip-path="url(#pdJar2)"><rect class="pd-filly" x="266" y="160" width="96" height="82" fill="#bbf7d0"/></g>
+                        <text class="pd-label-sm" x="314" y="264" text-anchor="middle">Your savings</text>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>🧾</span>Save Tax</div>
+                    <h2>Tax Planning</h2>
+                    <p class="pd-lead">Save tax every year without locking your money in the wrong place. We choose tax-saving options that fit your income, your tax regime and your goals, so every rupee saved also works for you.</p>
+                    <ul class="pd-features">
+                        <li>Old vs new tax regime guidance</li>
+                        <li>ELSS and other tax-saving investments</li>
+                        <li>Tax benefits on health and life insurance</li>
+                        <li>Plan early, not in a March rush</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> salaried professionals and business owners who want to keep more of what they earn.</p>
+                    <div class="pd-chips"><span class="pd-chip">Every year</span><span class="pd-chip">Save tax + build wealth</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Plan My Taxes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Health Insurance -->
+        <section class="pd-row-wrap cat-protect" id="health">
+            <div class="container pd-row flip">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Protect</span>
+                    <svg viewBox="0 0 400 300">
+                        <!-- Monitor -->
+                        <rect x="36" y="56" width="218" height="140" rx="16" fill="#fff" stroke="#bbf7d0" stroke-width="2"/>
+                        <path class="pd-beat" d="M62 86 c -6 -8 -18 -4 -16 6 c 2 8 16 16 16 16 s 14 -8 16 -16 c 2 -10 -10 -14 -16 -6 z" fill="#f5576c"/>
+                        <path class="pd-ecg" pathLength="100" stroke-dasharray="100" d="M52 140 L 104 140 L 116 112 L 130 168 L 144 92 L 158 150 L 170 140 L 238 140" fill="none" stroke="#f5576c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Shield -->
+                        <g class="pd-pulse">
+                            <path d="M322 70 L 368 86 L 368 130 C 368 162 348 180 322 190 C 296 180 276 162 276 130 L 276 86 Z" fill="#ecfdf5" stroke="#10b981" stroke-width="3"/>
+                            <rect x="314" y="108" width="16" height="44" rx="4" fill="#10b981"/>
+                            <rect x="300" y="122" width="44" height="16" rx="4" fill="#10b981"/>
+                        </g>
+                        <!-- Hospital bill -->
+                        <rect x="60" y="212" width="170" height="64" rx="10" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+                        <text class="pd-label" x="76" y="236">🏥 Hospital bill</text>
+                        <g stroke="#f3f4f6" stroke-width="5" stroke-linecap="round"><line x1="76" y1="254" x2="160" y2="254"/><line x1="76" y1="266" x2="140" y2="266"/></g>
+                        <g class="pd-stamp">
+                            <rect x="178" y="226" width="92" height="34" rx="8" fill="rgba(236,253,245,0.92)" stroke="#10b981" stroke-width="2.5"/>
+                            <text x="224" y="248" text-anchor="middle" style="font-size: 13px; font-weight: 800; fill: #047857; letter-spacing: 0.05em;">COVERED ✓</text>
+                        </g>
+                        <text class="pd-label-sm" x="322" y="212" text-anchor="middle">Whole family</text>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>🩺</span>Protect</div>
+                    <h2>Health &amp; Medical Insurance</h2>
+                    <p class="pd-lead">One hospital stay can wipe out years of savings. We help you choose the right health cover for your whole family, so medical bills never touch your goals.</p>
+                    <ul class="pd-features">
+                        <li>Family floater and individual plans</li>
+                        <li>Cover sized to your city and family</li>
+                        <li>Separate cover for your parents</li>
+                        <li>Help when you need to make a claim</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> every family. It's the first step of any financial plan.</p>
+                    <div class="pd-chips"><span class="pd-chip">Protection</span><span class="pd-chip">Renews yearly</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Get Health Cover</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Term Insurance -->
+        <section class="pd-row-wrap cat-protect" id="term">
+            <div class="container pd-row">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Protect</span>
+                    <svg viewBox="0 0 400 300">
+                        <defs>
+                            <linearGradient id="pdUmb" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#10b981"/>
+                                <stop offset="100%" stop-color="#667eea"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Rain -->
+                        <g stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round">
+                            <line class="pd-rain" style="--i: 0; --dist: 250px;" x1="40" y1="10" x2="36" y2="24"/>
+                            <line class="pd-rain" style="--i: 3; --dist: 250px;" x1="66" y1="10" x2="62" y2="24"/>
+                            <line class="pd-rain" style="--i: 1; --dist: 104px;" x1="110" y1="10" x2="106" y2="24"/>
+                            <line class="pd-rain" style="--i: 5; --dist: 78px;" x1="150" y1="10" x2="146" y2="24"/>
+                            <line class="pd-rain" style="--i: 2; --dist: 66px;" x1="190" y1="10" x2="186" y2="24"/>
+                            <line class="pd-rain" style="--i: 6; --dist: 68px;" x1="226" y1="10" x2="222" y2="24"/>
+                            <line class="pd-rain" style="--i: 4; --dist: 84px;" x1="262" y1="10" x2="258" y2="24"/>
+                            <line class="pd-rain" style="--i: 7; --dist: 108px;" x1="298" y1="10" x2="294" y2="24"/>
+                            <line class="pd-rain" style="--i: 2; --dist: 250px;" x1="340" y1="10" x2="336" y2="24"/>
+                            <line class="pd-rain" style="--i: 5; --dist: 250px;" x1="366" y1="10" x2="362" y2="24"/>
+                        </g>
+                        <!-- Umbrella -->
+                        <path d="M84 142 Q 200 22 316 142 Q 287 126 258 142 Q 229 126 200 142 Q 171 126 142 142 Q 113 126 84 142 Z" fill="url(#pdUmb)"/>
+                        <path d="M200 142 L 200 160" stroke="#374151" stroke-width="4" stroke-linecap="round"/>
+                        <rect x="196" y="78" width="8" height="10" rx="3" fill="#374151"/>
+                        <!-- Family -->
+                        <g class="pd-bob">
+                            <circle cx="160" cy="184" r="13" fill="#f5c9a8"/>
+                            <rect x="146" y="199" width="28" height="44" rx="12" fill="#667eea"/>
+                            <circle cx="242" cy="186" r="12" fill="#e9b38f"/>
+                            <rect x="229" y="200" width="26" height="43" rx="11" fill="#f5576c"/>
+                            <circle cx="201" cy="204" r="9" fill="#f5c9a8"/>
+                            <rect x="191" y="215" width="20" height="28" rx="9" fill="#f4a700"/>
+                        </g>
+                        <line x1="96" y1="244" x2="304" y2="244" stroke="#bbf7d0" stroke-width="3" stroke-linecap="round"/>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="118" y="256" width="164" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="200" y="276" text-anchor="middle" style="fill:#047857">High cover, low premium</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>☂️</span>Protect</div>
+                    <h2>Term Insurance</h2>
+                    <p class="pd-lead">The simplest way to protect your family's future. A high life cover at a low premium makes sure your family's goals and loans stay secure, no matter what.</p>
+                    <ul class="pd-features">
+                        <li>High life cover at a low cost</li>
+                        <li>Covers your home loan and goals</li>
+                        <li>Right cover amount and term for you</li>
+                        <li>Tax benefits as per tax laws</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> earning members with a family, loans or long-term goals.</p>
+                    <div class="pd-chips"><span class="pd-chip">Pure protection</span><span class="pd-chip">Lifetime cover</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Protect My Family</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. LIC Plans -->
+        <section class="pd-row-wrap cat-protect" id="lic">
+            <div class="container pd-row flip">
+                <div class="pd-media pd-reveal" aria-hidden="true">
+                    <span class="pd-media-tag">Protect</span>
+                    <svg viewBox="0 0 400 300">
+                        <!-- Policy document -->
+                        <rect x="44" y="44" width="156" height="210" rx="14" fill="#fff" stroke="#bbf7d0" stroke-width="2"/>
+                        <rect x="44" y="44" width="156" height="40" rx="14" fill="#ecfdf5"/>
+                        <rect x="44" y="70" width="156" height="14" fill="#ecfdf5"/>
+                        <text x="122" y="70" text-anchor="middle" style="font-size: 14px; font-weight: 800; fill: #047857;">📜 Policy</text>
+                        <g fill="#e5e7eb">
+                            <rect class="pd-write" style="--i: 0;" x="64" y="104" width="116" height="8" rx="4"/>
+                            <rect class="pd-write" style="--i: 1;" x="64" y="124" width="96" height="8" rx="4"/>
+                            <rect class="pd-write" style="--i: 2;" x="64" y="144" width="108" height="8" rx="4"/>
+                            <rect class="pd-write" style="--i: 3;" x="64" y="164" width="80" height="8" rx="4"/>
+                        </g>
+                        <g class="pd-stamp">
+                            <circle cx="150" cy="214" r="28" fill="rgba(236,253,245,0.9)" stroke="#10b981" stroke-width="3"/>
+                            <text x="150" y="211" text-anchor="middle" style="font-size: 10px; font-weight: 800; fill: #047857;">LIFE</text>
+                            <text x="150" y="224" text-anchor="middle" style="font-size: 10px; font-weight: 800; fill: #047857;">COVER ✓</text>
+                        </g>
+                        <!-- Piggy bank -->
+                        <g>
+                            <ellipse cx="294" cy="190" rx="62" ry="46" fill="#fbcfe8"/>
+                            <path d="M262 152 L 270 132 L 284 148 Z" fill="#f9a8d4"/>
+                            <ellipse cx="352" cy="194" rx="14" ry="12" fill="#f9a8d4"/>
+                            <circle cx="349" cy="192" r="2.5" fill="#be185d"/><circle cx="356" cy="192" r="2.5" fill="#be185d"/>
+                            <circle cx="324" cy="176" r="3.5" fill="#374151"/>
+                            <rect x="264" y="228" width="12" height="20" rx="4" fill="#f9a8d4"/>
+                            <rect x="310" y="228" width="12" height="20" rx="4" fill="#f9a8d4"/>
+                            <rect x="276" y="146" width="36" height="6" rx="3" fill="#be185d"/>
+                        </g>
+                        <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
+                            <g class="pd-drop" style="--i: 0;"><circle cx="294" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="294" y="132">₹</text></g>
+                            <g class="pd-drop" style="--i: 1;"><circle cx="294" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="294" y="132">₹</text></g>
+                            <g class="pd-drop" style="--i: 2;"><circle cx="294" cy="128" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="294" y="132">₹</text></g>
+                        </g>
+                        <g class="pd-pop-late">
+                            <rect class="pd-badge" x="224" y="256" width="146" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="297" y="276" text-anchor="middle" style="fill:#047857">Savings + life cover</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="pd-info pd-reveal">
+                    <div class="pd-kicker"><span>🏛️</span>Protect</div>
+                    <h2>LIC Plans</h2>
+                    <p class="pd-lead">Trusted LIC policies that combine disciplined savings with life cover. We help you pick the right plan, and keep track of your premiums and maturity dates.</p>
+                    <ul class="pd-features">
+                        <li>Savings with life cover</li>
+                        <li>Plans for children, retirement and savings</li>
+                        <li>Premium and maturity reminders</li>
+                        <li>Guidance on your existing policies</li>
+                    </ul>
+                    <p class="pd-best"><strong>Best for:</strong> families who want safe, disciplined savings along with protection.</p>
+                    <div class="pd-chips"><span class="pd-chip">Savings + cover</span><span class="pd-chip">Long term</span></div>
+                    <div class="pd-actions">
+                        <a href="contact.html" class="btn btn-primary">Explore LIC Plans</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+
+    <!-- Goal finder -->
+    <section class="pd-section pd-tint">
+        <div class="container">
+            <div class="pd-center"><div class="pd-eyebrow">Not Sure Where To Start?</div></div>
+            <h2>Pick your goal, see what fits</h2>
+            <p class="section-subtitle">Choose what you're planning for, and we'll show the products that usually help most.</p>
+            <div class="pd-finder pd-reveal">
+                <div class="pd-goals" role="group" aria-label="Your goal">
+                    <button class="pd-goal" type="button" data-goal="wealth" aria-pressed="true"><span>📈</span>Grow my wealth</button>
+                    <button class="pd-goal" type="button" data-goal="child" aria-pressed="false"><span>🎓</span>My child's education</button>
+                    <button class="pd-goal" type="button" data-goal="retire" aria-pressed="false"><span>🌴</span>Comfortable retirement</button>
+                    <button class="pd-goal" type="button" data-goal="tax" aria-pressed="false"><span>🧾</span>Save tax</button>
+                    <button class="pd-goal" type="button" data-goal="protect" aria-pressed="false"><span>🛡️</span>Protect my family</button>
+                    <button class="pd-goal" type="button" data-goal="safe" aria-pressed="false"><span>🔒</span>Safe, guaranteed returns</button>
+                </div>
+                <div class="pd-result" aria-live="polite">
+                    <div class="pd-result-head">Recommended for you</div>
+                    <h3 id="pdResultTitle">Grow my wealth</h3>
+                    <ul class="pd-result-list" id="pdResultList"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compare at a glance -->
+    <section class="pd-section">
+        <div class="container">
+            <div class="pd-center"><div class="pd-eyebrow">At A Glance</div></div>
+            <h2>Compare our products</h2>
+            <p class="section-subtitle">A quick view of what each product does and when it fits.</p>
+            <div class="pd-table-wrap pd-reveal">
+                <table class="pd-table">
+                    <thead>
+                        <tr><th>Product</th><th>Helps you</th><th>Time horizon</th><th>Returns</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cat-invest"><td><span class="pd-dot"></span>Mutual Funds &amp; SIPs</td><td>Grow long-term wealth</td><td>3+ years</td><td><span class="pd-pill">Market-linked</span></td></tr>
+                        <tr class="cat-invest"><td><span class="pd-dot"></span>Child Education Plan</td><td>Fund your child's studies on time</td><td>Up to 20 years</td><td><span class="pd-pill">Depends on mix</span></td></tr>
+                        <tr class="cat-invest"><td><span class="pd-dot"></span>Retirement Plan</td><td>Build a corpus and monthly income</td><td>10+ years</td><td><span class="pd-pill">Depends on mix</span></td></tr>
+                        <tr class="cat-tax"><td><span class="pd-dot"></span>Tax-Free Guaranteed Plans</td><td>Reach fixed goals without market risk</td><td>Policy term</td><td><span class="pd-pill">Guaranteed</span></td></tr>
+                        <tr class="cat-tax"><td><span class="pd-dot"></span>Tax Planning</td><td>Save tax every year</td><td>Every year</td><td><span class="pd-pill">Varies by option</span></td></tr>
+                        <tr class="cat-protect"><td><span class="pd-dot"></span>Health Insurance</td><td>Cover medical bills</td><td>Renews yearly</td><td><span class="pd-pill">Protection</span></td></tr>
+                        <tr class="cat-protect"><td><span class="pd-dot"></span>Term Insurance</td><td>Protect your family's future</td><td>Lifetime cover</td><td><span class="pd-pill">Protection</span></td></tr>
+                        <tr class="cat-protect"><td><span class="pd-dot"></span>LIC Plans</td><td>Save with life cover</td><td>Policy term</td><td><span class="pd-pill">As per plan</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="pd-section" style="padding-top: 0;">
         <div class="container">
-            <h2>Find Your Perfect Investment Solution</h2>
-            <p>Every investor is unique. Our products are designed to meet you where you are.</p>
-            <a href="contact.html" class="btn btn-primary btn-large">Book a Free Consultation</a>
+            <div class="pd-cta pd-reveal">
+                <div>
+                    <h2>Not sure which product is right?</h2>
+                    <p>Tell us your goals. In a 60-minute meeting we'll help you choose the right mix for your family.</p>
+                </div>
+                <div class="pd-cta-actions">
+                    <a href="contact.html" class="btn btn-primary btn-large">Talk to Our Team</a>
+                    <div class="pd-cta-phone">or call <a href="tel:+919910210883">+91 9910210883</a></div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <div class="container pd-disclaimer">
+        <p><strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance is not indicative of future returns. Insurance is the subject matter of solicitation. Guaranteed returns and benefits are as per the terms of the respective policy. Tax benefits are as per prevailing tax laws and may change.</p>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>A2P Financial Services</h3>
-                    <p>Expert guidance for every earning journey.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><a href="sip-calculator.html">SIP Calculator</a></li>
-                        <li><a href="blog.html">Financial Blog</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
-                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
-                </div>
+            <div class="footer-bottom">
+                <p style="margin-bottom: 10pt;">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</p>
+                <p>&copy; 2026 A2P Financial Services. All rights reserved. EST. 2025</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p style="margin-bottom: 10pt;">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</p>
-            <p>&copy; 2026 A2P Financial Services. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="script-pro.js"></script>
+    <script>
+        (function () {
+            // Reveal on scroll
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.pd-reveal').forEach((el) => revealObserver.observe(el));
+
+            // Run each animation only while it is on screen
+            const playObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => entry.target.classList.toggle('playing', entry.isIntersecting));
+            }, { threshold: 0.2 });
+            document.querySelectorAll('.pd-media').forEach((el) => playObserver.observe(el));
+
+            // Size each badge so its label always fits with even padding
+            const fitBadges = () => {
+                document.querySelectorAll('.pd-media rect.pd-badge').forEach((rect) => {
+                    const text = rect.nextElementSibling;
+                    if (!text || text.tagName !== 'text') return;
+                    const box = text.getBBox();
+                    const width = Math.ceil(box.width + 28);
+                    rect.setAttribute('x', (box.x + box.width / 2 - width / 2).toFixed(1));
+                    rect.setAttribute('width', width);
+                });
+            };
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBadges);
+            fitBadges();
+
+            // Highlight the product in the sticky nav as you scroll
+            const navLinks = [...document.querySelectorAll('.pd-nav a')];
+            const navList = document.querySelector('.pd-nav-list');
+            const spy = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    navLinks.forEach((a) => {
+                        const on = a.getAttribute('href') === '#' + entry.target.id;
+                        a.classList.toggle('active', on);
+                        if (on) navList.scrollTo({ left: a.offsetLeft - navList.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' });
+                    });
+                });
+            }, { rootMargin: '-45% 0px -50% 0px' });
+            document.querySelectorAll('.pd-row-wrap').forEach((el) => spy.observe(el));
+
+            // Goal finder
+            const products = {
+                mf: { name: 'Mutual Funds & SIPs', icon: '📈', cat: 'cat-invest' },
+                child: { name: 'Child Education Plan', icon: '🎓', cat: 'cat-invest' },
+                retire: { name: 'Retirement Plan', icon: '🌴', cat: 'cat-invest' },
+                guaranteed: { name: 'Tax-Free Guaranteed Plans', icon: '💎', cat: 'cat-tax' },
+                tax: { name: 'Tax Planning', icon: '🧾', cat: 'cat-tax' },
+                health: { name: 'Health Insurance', icon: '🩺', cat: 'cat-protect' },
+                term: { name: 'Term Insurance', icon: '☂️', cat: 'cat-protect' },
+                lic: { name: 'LIC Plans', icon: '🏛️', cat: 'cat-protect' }
+            };
+            const goals = {
+                wealth: { title: 'Grow my wealth', picks: [
+                    ['mf', 'Disciplined SIPs that compound over the long term.'],
+                    ['tax', 'Save tax while you invest, so more of your money grows.'],
+                    ['health', 'Keep medical bills from eating into your investments.']
+                ] },
+                child: { title: "My child's education", picks: [
+                    ['child', 'A dedicated fund timed to when your child needs it.'],
+                    ['mf', 'Goal-linked SIPs for long-term growth.'],
+                    ['term', 'Makes sure the plan continues, no matter what.']
+                ] },
+                retire: { title: 'Comfortable retirement', picks: [
+                    ['retire', 'Build your corpus, then turn it into monthly income.'],
+                    ['mf', 'Steady long-term growth through SIPs.'],
+                    ['health', 'Cover for rising medical costs in later years.']
+                ] },
+                tax: { title: 'Save tax', picks: [
+                    ['tax', 'The right tax-saving options for your income and regime.'],
+                    ['guaranteed', 'Tax-free maturity with guaranteed returns.'],
+                    ['mf', 'ELSS funds save tax and build wealth.']
+                ] },
+                protect: { title: 'Protect my family', picks: [
+                    ['term', 'High life cover at a low premium.'],
+                    ['health', 'Cover medical bills for the whole family.'],
+                    ['lic', 'Savings with life cover built in.']
+                ] },
+                safe: { title: 'Safe, guaranteed returns', picks: [
+                    ['guaranteed', 'Know exactly what you get, with tax-free maturity.'],
+                    ['lic', 'Trusted plans for disciplined savings.'],
+                    ['mf', 'Debt funds for lower-risk investing.']
+                ] }
+            };
+            const titleEl = document.getElementById('pdResultTitle');
+            const listEl = document.getElementById('pdResultList');
+            const buttons = [...document.querySelectorAll('.pd-goal')];
+            const showGoal = (key) => {
+                const goal = goals[key];
+                titleEl.textContent = goal.title;
+                listEl.innerHTML = goal.picks.map(([id, why], i) => {
+                    const p = products[id];
+                    return `<li><a href="#${id}" class="${p.cat}" style="animation-delay:${i * 0.08}s"><span class="pd-cat-icon">${p.icon}</span><span><strong>${p.name}</strong><small>${why}</small></span><em>→</em></a></li>`;
+                }).join('');
+                buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.goal === key)));
+            };
+            buttons.forEach((b) => b.addEventListener('click', () => showGoal(b.dataset.goal)));
+            showGoal('wealth');
+        })();
+    </script>
 </body>
 </html>
