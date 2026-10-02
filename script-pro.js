@@ -1,3 +1,102 @@
+// The menu bar is built straight away (this file loads at the end of <body>), so the page never shows the
+// old text menu while loading; each page's <head> also marks <html> with .dock-nav before the first paint.
+(function () {
+    // ========================= BOTTOM DOCK NAVIGATION (experiment) =========================
+    // To go back to the classic top menu, set USE_DOCK_NAV to false.
+    const USE_DOCK_NAV = true;
+    const menu = document.querySelector('.nav-menu');
+    if (USE_DOCK_NAV && menu) {
+        const ICONS = {
+            'home.html': '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/>',
+            'products.html': '<rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/>',
+            'calculators.html': '<rect x="4" y="2.5" width="16" height="19" rx="3"/><rect x="7" y="5.5" width="10" height="4" rx="1"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01" stroke-width="2.6"/>',
+            'how-it-works.html': '<circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="6" r="2.5"/><path d="M7.5 18H14a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6.5"/>',
+            'about.html': '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'
+        };
+        const SHORT = { 'how-it-works.html': 'Process' };   // shorter labels for phones
+        const dock = document.createElement('nav');
+        dock.className = 'dock';
+        dock.setAttribute('aria-label', 'Main');
+        dock.innerHTML = [...menu.querySelectorAll('a')].map((a) => {
+            const href = a.getAttribute('href');
+            const active = a.classList.contains('active') || href === pageNameForDock();
+            return `<a href="${href}" class="dock-item${active ? ' active' : ''}"${active ? ' aria-current="page"' : ''}>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[href] || '<circle cx="12" cy="12" r="8"/>'}</svg>
+                <span class="dock-long">${a.textContent}</span><span class="dock-short">${SHORT[href] || a.textContent}</span></a>`;
+        }).join('');
+        document.body.appendChild(dock);
+        document.body.classList.add('dock-nav');
+        document.documentElement.classList.add('dock-nav');
+
+        // Liquid-glass selection: a blue glass bubble sits under the current page and slides (with a little
+        // squash and stretch) from the previous page's item to this one; a clear glass lens follows the pointer.
+        const items = [...dock.querySelectorAll('.dock-item')];
+        const bubble = document.createElement('span');
+        const lens = document.createElement('span');
+        bubble.className = 'dock-bubble no-anim';
+        lens.className = 'dock-lens no-anim';
+        bubble.setAttribute('aria-hidden', 'true');
+        lens.setAttribute('aria-hidden', 'true');
+        dock.prepend(lens);
+        dock.prepend(bubble);
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const put = (el, i) => {
+            const it = items[i];
+            el.style.left = it.offsetLeft + 'px';
+            el.style.top = it.offsetTop + 'px';
+            el.style.width = it.offsetWidth + 'px';
+            el.style.height = it.offsetHeight + 'px';
+        };
+        const goo = (el) => { if (still) return; el.classList.remove('goo'); void el.offsetWidth; el.classList.add('goo'); };
+        const cur = items.findIndex((it) => it.classList.contains('active'));
+        let from = -1;
+        try { from = parseInt(sessionStorage.getItem('a2p-dock-from'), 10); sessionStorage.removeItem('a2p-dock-from'); } catch (e) { /* storage blocked */ }
+        if (cur < 0) bubble.style.display = 'none';
+        else {
+            put(bubble, items[from] && from !== cur && !still ? from : cur);
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                bubble.classList.remove('no-anim');
+                if (items[from] && from !== cur && !still) { put(bubble, cur); goo(bubble); }
+            }));
+        }
+        const settle = () => {
+            if (cur < 0) return;
+            bubble.classList.add('no-anim'); put(bubble, cur); void bubble.offsetWidth; bubble.classList.remove('no-anim');
+        };
+        window.addEventListener('resize', settle);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+
+        items.forEach((it, i) => {
+            it.addEventListener('pointerenter', () => {
+                if (i === cur) { lens.classList.remove('on'); return; }
+                if (!lens.classList.contains('on')) { lens.classList.add('no-anim'); put(lens, i); void lens.offsetWidth; lens.classList.remove('no-anim'); }
+                put(lens, i);
+                lens.classList.add('on');
+                goo(lens);
+            });
+            it.addEventListener('click', () => {
+                if (i === cur || cur < 0) return;
+                try { sessionStorage.setItem('a2p-dock-from', String(cur)); } catch (e) { /* storage blocked */ }
+                // hide the hover lens at once and move the white text with the bubble
+                lens.classList.add('no-anim');
+                lens.classList.remove('on');
+                items[cur].classList.remove('active');
+                it.classList.add('active');
+                put(bubble, i);
+                goo(bubble);
+            });
+        });
+        dock.addEventListener('pointerleave', () => lens.classList.remove('on'));
+
+        // Top bar: company name + tagline on the right
+        const bar = document.querySelector('.nav-container');
+        if (bar && !bar.querySelector('.brand-text')) {
+            bar.insertAdjacentHTML('beforeend', '<div class="brand-text"><strong>A2P Financial Services</strong><span>Aapke Sapno Ka Financial Planner</span></div>');
+        }
+    }
+    function pageNameForDock() { return window.location.pathname.split('/').pop() || 'home.html'; }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     // ========================= SEGMENTED FILTERS (sliding glass bubble) =========================
     document.querySelectorAll('.seg').forEach((group) => {
@@ -30,40 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => place(false));
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => place(false));
     });
-
-    // ========================= BOTTOM DOCK NAVIGATION (experiment) =========================
-    // To go back to the classic top menu, set USE_DOCK_NAV to false.
-    const USE_DOCK_NAV = true;
-    const menu = document.querySelector('.nav-menu');
-    if (USE_DOCK_NAV && menu) {
-        const ICONS = {
-            'home.html': '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/>',
-            'products.html': '<rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/>',
-            'calculators.html': '<rect x="4" y="2.5" width="16" height="19" rx="3"/><rect x="7" y="5.5" width="10" height="4" rx="1"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01" stroke-width="2.6"/>',
-            'how-it-works.html': '<circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="6" r="2.5"/><path d="M7.5 18H14a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6.5"/>',
-            'about.html': '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'
-        };
-        const SHORT = { 'how-it-works.html': 'Process' };   // shorter labels for phones
-        const dock = document.createElement('nav');
-        dock.className = 'dock';
-        dock.setAttribute('aria-label', 'Main');
-        dock.innerHTML = [...menu.querySelectorAll('a')].map((a) => {
-            const href = a.getAttribute('href');
-            const active = a.classList.contains('active') || href === pageNameForDock();
-            return `<a href="${href}" class="dock-item${active ? ' active' : ''}"${active ? ' aria-current="page"' : ''}>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[href] || '<circle cx="12" cy="12" r="8"/>'}</svg>
-                <span class="dock-long">${a.textContent}</span><span class="dock-short">${SHORT[href] || a.textContent}</span></a>`;
-        }).join('');
-        document.body.appendChild(dock);
-        document.body.classList.add('dock-nav');
-
-        // Top bar: company name + tagline on the right
-        const bar = document.querySelector('.nav-container');
-        if (bar && !bar.querySelector('.brand-text')) {
-            bar.insertAdjacentHTML('beforeend', '<div class="brand-text"><strong>A2P Financial Services</strong><span>Aapke Sapno Ka Financial Planner</span></div>');
-        }
-    }
-    function pageNameForDock() { return window.location.pathname.split('/').pop() || 'home.html'; }
 
     // ========================= FLOATING CONTACT BUTTON =========================
     const pageName = window.location.pathname.split('/').pop() || 'home.html';
@@ -318,13 +383,76 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Footer: the floating Blog / Contact buttons turn deep violet while the light footer is behind them
-document.addEventListener('DOMContentLoaded', () => {
+// Sticky "reveal" footer: the footer stays fixed at the bottom of the screen and the page (with its bouncy
+// scroll) slides over it, uncovering it at the end. The floating Blog / Contact buttons turn deep violet once
+// the footer shows behind them, and the footer's animations only run while it can be seen.
+(function () {
     const foot = document.querySelector('.hm-foot');
     if (!foot) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'page-wrap';
+    const kids = [...document.body.children].filter((el) => el !== foot && el.tagName !== 'SCRIPT' && el.tagName !== 'NOSCRIPT');
+    document.body.insertBefore(wrap, kids[0] || foot);
+    kids.forEach((el) => wrap.appendChild(el));
+
+    const size = () => {
+        // A footer taller than most of the screen (e.g. a phone held sideways) stays a normal footer instead
+        const fits = foot.offsetHeight < window.innerHeight * 0.8;
+        document.body.classList.toggle('reveal-foot', fits);
+        document.documentElement.style.setProperty('--foot-h', foot.offsetHeight + 'px');
+    };
     let tick = false;
-    const check = () => { tick = false; document.body.classList.toggle('hf-near', foot.getBoundingClientRect().top < window.innerHeight - 40); };
+    const check = () => {
+        tick = false;
+        const edge = document.body.classList.contains('reveal-foot') ? wrap.getBoundingClientRect().bottom : foot.getBoundingClientRect().top;
+        foot.classList.toggle('hf-on', edge < window.innerHeight);
+        document.body.classList.toggle('hf-near', edge < window.innerHeight - 40);
+    };
+    new ResizeObserver(() => { size(); check(); }).observe(foot);
     window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(check); } }, { passive: true });
-    window.addEventListener('resize', check);
+    window.addEventListener('resize', () => { size(); check(); });
+    size();
     check();
+})();
+
+
+// Rupee rain: ₹ symbols fall from the mouse over any section marked data-rupee-rain (a tap makes a small burst on touch screens)
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const COLORS = ['#667eea', '#5568d3', '#f4a700', '#10b981', '#8b9cf4', '#f5576c'];
+    const MAX = 45;
+    document.querySelectorAll('[data-rupee-rain]').forEach((hero) => {
+        const rain = document.createElement('div');
+        rain.className = 'hm-rain';
+        rain.setAttribute('aria-hidden', 'true');
+        hero.prepend(rain);
+        let last = 0;
+        const drop = (x, y) => {
+            if (rain.childElementCount >= MAX) rain.firstElementChild.remove();
+            const c = document.createElement('span');
+            c.className = 'hm-coin';
+            c.textContent = '₹';
+            const size = 14 + Math.random() * 16;
+            c.style.cssText = `font-size:${size}px;color:${COLORS[(Math.random() * COLORS.length) | 0]};` +
+                `--x:${x - size / 3}px;--y:${y - size / 2}px;--dx:${(Math.random() - 0.5) * 70}px;` +
+                `--fall:${120 + Math.random() * 160}px;--rot:${(Math.random() - 0.5) * 300}deg;--dur:${1.2 + Math.random() * 0.9}s;`;
+            c.addEventListener('animationend', () => c.remove());
+            rain.appendChild(c);
+        };
+        const pos = (e) => { const r = hero.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+        hero.addEventListener('pointermove', (e) => {
+            if (e.pointerType !== 'mouse') return;
+            const now = performance.now();
+            if (now - last < 45) return;          // a steady trickle, not a flood
+            last = now;
+            const [x, y] = pos(e);
+            drop(x, y);
+            if (Math.random() < 0.35) drop(x + (Math.random() - 0.5) * 24, y + (Math.random() - 0.5) * 12);
+        });
+        hero.addEventListener('pointerdown', (e) => {
+            if (e.pointerType === 'mouse') return;
+            const [x, y] = pos(e);
+            for (let i = 0; i < 7; i++) setTimeout(() => drop(x + (Math.random() - 0.5) * 40, y + (Math.random() - 0.5) * 20), i * 40);
+        });
+    });
 });

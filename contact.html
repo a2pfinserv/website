@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
     <style>
         /* ========================= CONTACT PAGE ========================= */
         .ct-section { padding: 5.5rem 0; }
@@ -126,9 +127,9 @@
             transition: gap 0.3s;
         }
         .ct-card:hover .ct-card-cta { gap: 0.7rem; }
-        .ct-call { --c: #10b981; --soft: #ecfdf5; }
+        .ct-call { --c: #667eea; --soft: #eef2ff; }
         .ct-mail { --c: #667eea; --soft: #eef2ff; }
-        .ct-help { --c: #7c5ce6; --soft: #f3f0ff; }
+        .ct-help { --c: #667eea; --soft: #eef2ff; }
 
         /* Phone: rings in bursts */
         .ct-phone { transform-box: fill-box; transform-origin: center; animation: ctRing 2.6s ease-in-out infinite; }
@@ -477,7 +478,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/logo.jpg" alt="A2P" class="logo-img">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
@@ -509,13 +510,13 @@
             <a href="tel:+919910210883" class="ct-card ct-call ct-reveal">
                 <div class="ct-icon" aria-hidden="true">
                     <svg viewBox="0 0 112 112">
-                        <g fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round">
+                        <g fill="none" stroke="#667eea" stroke-width="4" stroke-linecap="round">
                             <path class="ct-wave" d="M66 30 A 16 16 0 0 1 82 46"/>
                             <path class="ct-wave ct-wave-2" d="M68 20 A 26 26 0 0 1 92 44"/>
                             <path class="ct-wave ct-wave-3" d="M70 10 A 36 36 0 0 1 102 42"/>
                         </g>
                         <g class="ct-phone">
-                            <circle cx="50" cy="60" r="30" fill="#10b981"/>
+                            <circle cx="50" cy="60" r="30" fill="#667eea"/>
                             <path transform="translate(32 42) scale(1.5)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#fff"/>
                         </g>
                     </svg>
@@ -573,12 +574,12 @@
                         <rect x="84" y="94" width="28" height="11" rx="4" fill="#4b5563"/>
                         <g fill="#9ca3af"><circle cx="91" cy="99.5" r="1.5"/><circle cx="98" cy="99.5" r="1.5"/><circle cx="105" cy="99.5" r="1.5"/></g>
                         <!-- Ringing waves -->
-                        <g class="ct-ringwaves" fill="none" stroke="#7c5ce6" stroke-width="2.4" stroke-linecap="round">
+                        <g class="ct-ringwaves" fill="none" stroke="#667eea" stroke-width="2.4" stroke-linecap="round">
                             <path d="M106 80 A 8 8 0 0 1 112 86"/>
                             <path d="M106 72 A 15 15 0 0 1 114 81"/>
                         </g>
                         <!-- Agent body -->
-                        <path d="M18 108 Q 18 74 48 72 Q 78 74 78 108 Z" fill="#8b6cf0"/>
+                        <path d="M18 108 Q 18 74 48 72 Q 78 74 78 108 Z" fill="#7c8ff0"/>
                         <path d="M40 73 L 48 84 L 56 73 Z" fill="#fff"/>
                         <rect x="43" y="60" width="10" height="14" rx="4" fill="#f0b98f"/>
                         <!-- Head -->
@@ -590,9 +591,9 @@
                         <circle cx="38" cy="54" r="2.4" fill="#f5a3a3" opacity="0.55"/>
                         <circle cx="58" cy="54" r="2.4" fill="#f5a3a3" opacity="0.55"/>
                         <!-- Upper arm hangs from the shoulder to the elbow -->
-                        <line x1="66" y1="80" x2="73" y2="91" stroke="#7656e0" stroke-width="10" stroke-linecap="round"/>
+                        <line x1="66" y1="80" x2="73" y2="91" stroke="#5568d3" stroke-width="10" stroke-linecap="round"/>
                         <!-- Forearm bends at the elbow -->
-                        <rect class="ct-arm" x="73" y="86.5" width="28" height="9" rx="4.5" fill="#7656e0"/>
+                        <rect class="ct-arm" x="73" y="86.5" width="28" height="9" rx="4.5" fill="#5568d3"/>
                         <!-- Handset held in the hand -->
                         <g class="ct-handset">
                             <rect x="-13" y="-3" width="26" height="6" rx="3" fill="#1f2937"/>
@@ -602,8 +603,8 @@
                         </g>
                         <!-- Speech bubble -->
                         <g class="ct-hello">
-                            <rect x="2" y="4" width="50" height="22" rx="11" fill="#fff" stroke="#8b6cf0" stroke-width="1.5"/>
-                            <path d="M30 25 L 35 32 L 37 25 Z" fill="#fff" stroke="#8b6cf0" stroke-width="1.5" stroke-linejoin="round"/>
+                            <rect x="2" y="4" width="50" height="22" rx="11" fill="#fff" stroke="#7c8ff0" stroke-width="1.5"/>
+                            <path d="M30 25 L 35 32 L 37 25 Z" fill="#fff" stroke="#7c8ff0" stroke-width="1.5" stroke-linejoin="round"/>
                             <rect x="29" y="23" width="9" height="3" fill="#fff"/>
                             <text x="27" y="19" text-anchor="middle" style="font-size: 10.5px; font-weight: 800; fill: #5b3fc4;">Hello! 👋</text>
                         </g>
@@ -765,7 +766,7 @@
         <div class="footer-content">
             <div class="hf-row">
                 <div class="hf-brand">
-                    <img src="Images/logo.jpg" alt="A2P Financial Services">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
                     <div>
                         <strong>A2P FINANCIAL SERVICES</strong>
                         <em>Aapke Sapno Ka Financial Planner</em>

@@ -2073,8 +2073,8 @@ body.cl-open .fab-blog { visibility: hidden; }
 }
 
 /* ========================= BOTTOM DOCK NAVIGATION (experiment) ========================= */
-body.dock-nav .nav-menu,
-body.dock-nav .mobile-menu-btn { display: none !important; }
+.dock-nav .nav-menu,
+.dock-nav .mobile-menu-btn { display: none !important; }
 
 /* Dock now lives at the top centre */
 
@@ -2108,10 +2108,10 @@ body.dock-nav .mobile-menu-btn { display: none !important; }
 }
 
 /* Top bar spans the full width: logo and brand sit close to the screen edges */
-body.dock-nav .nav-container { max-width: none; padding: 0 20px; }
+.dock-nav .nav-container { max-width: none; padding: 0 20px; }
 
 /* Top bar: solid white */
-body.dock-nav .navbar {
+.dock-nav .navbar {
     background: #fff;
     box-shadow: var(--shadow-sm);
     backdrop-filter: none;
@@ -2141,7 +2141,7 @@ body.dock-nav .navbar {
     isolation: isolate;
     overflow: hidden;
     transform: translateX(-50%);
-    view-transition-name: dock;
+    /* no view-transition-name: a separately captured glass bar shows up as a blurred square during page changes */
 }
 
 /* Soft light sheen across the top of the glass */
@@ -2166,21 +2166,67 @@ body.dock-nav .navbar {
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
-    transition: background 0.25s, color 0.25s, transform 0.25s;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
 .dock-short { display: none; }
-.dock-item:hover { background: rgba(102, 126, 234, 0.1); color: var(--primary-dark); transform: translateY(-2px); }
+.dock-item:hover { color: var(--primary-dark); }
 .dock-item:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-.dock-item.active {
-    background: linear-gradient(135deg, rgba(154, 170, 247, 0.85) 0%, rgba(125, 144, 240, 0.8) 100%);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color: #fff;
+.dock-item.active { color: #fff; }
+
+/* Liquid-glass selection bubble (current page) and hover lens; both slide between items */
+.dock-bubble,
+.dock-lens {
+    position: absolute;
+    z-index: 0;
+    border-radius: 999px;
+    pointer-events: none;
+    transition:
+        left 0.55s cubic-bezier(.34, 1.4, .64, 1),
+        width 0.5s cubic-bezier(.34, 1.4, .64, 1),
+        top 0.35s ease,
+        height 0.35s ease,
+        opacity 0.25s ease;
+}
+.dock-bubble.no-anim,
+.dock-lens.no-anim { transition: none; }
+.dock-bubble {
+    background: linear-gradient(135deg, rgba(118, 140, 240, 0.92) 0%, rgba(85, 104, 211, 0.92) 100%);
+    backdrop-filter: blur(10px) saturate(1.8);
+    -webkit-backdrop-filter: blur(10px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     box-shadow:
-        0 6px 16px rgba(102, 126, 234, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        0 8px 20px rgba(102, 126, 234, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.55),
+        inset 0 -3px 8px rgba(40, 50, 160, 0.25);
+}
+.dock-lens {
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px) saturate(1.6);
+    -webkit-backdrop-filter: blur(6px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+        0 6px 16px rgba(31, 41, 55, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 6px rgba(102, 126, 234, 0.16);
+}
+.dock-lens.on { opacity: 1; }
+/* Liquid squash and stretch while moving */
+.dock-bubble.goo,
+.dock-lens.goo { animation: dockGoo 0.6s ease; }
+@keyframes dockGoo {
+    0% { transform: scale(1, 1); }
+    30% { transform: scale(1.14, 0.86); }
+    55% { transform: scale(0.95, 1.06); }
+    78% { transform: scale(1.03, 0.98); }
+    100% { transform: scale(1, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dock-bubble, .dock-lens { transition: none; }
 }
 
 .dock-item.active:hover { transform: none; color: #fff; }
@@ -2192,9 +2238,9 @@ body.cl-open .dock { visibility: hidden; }
    so the dock sits just below the top bar, still centred */
 @media (max-width: 1360px) {
     .dock { top: 92px; }
-    body.dock-nav { --nav-h: 152px; }   /* sticky page bars sit below the dock */
+    .dock-nav { --nav-h: 152px; }   /* sticky page bars sit below the dock */
     .dock-item { padding: 0.6rem 0.85rem; font-size: 0.86rem; }
-    body.dock-nav .navbar + * { margin-top: 70px; }
+    .dock-nav .navbar + * { margin-top: 70px; }
 }
 
 /* Phones: full-width bar under the top bar, labels under icons */
@@ -2219,35 +2265,35 @@ body.cl-open .dock { visibility: hidden; }
         min-width: 0;
     }
     .dock-long { display: none; }
+    .dock-bubble, .dock-lens { border-radius: 16px; }
     .dock-short { display: block; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
     .dock-item:hover { transform: none; }
-    body.dock-nav .navbar + * { margin-top: 84px; }
-    body.dock-nav { --nav-h: 166px; }
-    body.dock-nav .nav-container { padding: 0 12px; }
+    .dock-nav .navbar + * { margin-top: 84px; }
+    .dock-nav { --nav-h: 166px; }
+    .dock-nav .nav-container { padding: 0 12px; }
     .brand-text strong { font-size: 0.95rem; letter-spacing: 0.04em; }
     .brand-text span { font-size: 0.66rem; gap: 0.4rem; }
     .brand-text span::before, .brand-text span::after { width: 16px; }
 }
 
 /* ========================= SMOOTH PAGE CHANGES =========================
-   Browsers that support cross-page view transitions keep the top bar, dock and
-   corner buttons fixed in place and simply fade the page content underneath. */
+   Browsers that support cross-page view transitions fade the page into the next one. The top bar and the glass
+   menu are identical on every page, so they are left in the page fade and simply stay put (capturing the glass
+   menu on its own made it flicker or show as a blurred square). The corner buttons are kept fixed. */
 @view-transition { navigation: auto; }
-body.dock-nav .navbar { view-transition-name: topbar; }
 ::view-transition-old(root),
 ::view-transition-new(root) { animation-duration: 0.25s; }
-::view-transition-group(dock),
-::view-transition-group(topbar),
 ::view-transition-group(fab-contact),
 ::view-transition-group(fab-blog) { animation: none; }
-::view-transition-old(dock), ::view-transition-old(topbar), ::view-transition-old(fab-contact), ::view-transition-old(fab-blog) { display: none; }
-::view-transition-new(dock), ::view-transition-new(topbar), ::view-transition-new(fab-contact), ::view-transition-new(fab-blog) { animation: none; }
+::view-transition-old(fab-contact), ::view-transition-old(fab-blog) { display: none; }
+::view-transition-new(fab-contact), ::view-transition-new(fab-blog) { animation: none; }
 
 
 /* ========================= FOOTER: "Sapno ki Express" — a little train carries your goals from left to right ========================= */
 .hm-foot {
     position: relative; overflow: hidden; color: #1f2937; padding: 0 0 1.4rem;
-    background: linear-gradient(180deg, #ffffff 0%, #f1f4ff 35%, #e6ebff 70%, #dde3ff 100%);
+    /* white from the top down to the train track, then soft blue below it */
+    background: linear-gradient(180deg, #ffffff 0, #ffffff 64px, #f6f8ff 92px, #eef1ff 55%, #e2e7ff 100%);
 }
 .hm-foot::before { display: none; }
 .hm-foot .footer-content { position: relative; z-index: 3; max-width: 1200px; }
@@ -2267,7 +2313,7 @@ body.dock-nav .navbar { view-transition-name: topbar; }
 @keyframes hfBob { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
 
 /* Clouds drift left to right */
-.hf-cloud { position: absolute; z-index: 1; top: 14px; left: -140px; width: 90px; height: 26px; border-radius: 30px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.08); animation: hfDrift linear infinite; }
+.hf-cloud { position: absolute; z-index: 1; top: 14px; left: -140px; width: 90px; height: 26px; border-radius: 30px; background: #eef1ff; animation: hfDrift linear infinite; }
 .hf-cloud::before, .hf-cloud::after { content: ''; position: absolute; border-radius: 50%; background: inherit; }
 .hf-cloud::before { width: 38px; height: 38px; left: 14px; top: -18px; }
 .hf-cloud::after { width: 30px; height: 30px; left: 44px; top: -12px; }
@@ -2326,3 +2372,37 @@ body.dock-nav .navbar { view-transition-name: topbar; }
 .fab-circle { transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.35s ease; }
 body.hf-near .fab-circle { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); box-shadow: 0 10px 26px rgba(79, 70, 229, 0.5); }
 body.hf-near .fab-circle::before, body.hf-near .fab-circle::after { border-color: rgba(124, 58, 237, 0.45); }
+
+
+/* ========================= RUPEE RAIN (first section of the main pages) ========================= */
+[data-rupee-rain] { position: relative; }
+.hm-rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.hm-coin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    text-shadow: 0 2px 6px rgba(31, 41, 55, 0.12);
+    animation: hmRain var(--dur, 1.6s) cubic-bezier(.35, .1, .7, 1) forwards;
+    will-change: transform, opacity;
+}
+@keyframes hmRain {
+    0% { transform: translate(var(--x), var(--y)) scale(0.4) rotate(0deg); opacity: 0; }
+    12% { transform: translate(var(--x), calc(var(--y) + 6px)) scale(1) rotate(calc(var(--rot) * 0.15)); opacity: 1; }
+    100% { transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--fall))) scale(0.85) rotate(var(--rot)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .hm-rain { display: none; } }
+
+
+/* ========================= STICKY REVEAL FOOTER ========================= */
+/* The page sits on a sheet above the footer; the footer is fixed underneath and is uncovered at the end */
+.page-wrap { position: relative; z-index: 1; background: var(--bg, var(--bg-light)); }
+body.reveal-foot .page-wrap { margin-bottom: var(--foot-h, 0px); }
+body.reveal-foot .hm-foot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 0; }
+/* Over-scroll ("bounce") areas stay white, matching the page and the white top of the footer */
+html:has(body.reveal-foot) { background: #ffffff; }
+/* Footer animations rest while the footer is covered */
+.hm-foot:not(.hf-on) *, .hm-foot:not(.hf-on) *::before, .hm-foot:not(.hf-on) *::after { animation-play-state: paused !important; }

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
     <style>
         /* ========================= HOME ========================= */
         .hm-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; border-radius: 999px; background: rgba(102, 126, 234, 0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
@@ -44,26 +45,6 @@
         .hm-btn-shine { position: relative; overflow: hidden; }
         .hm-btn-shine::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent); animation: hmShine 3.6s ease-in-out infinite; }
         @keyframes hmShine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
-
-        /* Rupee rain (follows the mouse over the hero) */
-        .hm-rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
-        .hm-coin {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-weight: 800;
-            line-height: 1;
-            pointer-events: none;
-            user-select: none;
-            text-shadow: 0 2px 6px rgba(31, 41, 55, 0.12);
-            animation: hmRain var(--dur, 1.6s) cubic-bezier(.35, .1, .7, 1) forwards;
-            will-change: transform, opacity;
-        }
-        @keyframes hmRain {
-            0% { transform: translate(var(--x), var(--y)) scale(0.4) rotate(0deg); opacity: 0; }
-            12% { transform: translate(var(--x), calc(var(--y) + 6px)) scale(1) rotate(calc(var(--rot) * 0.15)); opacity: 1; }
-            100% { transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--fall))) scale(0.85) rotate(var(--rot)); opacity: 0; }
-        }
 
         /* Facts strip (slim, glassy — not cards) */
         .hm-facts {
@@ -423,6 +404,56 @@
         .hm-disclaimer { padding: 2rem 0; border-top: 1px solid rgba(102, 126, 234, 0.15); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7; text-align: center; }
         .hm-disclaimer strong { color: #374151; }
 
+        /* Circle 2 (card deck): cards on the left, text on the right — wide screens only, phones keep text first */
+        @media (min-width: 1025px) {
+            .hm-hero-grid[data-circle="2"] { grid-template-columns: 1fr 1.05fr; }
+            .hm-hero-grid[data-circle="2"] > .hm-deck-wrap { order: -1; }
+        }
+
+        /* ---------- Account popover: Wealthy sign-up shown inside the page ---------- */
+        .ap-backdrop { position: fixed; inset: 0; z-index: 2000; background: rgba(17, 24, 39, 0.45); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s 0.3s; }
+        .ap-sheet {
+            position: fixed; z-index: 2001; left: 50%; bottom: 0; width: min(980px, 100%); height: min(88vh, 860px);
+            display: flex; flex-direction: column; background: #fff; border-radius: 26px 26px 0 0; overflow: hidden;
+            box-shadow: 0 -20px 60px rgba(31, 41, 55, 0.25);
+            transform: translate(-50%, 104%); visibility: hidden; transition: transform 0.45s cubic-bezier(.22, 1, .36, 1), visibility 0s 0.45s;
+        }
+        .ap-open .ap-backdrop { opacity: 1; visibility: visible; transition: opacity 0.3s ease; }
+        .ap-open .ap-sheet { transform: translate(-50%, 0); visibility: visible; transition: transform 0.45s cubic-bezier(.22, 1, .36, 1); }
+        .ap-lock { overflow: hidden; }
+        .ap-open .fab-contact, .ap-open .fab-blog, .ap-open .dock { visibility: hidden; }
+        .ap-grab { width: 44px; height: 5px; border-radius: 3px; background: #d1d5db; margin: 10px auto 0; flex: none; }
+        .ap-head { display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1.2rem 0.9rem; border-bottom: 1px solid #eef0ff; flex: none; }
+        .ap-head img { width: 46px; height: 46px; object-fit: contain; padding: 4px; border-radius: 12px; background: #f5f7ff; }
+        .ap-title { flex: 1; min-width: 0; }
+        .ap-title strong { display: block; font-size: 1.05rem; color: #1f2937; line-height: 1.25; }
+        .ap-title small { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--text-muted); }
+        .ap-title small::before { content: '🔒'; font-size: 0.75rem; }
+        .ap-ext { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0.9rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700; color: #4a5bd0; background: #eef2ff; text-decoration: none; white-space: nowrap; }
+        .ap-ext:hover { background: #e0e7ff; }
+        .ap-close { width: 40px; height: 40px; flex: none; border: none; border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: #4b5563; background: #f3f4f6; transition: background 0.2s, transform 0.2s; }
+        .ap-close:hover { background: #e5e7eb; transform: rotate(90deg); }
+        .ap-body { position: relative; flex: 1; background: #f8faff; }
+        .ap-body iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; opacity: 0; transition: opacity 0.35s ease; }
+        .ap-body.ready iframe { opacity: 1; }
+        .ap-load { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.9rem; }
+        .ap-load i { width: 38px; height: 38px; border-radius: 50%; border: 3px solid #e0e7ff; border-top-color: #667eea; animation: apSpin 0.8s linear infinite; }
+        @keyframes apSpin { to { transform: rotate(360deg); } }
+        .ap-body.ready .ap-load { display: none; }
+        @media (max-width: 768px) {
+            .ap-sheet { height: 100%; border-radius: 0; }
+            .ap-grab { display: none; }
+            .ap-head { padding: 0.75rem 0.9rem; gap: 0.6rem; }
+            .ap-head img { width: 38px; height: 38px; }
+            .ap-title strong { font-size: 0.95rem; }
+            .ap-title small { font-size: 0.72rem; }
+            .ap-ext span { display: none; }
+            .ap-ext { padding: 0.5rem 0.7rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ap-sheet, .ap-backdrop { transition: none !important; }
+        }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 1200px) {
             .hm-orbit { --size: 420px; --r: 175px; }
@@ -501,7 +532,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/logo.jpg" alt="A2P" class="logo-img">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link active">Home</a></li>
@@ -515,8 +546,7 @@
     </nav>
 
     <!-- 1. Hero -->
-    <section class="hm-hero">
-        <div class="hm-rain" id="hm-rain" aria-hidden="true"></div>
+    <section class="hm-hero" data-rupee-rain>
         <div class="container hm-hero-grid" data-circle="1">
             <div class="hm-reveal">
                 <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
@@ -552,7 +582,7 @@
                     </div>
                     <div class="hm-core">
                         <div>
-                            <img src="Images/logo.jpg" alt="A2P">
+                            <img src="Images/logomain.png" alt="A2P">
                             <small>ALL IN ONE PLACE</small>
                         </div>
                     </div>
@@ -823,7 +853,7 @@
             <!-- Planner chat: tap a goal to see how we would start -->
             <div class="hm-chat hm-reveal" id="hm-chat" aria-label="Sample planner conversation">
                 <div class="ch-head">
-                    <span class="ch-av"><img src="Images/logo.jpg" alt=""></span>
+                    <span class="ch-av"><img src="Images/logomain.png" alt=""></span>
                     <div><strong>A2P Financial Planner</strong><small><i></i>Aapke Sapno Ka Financial Planner</small></div>
                 </div>
                 <div class="ch-body" id="ch-body" aria-live="polite"></div>
@@ -874,7 +904,7 @@
                         <li>All your investments tracked in one place</li>
                         <li>Portfolio review every 3–6 months</li>
                     </ul>
-                    <a href="contact.html#open-mf" class="btn btn-primary">Open MF / SIP Account <span aria-hidden="true">→</span></a>
+                    <a href="https://www.wealthy.in/p/ankit61739" class="btn btn-primary" target="_blank" rel="noopener" data-acc-pop="Open MF / SIP Account">Open MF / SIP Account <span aria-hidden="true">→</span></a>
                 </div>
                 <div class="hm-acc acc-stock hm-reveal">
                     <span class="hm-acc-glow" aria-hidden="true"></span>
@@ -894,7 +924,7 @@
                         <li>One place for your MF and stock investments</li>
                         <li>Support whenever you need it</li>
                     </ul>
-                    <a href="contact.html#open-stock" class="btn btn-primary">Open Stock Account <span aria-hidden="true">→</span></a>
+                    <a href="https://www.wealthy.in/p/ankit61739" class="btn btn-primary" target="_blank" rel="noopener" data-acc-pop="Open Stock Account">Open Stock Account <span aria-hidden="true">→</span></a>
                 </div>
             </div>
             <p class="hm-acc-note">🔐 Accounts are opened in your own name with the fund house or partner platform. Here we provide all investment services under one roof.</p>
@@ -956,6 +986,22 @@
         <p><strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Investments in the securities market are subject to market risks. Past performance is not indicative of future returns. Insurance is the subject matter of solicitation. Tax benefits are as per prevailing tax laws and may change.</p>
     </div>
 
+
+    <!-- Account popover: the partner sign-up opens inside the page -->
+    <div class="ap-backdrop" id="ap-backdrop"></div>
+    <div class="ap-sheet" id="ap-sheet" role="dialog" aria-modal="true" aria-labelledby="ap-name" aria-hidden="true">
+        <div class="ap-grab" aria-hidden="true"></div>
+        <div class="ap-head">
+            <img src="Images/logomain.png" alt="">
+            <div class="ap-title"><strong id="ap-name">Open an account</strong><small>Secure sign-up on Wealthy, our partner platform</small></div>
+            <a class="ap-ext" id="ap-ext" href="https://www.wealthy.in/p/ankit61739" target="_blank" rel="noopener"><span>Open in new tab</span> ↗</a>
+            <button type="button" class="ap-close" id="ap-close" aria-label="Close">✕</button>
+        </div>
+        <div class="ap-body" id="ap-body">
+            <div class="ap-load"><i></i>Opening secure sign-up…</div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer hm-foot">
         <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
@@ -978,7 +1024,7 @@
         <div class="footer-content">
             <div class="hf-row">
                 <div class="hf-brand">
-                    <img src="Images/logo.jpg" alt="A2P Financial Services">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
                     <div>
                         <strong>A2P FINANCIAL SERVICES</strong>
                         <em>Aapke Sapno Ka Financial Planner</em>
@@ -1009,43 +1055,6 @@
             const tick = (now) => { const t = Math.min(Math.max((now - t0) / 1200, 0), 1); ret.textContent = Math.round(15 * (1 - Math.pow(1 - t, 3))); if (t < 1) requestAnimationFrame(tick); };
             ret.textContent = '0';
             requestAnimationFrame(tick);
-        }
-
-        // Rupee rain: ₹ symbols fall from the cursor while the mouse moves over the hero
-        const hero = document.querySelector('.hm-hero');
-        const rain = document.getElementById('hm-rain');
-        const COLORS = ['#667eea', '#5568d3', '#f4a700', '#10b981', '#8b9cf4', '#f5576c'];
-        const MAX = 45;
-        let last = 0;
-        const drop = (x, y) => {
-            if (rain.childElementCount >= MAX) rain.firstElementChild.remove();
-            const c = document.createElement('span');
-            c.className = 'hm-coin';
-            c.textContent = '₹';
-            const size = 14 + Math.random() * 16;
-            c.style.cssText = `font-size:${size}px;color:${COLORS[(Math.random() * COLORS.length) | 0]};` +
-                `--x:${x - size / 3}px;--y:${y - size / 2}px;--dx:${(Math.random() - 0.5) * 70}px;` +
-                `--fall:${120 + Math.random() * 160}px;--rot:${(Math.random() - 0.5) * 300}deg;--dur:${1.2 + Math.random() * 0.9}s;`;
-            c.addEventListener('animationend', () => c.remove());
-            rain.appendChild(c);
-        };
-        const pos = (e) => { const r = hero.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-        if (!reduce) {
-            hero.addEventListener('pointermove', (e) => {
-                if (e.pointerType !== 'mouse') return;
-                const now = performance.now();
-                if (now - last < 45) return;          // a steady trickle, not a flood
-                last = now;
-                const [x, y] = pos(e);
-                drop(x, y);
-                if (Math.random() < 0.35) drop(x + (Math.random() - 0.5) * 24, y + (Math.random() - 0.5) * 12);
-            });
-            // On touch screens, a tap makes a small burst
-            hero.addEventListener('pointerdown', (e) => {
-                if (e.pointerType === 'mouse') return;
-                const [x, y] = pos(e);
-                for (let i = 0; i < 7; i++) setTimeout(() => drop(x + (Math.random() - 0.5) * 40, y + (Math.random() - 0.5) * 20), i * 40);
-            });
         }
 
         if (document.getElementById('hm-deck')) {
@@ -1271,6 +1280,36 @@
                 setTimeout(cycle, 1800);
             }
         }
+
+        // Account popover: the "Open … Account" buttons show the partner sign-up inside the page
+        // (without JavaScript the buttons still open it in a new tab)
+        const apSheet = document.getElementById('ap-sheet');
+        const apBody = document.getElementById('ap-body');
+        let apLast = null;
+        const apClose = () => {
+            document.body.classList.remove('ap-open', 'ap-lock');
+            apSheet.setAttribute('aria-hidden', 'true');
+            if (apLast) apLast.focus();
+        };
+        document.querySelectorAll('[data-acc-pop]').forEach((btn) => btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            apLast = btn;
+            document.getElementById('ap-name').textContent = btn.dataset.accPop;
+            document.getElementById('ap-ext').href = btn.href;
+            if (!apBody.querySelector('iframe')) {
+                const f = document.createElement('iframe');
+                f.title = 'Wealthy account sign-up';
+                f.src = btn.href;
+                f.addEventListener('load', () => apBody.classList.add('ready'));
+                apBody.appendChild(f);
+            }
+            document.body.classList.add('ap-open', 'ap-lock');
+            apSheet.setAttribute('aria-hidden', 'false');
+            document.getElementById('ap-close').focus();
+        }));
+        document.getElementById('ap-close').addEventListener('click', apClose);
+        document.getElementById('ap-backdrop').addEventListener('click', apClose);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('ap-open')) apClose(); });
 
         // Services tabs
         const tabs = [...document.querySelectorAll('.hm-tab')];
