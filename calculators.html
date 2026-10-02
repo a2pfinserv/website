@@ -200,12 +200,17 @@
         .cl-sheet-title h2 { font-size: 1.45rem; line-height: 1.2; }
         .cl-sheet-title p { color: var(--text-muted); font-size: 0.9rem; }
         /* A2P logo on every calculator: beside the close button and as a sign-off under the results */
-        .cl-brand { flex-shrink: 0; height: 36px; width: auto; }
-        .cl-sign { display: flex; align-items: center; justify-content: center; gap: 0.7rem; padding-top: 0.25rem; color: var(--text-muted); font-size: 0.8rem; line-height: 1.3; }
-        .cl-sign img { height: 30px; width: auto; }
+        /* "Calculated with A2P Financial Services" sign-off in every calculator's header, beside the close button */
+        .cl-sign { flex-shrink: 0; display: flex; align-items: center; gap: 0.65rem; color: var(--text-muted); font-size: 0.8rem; line-height: 1.3; text-align: left; }
+        .cl-sign img { height: 32px; width: auto; }
         .cl-sign strong { color: #2a3d9a; }
         .cl-sign small { display: block; color: #a07a2c; font-weight: 600; font-size: 0.72rem; }
-        @media (max-width: 600px) { .cl-brand { height: 28px; } }
+        @media (max-width: 760px) {
+            .cl-sheet-head { flex-wrap: wrap; row-gap: 0.6rem; }
+            .cl-sign { order: 3; flex-basis: 100%; font-size: 0.74rem; }
+            .cl-sign img { height: 26px; }
+            .cl-sign small { font-size: 0.68rem; }
+        }
         .cl-close {
             flex-shrink: 0;
             display: grid;
@@ -458,7 +463,10 @@
                     <h2 id="cl-sheet-title">Calculator</h2>
                     <p id="cl-sheet-sub"></p>
                 </div>
-                <img class="cl-brand" src="Images/logomain.png" alt="A2P Financial Services">
+                <div class="cl-sign">
+                    <img src="Images/logomain.png" alt="">
+                    <span>Calculated with <strong>A2P Financial Services</strong><small>Aapke Sapno Ka Financial Planner</small></span>
+                </div>
                 <button class="cl-close" id="cl-close" type="button" aria-label="Close calculator">✕</button>
             </div>
             <div class="cl-tabs" id="cl-tabs" role="tablist" aria-label="Switch calculator"></div>
@@ -486,10 +494,6 @@
                     <div class="cl-bars" id="cl-bars"></div>
                     <div class="cl-axis" id="cl-axis"></div>
                 </div>
-                <div class="cl-sign">
-                    <img src="Images/logomain.png" alt="">
-                    <span>Calculated with <strong>A2P Financial Services</strong><small>Aapke Sapno Ka Financial Planner</small></span>
-                </div>
                 <div class="cl-sheet-cta">
                     <p>Want help reaching this number?</p>
                     <a href="contact.html" class="btn btn-primary">Talk to Our Team</a>
@@ -508,7 +512,7 @@
         <div class="hf-rail" aria-hidden="true">
             <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
             <div class="hf-train">
-                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">MF/SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">Life cover</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">Higher Study</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">Tax saving</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">Retirement plan</div><div class="hf-wheels"><i></i><i></i></div></div>
                 <div class="hf-car hf-engine">
                     <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
                     <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
