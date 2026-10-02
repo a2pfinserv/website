@@ -316,3 +316,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('A2P Financial Services - Website initialized ✓');
 });
+
+
+// Footer: the floating Blog / Contact buttons turn deep violet while the light footer is behind them
+document.addEventListener('DOMContentLoaded', () => {
+    const foot = document.querySelector('.hm-foot');
+    if (!foot) return;
+    let tick = false;
+    const check = () => { tick = false; document.body.classList.toggle('hf-near', foot.getBoundingClientRect().top < window.innerHeight - 40); };
+    window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(check); } }, { passive: true });
+    window.addEventListener('resize', check);
+    check();
+});
