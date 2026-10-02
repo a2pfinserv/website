@@ -3,213 +3,1040 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About A2P - Financial Services Excellence</title>
+    <meta name="description" content="A2P Financial Services, started in 2025, helps families plan child education, retirement, insurance, tax saving and investments around their goals, with portfolio reviews every 3–6 months.">
+    <title>About A2P - Goal-Based Financial Planning for Families</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
+    <style>
+        /* ========================= ABOUT PAGE ========================= */
+        .ab-section { padding: 5.5rem 0; }
+        .ab-section h2 {
+            font-size: 2.4rem;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        .ab-eyebrow {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .ab-center { text-align: center; }
+        .ab-gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .ab-tint { background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); }
+
+        /* Reveal on scroll (only hidden once JS is running) */
+        .ab-js .ab-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .ab-js .ab-reveal.in { opacity: 1; transform: none; }
+
+        /* ---------- Hero ---------- */
+        .ab-hero {
+            padding: 4.5rem 0 4rem;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(245, 87, 108, 0.08), transparent 45%),
+                radial-gradient(circle at 10% 80%, rgba(102, 126, 234, 0.1), transparent 45%),
+                linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+            overflow: hidden;
+        }
+        .ab-hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .ab-hero h1 {
+            font-size: 3.1rem;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+        .ab-hero-lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+        .ab-hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .ab-checks {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            gap: 0.6rem 1.5rem;
+            list-style: none;
+            color: #374151;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .ab-checks li::before {
+            content: '✓';
+            display: inline-grid;
+            place-items: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        /* Journey illustration */
+        .ab-journey {
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            padding: 1rem;
+        }
+        .ab-journey svg { display: block; width: 100%; height: auto; }
+        .ab-journey-title {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.5rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+        .ab-journey-title span { display: block; font-weight: 500; font-size: 0.8rem; color: var(--text-muted); }
+        .ab-float {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1rem;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(26, 32, 44, 0.12);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+            animation: float 4s ease-in-out infinite;
+        }
+        .ab-float small { display: block; font-weight: 500; color: var(--text-muted); font-size: 0.75rem; }
+        .ab-float-icon {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .ab-float-1 { right: 1.25rem; bottom: 1.5rem; }
+        .ab-float-1 .ab-float-icon { background: rgba(16, 185, 129, 0.15); }
+        .ab-float-2 { left: 1.5rem; top: 5.5rem; animation-delay: 1.5s; }
+        .ab-float-2 .ab-float-icon { background: rgba(102, 126, 234, 0.15); }
+
+        .ab-path-base { fill: none; stroke: #c7d2fe; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 10; }
+        .ab-path-progress { fill: none; stroke: url(#abPathGrad); stroke-width: 6; stroke-linecap: round; }
+        .ab-ms circle { fill: #fff; stroke: #c7d2fe; stroke-width: 3; transition: fill 0.4s, stroke 0.4s; }
+        .ab-ms .ab-ms-ring { fill: none; stroke: var(--accent-green); stroke-width: 2; opacity: 0; }
+        .ab-ms text { font-size: 20px; text-anchor: middle; dominant-baseline: central; }
+        .ab-ms .ab-ms-label {
+            font-size: 13px;
+            font-weight: 600;
+            fill: #4b5563;
+            dominant-baseline: auto;
+            paint-order: stroke;
+            stroke: #fff;
+            stroke-width: 4px;
+        }
+        .ab-ms.reached circle:not(.ab-ms-ring) { fill: #ecfdf5; stroke: var(--accent-green); }
+        .ab-ms.reached .ab-ms-label { fill: #047857; }
+        .ab-ms.reached .ab-ms-ring { animation: abRing 1.2s ease-out; }
+        .ab-ms.reached .ab-ms-pop { animation: abPop 0.5s ease-out; transform-box: fill-box; transform-origin: center; }
+        @keyframes abRing {
+            0% { opacity: 0.9; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.9); }
+        }
+        .ab-ms-ring { transform-box: fill-box; transform-origin: center; }
+        @keyframes abPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+        .ab-family-walk { animation: abBob 0.6s ease-in-out infinite; }
+        @keyframes abBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        .ab-shield { animation: abShield 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+        @keyframes abShield {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.06); }
+        }
+        .ab-coin { animation: abCoin 5s ease-in-out infinite; }
+        .ab-coin:nth-of-type(2) { animation-delay: 1.6s; }
+        .ab-coin:nth-of-type(3) { animation-delay: 3.2s; }
+        @keyframes abCoin {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-70px); opacity: 0; }
+        }
+
+        /* ---------- Stats ---------- */
+        .ab-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: -2.5rem;
+            position: relative;
+        }
+        .ab-stat {
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        .ab-stat-num {
+            font-size: 2.3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.4rem;
+        }
+        .ab-stat-label { color: var(--text-muted); font-size: 0.95rem; }
+        .ab-stats-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* ---------- Story ---------- */
+        .ab-story {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .ab-story h2 { text-align: left; }
+        .ab-story p { color: #4b5563; line-height: 1.9; margin-bottom: 1rem; font-size: 1.05rem; }
+        .ab-promise {
+            position: relative;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .ab-promise::before {
+            content: '“';
+            position: absolute;
+            top: -1.75rem;
+            left: 1.75rem;
+            font-size: 6rem;
+            line-height: 1;
+            font-family: Georgia, serif;
+            color: var(--primary);
+            opacity: 0.35;
+        }
+        .ab-promise-quote { font-size: 1.35rem; font-weight: 700; line-height: 1.5; margin-bottom: 0.75rem; }
+        .ab-promise-translation { color: var(--text-muted); font-style: italic; margin-bottom: 1.75rem; }
+        .ab-promise-list { list-style: none; display: grid; gap: 0.9rem; }
+        .ab-promise-list li { display: flex; gap: 0.75rem; align-items: flex-start; color: #374151; }
+        .ab-promise-list span { font-size: 1.2rem; line-height: 1.4; }
+
+        /* ---------- Services ---------- */
+        .ab-services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .ab-service {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .ab-service:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .ab-service-icon {
+            display: grid;
+            place-items: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            font-size: 1.6rem;
+            margin-bottom: 1.1rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(245, 87, 108, 0.1));
+        }
+        .ab-service h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .ab-service p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.65; margin-bottom: 1rem; }
+        .ab-service .ab-tag { margin-top: auto; }
+        .ab-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+        }
+        .ab-tag-invest { background: rgba(102, 126, 234, 0.12); color: var(--primary-dark); }
+        .ab-tag-protect { background: rgba(16, 185, 129, 0.12); color: #047857; }
+        .ab-tag-tax { background: rgba(244, 167, 0, 0.14); color: #a16207; }
+
+        /* ---------- Goal horizon ---------- */
+        .ab-horizon { margin-top: 3.5rem; }
+        .ab-track {
+            position: relative;
+            height: 8px;
+            border-radius: 999px;
+            background: #e0e7ff;
+            margin: 0 8% 2.5rem;
+        }
+        .ab-track::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            width: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent-green), var(--primary), var(--secondary));
+            transition: width 1.6s ease;
+        }
+        .ab-horizon.in .ab-track::after { width: 100%; }
+        .ab-track-dot {
+            position: absolute;
+            top: 50%;
+            width: 22px;
+            height: 22px;
+            margin: -11px 0 0 -11px;
+            border-radius: 50%;
+            background: #fff;
+            border: 4px solid var(--primary);
+            z-index: 1;
+        }
+        .ab-horizon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .ab-term {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.75rem;
+            border-top: 4px solid var(--c);
+            box-shadow: var(--shadow-md);
+        }
+        .ab-term-when { font-size: 0.8rem; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: 0.06em; }
+        .ab-term h3 { font-size: 1.3rem; margin: 0.35rem 0 0.75rem; }
+        .ab-term ul { list-style: none; display: grid; gap: 0.45rem; margin-bottom: 1rem; color: #374151; }
+        .ab-term li::before { content: '•'; color: var(--c); font-weight: 800; margin-right: 0.5rem; }
+        .ab-term-how { font-size: 0.9rem; color: var(--text-muted); padding-top: 0.9rem; border-top: 1px dashed rgba(102, 126, 234, 0.25); }
+
+        /* ---------- Process ---------- */
+        .ab-steps {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+        .ab-steps::before {
+            content: '';
+            position: absolute;
+            top: 34px;
+            left: 12%;
+            right: 12%;
+            border-top: 2px dashed #c7d2fe;
+        }
+        .ab-step { position: relative; text-align: center; padding: 0 0.5rem; }
+        .ab-step-icon {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 1.25rem;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            font-size: 1.7rem;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+        .ab-step-num {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .ab-step h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .ab-step p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.65; }
+        .ab-step-review .ab-step-icon { border-color: var(--accent-green); }
+        .ab-step-review .ab-spin { display: inline-block; animation: abSpin 6s linear infinite; }
+        @keyframes abSpin { to { transform: rotate(360deg); } }
+        .ab-review-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            max-width: 720px;
+            margin: 3rem auto 0;
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: #065f46;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        /* ---------- Trust ---------- */
+        .ab-trust {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .ab-trust-card {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.75rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 16px;
+        }
+        .ab-trust-card .ab-service-icon { flex-shrink: 0; margin: 0; }
+        .ab-trust-card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+        .ab-trust-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
+
+        /* ---------- FAQ ---------- */
+        .ab-faq { max-width: 820px; margin: 3rem auto 0; display: grid; gap: 1rem; }
+        .ab-faq details {
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 14px;
+            padding: 0 1.5rem;
+            transition: box-shadow 0.3s;
+        }
+        .ab-faq details[open] { box-shadow: var(--shadow-md); }
+        .ab-faq summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.25rem 0;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .ab-faq summary::-webkit-details-marker { display: none; }
+        .ab-faq summary::after {
+            content: '+';
+            flex-shrink: 0;
+            font-size: 1.4rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        .ab-faq details[open] summary::after { transform: rotate(45deg); }
+        .ab-faq details p { color: var(--text-muted); line-height: 1.75; padding-bottom: 1.25rem; }
+
+        /* ---------- CTA ---------- */
+        .ab-cta {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .ab-cta h2 { text-align: left; font-size: 2rem; }
+        .ab-cta p { color: #4b5563; font-size: 1.05rem; }
+        .ab-cta-actions { display: flex; flex-direction: column; gap: 0.9rem; }
+        .ab-cta-actions .btn { text-align: center; }
+        .ab-cta-phone { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .ab-cta-phone a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+        .ab-disclaimer {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .ab-disclaimer strong { color: #374151; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .ab-hero-grid, .ab-story { grid-template-columns: 1fr; gap: 3rem; }
+            .ab-hero h1 { font-size: 2.6rem; }
+            .ab-journey { max-width: 560px; margin: 0 auto; width: 100%; }
+            .ab-stats { grid-template-columns: repeat(2, 1fr); margin-top: 0; }
+            .ab-services { grid-template-columns: repeat(2, 1fr); }
+            .ab-steps { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
+            .ab-steps::before { display: none; }
+            .ab-cta { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .ab-section { padding: 4rem 0; }
+            .ab-section h2 { font-size: 1.9rem; }
+            .ab-hero h1 { font-size: 2.1rem; }
+            .ab-horizon-grid, .ab-trust { grid-template-columns: 1fr; }
+            .ab-checks { grid-template-columns: 1fr; }
+            .ab-track { display: none; }
+            .ab-cta { padding: 2rem 1.5rem; }
+        }
+        @media (max-width: 560px) {
+            .ab-stats, .ab-services, .ab-steps { grid-template-columns: 1fr; }
+            .ab-float { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ab-float, .ab-family-walk, .ab-shield, .ab-coin, .ab-spin { animation: none !important; }
+            .ab-js .ab-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
 </head>
 <body>
+    <script>document.body.classList.add('ab-js');</script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
                 <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link">Calculators</a></li>
                 <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
                 <li><a href="about.html" class="nav-link active">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle">🌙</button>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <h1>About A2P Financial Services</h1>
-        <p>12 years of trusted financial guidance and proven results</p>
+    <!-- Hero -->
+    <section class="ab-hero" data-rupee-rain>
+        <div class="container ab-hero-grid">
+            <div class="ab-reveal">
+                <div class="ab-eyebrow">About A2P · Since 2025</div>
+                <h1>Every family has goals. We help you <span class="ab-gradient-text">reach them, safely.</span></h1>
+                <p class="ab-hero-lead">A2P Financial Services plans your complete financial life — your child's education, your retirement, your family's health cover, and the taxes you save along the way. One trusted partner, one plan built around <em>your</em> goals.</p>
+                <div class="ab-hero-buttons">
+                    <a href="contact.html" class="btn btn-primary">Plan My Goals</a>
+                    <a href="#what-we-plan" class="btn btn-outline">What We Plan</a>
+                </div>
+                <ul class="ab-checks">
+                    <li>Goal-based planning</li>
+                    <li>Portfolio review every 3–6 months</li>
+                    <li>Always a call away</li>
+                    <li>Feel financial security</li>
+                </ul>
+            </div>
+
+            <div class="ab-journey ab-reveal" aria-label="Illustration: a family protected by a shield walks along a rising path, reaching child education, home, retirement and financial freedom milestones">
+                <div class="ab-journey-title">Your family's journey<span>Planned, protected, reviewed</span></div>
+                <svg viewBox="0 0 520 440" role="img" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="abPathGrad" x1="0" y1="1" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#10b981"/>
+                            <stop offset="55%" stop-color="#667eea"/>
+                            <stop offset="100%" stop-color="#f5576c"/>
+                        </linearGradient>
+                        <linearGradient id="abGround" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#e0e7ff" stop-opacity="0.7"/>
+                            <stop offset="100%" stop-color="#e0e7ff" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Rising ground under the path -->
+                    <path d="M40 390 Q 110 382 150 330 Q 190 278 260 268 Q 330 258 360 200 Q 390 142 470 110 L 500 110 L 500 440 L 20 440 Z" fill="url(#abGround)"/>
+
+                    <!-- Floating rupee coins -->
+                    <g font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="central">
+                        <g class="ab-coin"><circle cx="110" cy="330" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="110" y="330" fill="#a16207">₹</text></g>
+                        <g class="ab-coin"><circle cx="305" cy="300" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="305" y="300" fill="#a16207">₹</text></g>
+                        <g class="ab-coin"><circle cx="420" cy="215" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="420" y="215" fill="#a16207">₹</text></g>
+                    </g>
+
+                    <!-- Path -->
+                    <path id="abPath" class="ab-path-base" d="M40 380 Q 110 372 150 320 Q 190 268 260 258 Q 330 248 360 190 Q 390 132 470 100"/>
+                    <path id="abPathProgress" class="ab-path-progress" d="M40 380 Q 110 372 150 320 Q 190 268 260 258 Q 330 248 360 190 Q 390 132 470 100"/>
+
+                    <!-- Milestones -->
+                    <g class="ab-ms" data-x="150" data-y="320">
+                        <circle class="ab-ms-ring" cx="150" cy="320" r="22"/>
+                        <g class="ab-ms-pop"><circle cx="150" cy="320" r="22"/><text x="150" y="321">🎓</text></g>
+                        <text class="ab-ms-label" x="150" y="365" text-anchor="middle">Child education</text>
+                    </g>
+                    <g class="ab-ms" data-x="260" data-y="258">
+                        <circle class="ab-ms-ring" cx="260" cy="258" r="22"/>
+                        <g class="ab-ms-pop"><circle cx="260" cy="258" r="22"/><text x="260" y="259">🏠</text></g>
+                        <text class="ab-ms-label" x="260" y="303" text-anchor="middle">Dream home</text>
+                    </g>
+                    <g class="ab-ms" data-x="360" data-y="190">
+                        <circle class="ab-ms-ring" cx="360" cy="190" r="22"/>
+                        <g class="ab-ms-pop"><circle cx="360" cy="190" r="22"/><text x="360" y="191">🌴</text></g>
+                        <text class="ab-ms-label" x="318" y="160" text-anchor="middle">Retirement</text>
+                    </g>
+                    <g class="ab-ms" data-x="470" data-y="100">
+                        <circle class="ab-ms-ring" cx="470" cy="100" r="22"/>
+                        <g class="ab-ms-pop"><circle cx="470" cy="100" r="22"/><text x="470" y="101">🏆</text></g>
+                        <text class="ab-ms-label" x="456" y="145" text-anchor="middle">Financial freedom</text>
+                    </g>
+
+                    <!-- Family under a protective shield -->
+                    <g id="abFamily" transform="translate(40 380)">
+                        <g class="ab-family-walk">
+                            <path class="ab-shield" d="M0 -66 L 34 -54 L 34 -24 C 34 -4 18 8 0 14 C -18 8 -34 -4 -34 -24 L -34 -54 Z" fill="rgba(16,185,129,0.12)" stroke="#10b981" stroke-width="2"/>
+                            <!-- Parent 1 -->
+                            <circle cx="-12" cy="-44" r="6.5" fill="#f5c9a8"/>
+                            <rect x="-19" y="-36" width="14" height="22" rx="6" fill="#667eea"/>
+                            <rect x="-17" y="-16" width="4" height="12" rx="2" fill="#4c51bf"/>
+                            <rect x="-11" y="-16" width="4" height="12" rx="2" fill="#4c51bf"/>
+                            <!-- Parent 2 -->
+                            <circle cx="6" cy="-42" r="6" fill="#e9b38f"/>
+                            <rect x="-0.5" y="-35" width="13" height="21" rx="6" fill="#f5576c"/>
+                            <rect x="1" y="-16" width="4" height="12" rx="2" fill="#be3455"/>
+                            <rect x="7" y="-16" width="4" height="12" rx="2" fill="#be3455"/>
+                            <!-- Child -->
+                            <circle cx="21" cy="-28" r="5" fill="#f5c9a8"/>
+                            <rect x="16" y="-22" width="10" height="13" rx="4.5" fill="#f4a700"/>
+                            <rect x="17" y="-10" width="3" height="7" rx="1.5" fill="#a16207"/>
+                            <rect x="22" y="-10" width="3" height="7" rx="1.5" fill="#a16207"/>
+                            <!-- Holding hands -->
+                            <path d="M-5 -26 L 0 -26 M 12 -24 L 16 -18" stroke="#374151" stroke-width="1.5" stroke-linecap="round"/>
+                        </g>
+                    </g>
+                </svg>
+                <div class="ab-float ab-float-1">
+                    <div class="ab-float-icon">🛡️</div>
+                    <div>Family protected<small>Health + term cover</small></div>
+                </div>
+                <div class="ab-float ab-float-2">
+                    <div class="ab-float-icon">🔄</div>
+                    <div>Reviewed every 3–6 months<small>Plan stays on track</small></div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Our Story -->
-    <section class="about-story">
+    <!-- Stats -->
+    <section>
         <div class="container">
-            <div class="story-content">
-                <div class="story-text fade-in-up">
-                    <h2>Our Story</h2>
-                    <p>Founded in 2014, A2P Financial Services was born out of a simple mission: to make professional financial guidance accessible to every earning family in India.</p>
-                    <p>We noticed a gap in the market. Most financial advisory services were either too expensive for regular earners or too complex to understand. We decided to change that.</p>
-                    <p>Today, we've guided 2,500+ families, managed ₹180+ crore in assets, and maintained an average annual return of 12% for our clients—consistently outperforming market benchmarks.</p>
+            <div class="ab-stats">
+                <div class="ab-stat ab-reveal">
+                    <div class="ab-stat-num ab-gradient-text">2025</div>
+                    <div class="ab-stat-label">Year we started</div>
                 </div>
-                <div class="story-stats fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="big-stat">
-                        <div class="number">2,500+</div>
-                        <div class="label">Families Served</div>
+                <div class="ab-stat ab-reveal">
+                    <div class="ab-stat-num ab-gradient-text">Thousands</div>
+                    <div class="ab-stat-label">Families who trust us</div>
+                </div>
+                <div class="ab-stat ab-reveal">
+                    <div class="ab-stat-num ab-gradient-text">Up to <span data-count="15">15</span>%*</div>
+                    <div class="ab-stat-label">Returns achieved for clients</div>
+                </div>
+                <div class="ab-stat ab-reveal">
+                    <div class="ab-stat-num ab-gradient-text"><span data-count="3">3</span>–<span data-count="6">6</span> mo</div>
+                    <div class="ab-stat-label">Portfolio review cycle</div>
+                </div>
+            </div>
+            <p class="ab-stats-note">*Highest returns achieved on client portfolios since we started; individual returns vary. Past performance may or may not be sustained in future and is not a guarantee of future returns.</p>
+        </div>
+    </section>
+
+    <!-- Story -->
+    <section class="ab-section">
+        <div class="container ab-story">
+            <div class="ab-reveal">
+                <div class="ab-eyebrow">Our Story</div>
+                <h2>Planning that starts with your family, not a product</h2>
+                <p>We started A2P Financial Services in 2025 with one simple belief: good financial planning begins by listening. Before we suggest any investment or policy, we sit with you to understand what matters — your child's future, your home, your health, and the retirement you want.</p>
+                <p>Since then, thousands of customers have trusted us with their savings, and their portfolios have seen good results in today's market. Our clients have achieved returns of up to 15% since we started.</p>
+                <p>We don't disappear after the first investment. We review every portfolio every 3–6 months, adjust it when markets or life change, and stay just a call away whenever you need us.</p>
+            </div>
+            <div class="ab-promise ab-reveal">
+                <p class="ab-promise-quote">Hum hamesha customer ki planning unke goals ke hisaab se karte hain.</p>
+                <p class="ab-promise-translation">We always plan according to our customers' goals.</p>
+                <ul class="ab-promise-list">
+                    <li><span>🎯</span> Every rupee is linked to a goal and a timeline</li>
+                    <li><span>🛡️</span> Your family is protected before we grow your wealth</li>
+                    <li><span>🔄</span> Your plan is reviewed and rebalanced regularly</li>
+                    <li><span>🤝</span> One partner for investments, insurance and tax</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- What we plan -->
+    <section class="ab-section ab-tint" id="what-we-plan">
+        <div class="container">
+            <div class="ab-center"><div class="ab-eyebrow">What We Plan</div></div>
+            <h2>Your complete financial plan, in one place</h2>
+            <p class="section-subtitle">Investments to grow your wealth, insurance to protect it, and tax planning to keep more of it.</p>
+            <div class="ab-services">
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🎓</div>
+                    <h3>Child Education Plan</h3>
+                    <p>Build a dedicated fund for school, college or higher studies, timed for when your child needs it.</p>
+                    <span class="ab-tag ab-tag-invest">Invest</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🌴</div>
+                    <h3>Retirement Plan</h3>
+                    <p>Know the corpus you need and build it steadily, so your income continues after your salary stops.</p>
+                    <span class="ab-tag ab-tag-invest">Invest</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">📈</div>
+                    <h3>Mutual Funds &amp; SIPs</h3>
+                    <p>Goal-linked SIPs and lump-sum investments across equity, debt and hybrid funds.</p>
+                    <span class="ab-tag ab-tag-invest">Invest</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">💎</div>
+                    <h3>Tax-Free Guaranteed Plans</h3>
+                    <p>Guaranteed-return plans with tax-free maturity for goals that can't take market risk.</p>
+                    <span class="ab-tag ab-tag-tax">Save Tax</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🩺</div>
+                    <h3>Health &amp; Medical Insurance</h3>
+                    <p>The right cover for your whole family, so a hospital bill never breaks your savings.</p>
+                    <span class="ab-tag ab-tag-protect">Protect</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🛡️</div>
+                    <h3>Term Insurance</h3>
+                    <p>High life cover at a low cost, so your family's goals and loans stay secure no matter what.</p>
+                    <span class="ab-tag ab-tag-protect">Protect</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🏛️</div>
+                    <h3>LIC Plans</h3>
+                    <p>Trusted LIC policies that combine disciplined savings with life cover.</p>
+                    <span class="ab-tag ab-tag-protect">Protect</span>
+                </div>
+                <div class="ab-service ab-reveal">
+                    <div class="ab-service-icon">🧾</div>
+                    <h3>Tax Planning</h3>
+                    <p>Tax-saving investments and insurance chosen to fit your income and tax regime, so you save more every year.</p>
+                    <span class="ab-tag ab-tag-tax">Save Tax</span>
+                </div>
+            </div>
+
+            <!-- Goal horizon -->
+            <div class="ab-horizon ab-reveal">
+                <h2 style="font-size: 1.9rem;">Short-term or long-term, every goal gets a plan</h2>
+                <p class="section-subtitle">The right product depends on when you need the money. That's how we match each goal.</p>
+                <div class="ab-track" aria-hidden="true">
+                    <span class="ab-track-dot" style="left: 0; border-color: var(--accent-green);"></span>
+                    <span class="ab-track-dot" style="left: 50%;"></span>
+                    <span class="ab-track-dot" style="left: 100%; border-color: var(--secondary);"></span>
+                </div>
+                <div class="ab-horizon-grid">
+                    <div class="ab-term" style="--c: var(--accent-green);">
+                        <div class="ab-term-when">Up to 3 years</div>
+                        <h3>Short-term goals</h3>
+                        <ul>
+                            <li>Emergency fund</li>
+                            <li>Family vacation</li>
+                            <li>Car or two-wheeler</li>
+                        </ul>
+                        <p class="ab-term-how">Focus on safety and easy access to your money.</p>
                     </div>
-                    <div class="big-stat">
-                        <div class="number">₹180Cr+</div>
-                        <div class="label">Assets Managed</div>
+                    <div class="ab-term" style="--c: var(--primary);">
+                        <div class="ab-term-when">3–7 years</div>
+                        <h3>Medium-term goals</h3>
+                        <ul>
+                            <li>Home down payment</li>
+                            <li>Wedding expenses</li>
+                            <li>Starting a business</li>
+                        </ul>
+                        <p class="ab-term-how">A balance of steady growth and stability.</p>
                     </div>
-                    <div class="big-stat">
-                        <div class="number">12%</div>
-                        <div class="label">Avg Annual Returns</div>
-                    </div>
-                    <div class="big-stat">
-                        <div class="number">4.8/5</div>
-                        <div class="label">Client Rating</div>
+                    <div class="ab-term" style="--c: var(--secondary);">
+                        <div class="ab-term-when">7+ years</div>
+                        <h3>Long-term goals</h3>
+                        <ul>
+                            <li>Child's higher education</li>
+                            <li>Retirement corpus</li>
+                            <li>Long-term wealth creation</li>
+                        </ul>
+                        <p class="ab-term-how">Time to grow through disciplined, long-term investing.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Our Values -->
-    <section class="our-values">
+    <!-- How we work -->
+    <section class="ab-section">
         <div class="container">
-            <h2>Our Core Values</h2>
-            <div class="values-grid">
-                <div class="value-card fade-in-up">
-                    <div class="value-icon">🤝</div>
-                    <h3>Trust & Integrity</h3>
-                    <p>Your financial wellbeing is our highest priority. We operate with complete transparency and honesty in every interaction.</p>
+            <div class="ab-center"><div class="ab-eyebrow">How We Work</div></div>
+            <h2>With you at every step, not just the first one</h2>
+            <p class="section-subtitle">A simple, honest process that keeps your plan on track year after year.</p>
+            <div class="ab-steps">
+                <div class="ab-step ab-reveal">
+                    <div class="ab-step-icon">👨‍👩‍👧<span class="ab-step-num">1</span></div>
+                    <h3>Understand your family</h3>
+                    <p>Your income, responsibilities, existing investments and the goals you care about most.</p>
                 </div>
-                <div class="value-card fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="value-icon">🎯</div>
-                    <h3>Results-Driven</h3>
-                    <p>We don't believe in one-size-fits-all solutions. Every strategy is customized to your unique financial goals.</p>
+                <div class="ab-step ab-reveal">
+                    <div class="ab-step-icon">📋<span class="ab-step-num">2</span></div>
+                    <h3>Build your plan</h3>
+                    <p>One complete plan covering investments, insurance and tax saving, explained in simple words.</p>
                 </div>
-                <div class="value-card fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="value-icon">📚</div>
-                    <h3>Education First</h3>
-                    <p>We empower our clients through financial education. An informed investor is an empowered investor.</p>
+                <div class="ab-step ab-reveal">
+                    <div class="ab-step-icon">✍️<span class="ab-step-num">3</span></div>
+                    <h3>Invest &amp; protect</h3>
+                    <p>We help with KYC, paperwork and setup, so getting started is easy.</p>
                 </div>
-                <div class="value-card fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="value-icon">🔒</div>
-                    <h3>Security & Safety</h3>
-                    <p>Your investments are protected. We maintain the highest standards of security and regulatory compliance.</p>
+                <div class="ab-step ab-step-review ab-reveal">
+                    <div class="ab-step-icon"><span class="ab-spin">🔄</span><span class="ab-step-num">4</span></div>
+                    <h3>Review every 3–6 months</h3>
+                    <p>We track your portfolio, rebalance when needed and update your plan when life changes.</p>
+                </div>
+            </div>
+            <div class="ab-review-note ab-reveal">
+                <span style="font-size: 1.5rem;">📞</span>
+                <span>Have a new goal, a bonus to invest, or a question about the market? Call us anytime. We're always here to help.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why families trust us -->
+    <section class="ab-section ab-tint">
+        <div class="container">
+            <div class="ab-center"><div class="ab-eyebrow">Why Families Trust Us</div></div>
+            <h2>Trust you can feel, security you can see</h2>
+            <div class="ab-trust">
+                <div class="ab-trust-card ab-reveal">
+                    <div class="ab-service-icon">🎯</div>
+                    <div>
+                        <h3>Goals first, products second</h3>
+                        <p>We recommend only what fits your goals and timeline, never a product just because it's popular.</p>
+                    </div>
+                </div>
+                <div class="ab-trust-card ab-reveal">
+                    <div class="ab-service-icon">🔐</div>
+                    <div>
+                        <h3>Your money stays in your name</h3>
+                        <p>Your investments and policies are held in your own name with the fund house or insurer. We guide you, and you stay in control.</p>
+                    </div>
+                </div>
+                <div class="ab-trust-card ab-reveal">
+                    <div class="ab-service-icon">💬</div>
+                    <div>
+                        <h3>Honest about risk</h3>
+                        <p>We explain the risk and expected range of returns clearly, before you invest a single rupee.</p>
+                    </div>
+                </div>
+                <div class="ab-trust-card ab-reveal">
+                    <div class="ab-service-icon">🏛️</div>
+                    <div>
+                        <h3>AMFI registered</h3>
+                        <p>We are an AMFI Registered Mutual Fund Distributor and follow full KYC norms for every investor.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Credentials & Compliance -->
-    <section class="credentials">
+    <!-- FAQ -->
+    <section class="ab-section">
         <div class="container">
-            <h2>Our Credentials & Compliance</h2>
-            <div class="credentials-grid">
-                <div class="credential-item fade-in-up">
-                    <div class="credential-icon">🏛️</div>
-                    <h3>SEBI Registered</h3>
-                    <p>Registered with Securities and Exchange Board of India (SEBI) as an Investment Advisor</p>
-                </div>
-                <div class="credential-item fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="credential-icon">🛡️</div>
-                    <h3>SIPC Protected</h3>
-                    <p>Securities Investor Protection Corporation coverage for all client investments</p>
-                </div>
-                <div class="credential-item fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="credential-icon">✓</div>
-                    <h3>ISO Certified</h3>
-                    <p>ISO 9001:2015 certified for quality management systems</p>
-                </div>
-                <div class="credential-item fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="credential-icon">📋</div>
-                    <h3>KYC Compliant</h3>
-                    <p>Full Know-Your-Customer and Anti-Money Laundering compliance</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Awards & Recognition -->
-    <section class="awards">
-        <div class="container">
-            <h2>Awards & Recognition</h2>
-            <div class="awards-grid">
-                <div class="award-item">
-                    <div class="award-badge">🏆</div>
-                    <h3>Best Financial Advisory</h3>
-                    <p>India Financial Forum 2024</p>
-                </div>
-                <div class="award-item">
-                    <div class="award-badge">⭐</div>
-                    <h3>Top Rated Advisor</h3>
-                    <p>MoneyControl Rating 2024</p>
-                </div>
-                <div class="award-item">
-                    <div class="award-badge">💡</div>
-                    <h3>Innovation in Finance</h3>
-                    <p>Fintech Summit India 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team -->
-    <section class="team-section">
-        <div class="container">
-            <h2>Our Expert Team</h2>
-            <p class="section-subtitle">Comprised of certified financial advisors with decades of combined experience</p>
-            <div class="team-grid">
-                <div class="team-member fade-in-up">
-                    <div class="member-avatar">👨‍💼</div>
-                    <h3>Founder & CEO</h3>
-                    <p>15+ years in wealth management. CFA Charter holder with passion for financial inclusion.</p>
-                </div>
-                <div class="team-member fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="member-avatar">👩‍💼</div>
-                    <h3>Chief Investment Officer</h3>
-                    <p>13+ years managing portfolios. Specializes in equity and alternative investments.</p>
-                </div>
-                <div class="team-member fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="member-avatar">👨‍💻</div>
-                    <h3>Head of Technology</h3>
-                    <p>10+ years in fintech. Leading our digital transformation and automation efforts.</p>
-                </div>
+            <div class="ab-center"><div class="ab-eyebrow">Questions</div></div>
+            <h2>Frequently asked questions</h2>
+            <div class="ab-faq">
+                <details class="ab-reveal">
+                    <summary>Who can plan with A2P?</summary>
+                    <p>Anyone who earns and wants to plan ahead, whether you are salaried, a business owner or a family planning together. Our team stays with you at every step, from your first plan to every goal you reach.</p>
+                </details>
+                <details class="ab-reveal">
+                    <summary>How much do I need to start investing?</summary>
+                    <p>You can start small. Many mutual funds allow SIPs from as little as ₹500 a month. We suggest an amount based on your goals and budget, and you can increase it as your income grows.</p>
+                </details>
+                <details class="ab-reveal">
+                    <summary>Is my money safe with you?</summary>
+                    <p>Your money goes directly to the fund house or insurance company, in your own name. A2P never holds your money. Market-linked investments do carry risk, and we always explain that clearly before you invest.</p>
+                </details>
+                <details class="ab-reveal">
+                    <summary>How often will you review my portfolio?</summary>
+                    <p>Every 3–6 months, and whenever something changes in your life, like a new job, a child, a home loan or a new goal.</p>
+                </details>
+                <details class="ab-reveal">
+                    <summary>Do you help with insurance and tax saving too?</summary>
+                    <p>Yes. Along with investments, we help you choose health insurance, term insurance and LIC plans, and plan your tax-saving investments, so everything works together as one plan.</p>
+                </details>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="ab-section" style="padding-top: 0;">
         <div class="container">
-            <h2>Join Thousands of Satisfied Clients</h2>
-            <p>Experience the A2P difference in your financial journey.</p>
-            <a href="contact.html" class="btn btn-primary btn-large">Start Your Journey Today</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>A2P Financial Services</h3>
-                    <p>Expert guidance for every earning journey.</p>
+            <div class="ab-cta ab-reveal">
+                <div>
+                    <h2>Let's plan your family's next goal</h2>
+                    <p>Tell us what you're planning for. We'll show you a clear path to get there, with no pressure and no jargon.</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
-                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
+                <div class="ab-cta-actions">
+                    <a href="contact.html" class="btn btn-primary btn-large">Book a Free Consultation</a>
+                    <div class="ab-cta-phone">or call <a href="tel:+919910210883">+91 9910210883</a></div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 A2P Financial Services. All rights reserved.</p>
+    </section>
+
+    <div class="container ab-disclaimer">
+        <p><strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance is not indicative of future returns. Insurance is the subject matter of solicitation. Tax benefits are as per prevailing tax laws and may change.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer hm-foot">
+        <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 54px; animation-duration: 52s; animation-delay: -20s; transform: scale(0.7);" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 30px; animation-duration: 46s; animation-delay: -34s;" aria-hidden="true"></span>
+        <!-- The goal train: rides left to right across the footer -->
+        <div class="hf-rail" aria-hidden="true">
+            <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
+            <div class="hf-train">
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car hf-engine">
+                    <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
+                    <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
+                    <div class="hf-wheels"><i></i><i></i><i></i></div>
+                </div>
+            </div>
+            <div class="hf-track"></div>
+            <div class="hf-ground"></div>
+        </div>
+        <div class="footer-content">
+            <div class="hf-row">
+                <div class="hf-brand">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
+                    <div>
+                        <strong>A2P FINANCIAL SERVICES</strong>
+                        <em>Aapke Sapno Ka Financial Planner</em>
+                    </div>
+                </div>
+                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
+                <div class="hf-end">
+                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
+                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="script-pro.js"></script>
+    <script>
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Reveal sections as they scroll into view
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.ab-reveal').forEach((el) => revealObserver.observe(el));
+
+            // Count-up numbers in the stats row
+            const countObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const target = Number(el.dataset.count);
+                    countObserver.unobserve(el);
+                    if (reduceMotion) return;
+                    const start = performance.now();
+                    const tick = (now) => {
+                        const t = Math.min((now - start) / 1200, 1);
+                        el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                        if (t < 1) requestAnimationFrame(tick);
+                    };
+                    requestAnimationFrame(tick);
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('[data-count]').forEach((el) => countObserver.observe(el));
+
+            // Family walking along the goal path
+            const path = document.getElementById('abPath');
+            const progress = document.getElementById('abPathProgress');
+            const family = document.getElementById('abFamily');
+            if (!path || !progress || !family) return;
+
+            const total = path.getTotalLength();
+            progress.style.strokeDasharray = total;
+
+            // Distance along the path at which each milestone is reached
+            const milestones = [...document.querySelectorAll('.ab-ms')].map((el) => {
+                const x = Number(el.dataset.x), y = Number(el.dataset.y);
+                let best = 0, bestDist = Infinity;
+                for (let l = 0; l <= total; l += 2) {
+                    const p = path.getPointAtLength(l);
+                    const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+                    if (d < bestDist) { bestDist = d; best = l; }
+                }
+                return { el, at: best };
+            });
+
+            const place = (len) => {
+                const p = path.getPointAtLength(len);
+                family.setAttribute('transform', `translate(${p.x} ${p.y})`);
+                progress.style.strokeDashoffset = total - len;
+                milestones.forEach((m) => m.el.classList.toggle('reached', len >= m.at - 4));
+            };
+
+            if (reduceMotion) { place(total); return; }
+
+            const walkMs = 9000, holdMs = 2200;
+            let startTime = null;
+            const loop = (now) => {
+                if (startTime === null) startTime = now;
+                const elapsed = (now - startTime) % (walkMs + holdMs);
+                const t = Math.min(elapsed / walkMs, 1);
+                const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                place(eased * total);
+                requestAnimationFrame(loop);
+            };
+            requestAnimationFrame(loop);
+        })();
+    </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>

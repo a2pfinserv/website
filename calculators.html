@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free financial calculators from A2P Financial Services: SIP, Step-Up SIP, Lumpsum, SWP, Goal Planner and Retirement Planner.">
+    <title>Financial Calculators - A2P Financial Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
+    <style>
+        /* ========================= CALCULATORS PAGE ========================= */
+        :root {
+            --invest: #667eea;
+            --invest-soft: #eef2ff;
+        }
+        .cl-section { padding: 5rem 0; }
+        .cl-eyebrow {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .cl-gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .cl-js .cl-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .cl-js .cl-reveal.in { opacity: 1; transform: none; }
+
+        .c-invest { --c: var(--invest); --soft: var(--invest-soft); }
+        /* All calculators share the blue theme */
+        .c-plan, .c-withdraw { --c: var(--invest); --soft: var(--invest-soft); }
+
+        /* ---------- Hero ---------- */
+        .cl-hero {
+            padding: 4.5rem 0 3rem;
+            text-align: center;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(245, 87, 108, 0.08), transparent 45%),
+                radial-gradient(circle at 10% 80%, rgba(102, 126, 234, 0.1), transparent 45%),
+                linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+        }
+        .cl-hero h1 { font-size: 3rem; line-height: 1.15; max-width: 760px; margin: 0 auto 1.1rem; }
+        .cl-hero-lead { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; max-width: 620px; margin: 0 auto 2rem; }
+        .cl-filters { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; padding: 0; background: transparent; border: none; }
+        .cl-filter {
+            padding: 0.55rem 1.1rem;
+            border: none;
+            border-radius: 999px;
+            background: transparent;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #4b5563;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+        }
+        .cl-filter[aria-pressed="true"] { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
+
+        /* ---------- Calculator cards ---------- */
+        .cl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .cl-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 1.75rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 22px;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .cl-card::after {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: -60px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: var(--soft);
+            transition: transform 0.5s;
+        }
+        .cl-card:hover { transform: translateY(-6px); box-shadow: 0 22px 50px rgba(102, 126, 234, 0.18); border-color: var(--c); }
+        .cl-card:hover::after { transform: scale(1.35); }
+        .cl-card:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+        .cl-card[hidden] { display: none; }
+        .cl-card-icon { position: relative; z-index: 1; display: block; width: 72px; height: 72px; margin-bottom: 1.25rem; }
+        .cl-card-icon svg { width: 100%; height: 100%; }
+        .cl-card-tag {
+            position: relative;
+            z-index: 1;
+            align-self: flex-start;
+            margin-bottom: 0.6rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: var(--soft);
+            color: var(--c-text, var(--c));
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .cl-card-title { position: relative; z-index: 1; display: block; font-size: 1.3rem; font-weight: 700; color: #1f2937; margin-bottom: 0.45rem; }
+        .cl-card-desc { position: relative; z-index: 1; display: block; color: var(--text-muted); font-size: 0.93rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .cl-card-go {
+            position: relative;
+            z-index: 1;
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: var(--c-text, var(--c));
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: gap 0.3s;
+        }
+        .cl-card:hover .cl-card-go { gap: 0.8rem; }
+
+        /* Card icon animations */
+        .cl-card-icon * { animation-play-state: paused; }
+        .cl-card:hover .cl-card-icon *, .cl-card.playing .cl-card-icon * { animation-play-state: running; }
+        .ic-coin { animation: icCoin 2.4s ease-in infinite; }
+        .ic-coin-2 { animation-delay: 0.8s; }
+        .ic-coin-3 { animation-delay: 1.6s; }
+        @keyframes icCoin { 0% { transform: translateY(-26px); opacity: 0; } 20% { opacity: 1; } 70% { transform: translateY(0); opacity: 1; } 85%, 100% { opacity: 0; transform: translateY(2px); } }
+        .ic-step { transform-box: fill-box; transform-origin: bottom; animation: icStep 3s ease-out infinite; }
+        .ic-step-2 { animation-delay: 0.25s; }
+        .ic-step-3 { animation-delay: 0.5s; }
+        .ic-step-4 { animation-delay: 0.75s; }
+        @keyframes icStep { 0% { transform: scaleY(0); } 25%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+        .ic-grow { transform-box: fill-box; transform-origin: center bottom; animation: icGrow 2.8s ease-in-out infinite; }
+        @keyframes icGrow { 0%, 100% { transform: scale(0.82); } 50% { transform: scale(1.06); } }
+        .ic-drip { animation: icDrip 1.8s ease-in infinite; }
+        .ic-drip-2 { animation-delay: 0.6s; }
+        .ic-drip-3 { animation-delay: 1.2s; }
+        @keyframes icDrip { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 80% { transform: translateY(24px); opacity: 1; } 100% { transform: translateY(28px); opacity: 0; } }
+        .ic-arrow { animation: icArrow 2.4s ease-in-out infinite; }
+        @keyframes icArrow { 0% { transform: translate(-22px, 22px); opacity: 0; } 15% { opacity: 1; } 45%, 80% { transform: translate(0, 0); opacity: 1; } 100% { transform: translate(0, 0); opacity: 0; } }
+        .ic-sun { transform-box: fill-box; transform-origin: center; animation: icSun 10s linear infinite; }
+        @keyframes icSun { to { transform: rotate(360deg); } }
+        .ic-wave { animation: icWave 3s ease-in-out infinite; }
+        @keyframes icWave { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+
+        /* ---------- Bottom sheet ---------- */
+        .cl-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(17, 24, 39, 0.45);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+        }
+        .cl-sheet {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            z-index: 2001;
+            width: min(1080px, 100%);
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -20px 60px rgba(17, 24, 39, 0.25);
+            transform: translate(-50%, 105%);
+            visibility: hidden;
+            transition: transform 0.45s cubic-bezier(.22, 1, .36, 1), visibility 0s linear 0.45s;
+        }
+        .cl-open .cl-backdrop { opacity: 1; visibility: visible; transition: opacity 0.35s ease; }
+        .cl-open .cl-sheet { transform: translate(-50%, 0); visibility: visible; transition: transform 0.45s cubic-bezier(.22, 1, .36, 1); }
+        .cl-sheet.dragging { transition: none; }
+        body.cl-lock { overflow: hidden; }
+
+        .cl-sheet-top { flex-shrink: 0; padding: 0.75rem 1.75rem 1rem; border-bottom: 1px solid #eef2ff; touch-action: none; cursor: grab; }
+        .cl-handle { width: 48px; height: 5px; margin: 0 auto 0.9rem; border-radius: 999px; background: #d1d5db; }
+        .cl-sheet-head { display: flex; align-items: center; gap: 1rem; }
+        .cl-sheet-icon { flex-shrink: 0; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--soft); }
+        .cl-sheet-icon svg { width: 40px; height: 40px; }
+        .cl-sheet-title { flex: 1; min-width: 0; }
+        .cl-sheet-title h2 { font-size: 1.45rem; line-height: 1.2; }
+        .cl-sheet-title p { color: var(--text-muted); font-size: 0.9rem; }
+        /* A2P logo on every calculator: beside the close button and as a sign-off under the results */
+        .cl-brand { flex-shrink: 0; height: 36px; width: auto; }
+        .cl-sign { display: flex; align-items: center; justify-content: center; gap: 0.7rem; padding-top: 0.25rem; color: var(--text-muted); font-size: 0.8rem; line-height: 1.3; }
+        .cl-sign img { height: 30px; width: auto; }
+        .cl-sign strong { color: #2a3d9a; }
+        .cl-sign small { display: block; color: #a07a2c; font-weight: 600; font-size: 0.72rem; }
+        @media (max-width: 600px) { .cl-brand { height: 28px; } }
+        .cl-close {
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #374151;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .cl-close:hover { background: #e5e7eb; transform: rotate(90deg); }
+        .cl-tabs { position: relative; display: flex; gap: 0.4rem; margin-top: 1rem; overflow-x: auto; scrollbar-width: none; scroll-padding: 0 1rem; }
+        .cl-tabs::-webkit-scrollbar { display: none; }
+        .cl-tab {
+            flex-shrink: 0;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid #e0e7ff;
+            background: #fff;
+            font: inherit;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+        }
+        .cl-tab[aria-selected="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+
+        .cl-sheet-body {
+            flex: 1;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 1.75rem;
+            display: grid;
+            grid-template-columns: 1fr 1.05fr;
+            gap: 2rem;
+        }
+        .cl-fields { display: grid; gap: 1.5rem; align-content: start; }
+        .cl-field-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.65rem; }
+        .cl-field-top label { font-weight: 600; color: #374151; font-size: 0.95rem; }
+        .cl-value {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            flex: 0 0 150px;
+            width: 150px;
+            padding: 0.45rem 0.75rem;
+            border-radius: 10px;
+            background: var(--soft);
+            color: var(--c-text, var(--c));
+            font-weight: 800;
+        }
+        .cl-value input {
+            width: 100%;
+            min-width: 0;
+            border: none;
+            background: transparent;
+            font: inherit;
+            color: inherit;
+            text-align: right;
+            outline: none;
+        }
+        .cl-value:focus-within { box-shadow: 0 0 0 2px var(--c); }
+        .cl-range { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--c) var(--fill, 50%), #e5e7eb var(--fill, 50%)); outline: none; cursor: pointer; }
+        .cl-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 4px solid var(--c); box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: transform 0.15s; }
+        .cl-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+        .cl-range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 4px solid var(--c); }
+        .cl-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.25); }
+        .cl-minmax { display: flex; justify-content: space-between; margin-top: 0.35rem; color: #9ca3af; font-size: 0.75rem; }
+
+        .cl-results { display: grid; gap: 1.25rem; align-content: start; }
+        .cl-summary { display: grid; grid-template-columns: 150px 1fr; gap: 1.5rem; align-items: center; padding: 1.5rem; border-radius: 20px; background: linear-gradient(135deg, #f8faff 0%, #fdf8ff 100%); border: 1px solid #eef2ff; }
+        .cl-donut { position: relative; width: 150px; height: 150px; }
+        .cl-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .cl-donut circle { fill: none; stroke-width: 18; transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease; }
+        .cl-donut-center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+        .cl-donut-center small { color: var(--text-muted); font-size: 0.72rem; }
+        .cl-donut-center strong { font-size: 1.05rem; color: #1f2937; }
+        .cl-stats { display: grid; gap: 0.65rem; }
+        .cl-stat { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.93rem; color: #4b5563; }
+        .cl-stat i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 0.5rem; }
+        .cl-stat strong { color: #1f2937; font-size: 1rem; white-space: nowrap; }
+        .cl-stat.big { padding-top: 0.65rem; border-top: 1px dashed #d1d5db; }
+        .cl-stat.big strong { font-size: 1.35rem; color: var(--c-text, var(--c)); }
+        .cl-alert { padding: 0.8rem 1rem; border-radius: 12px; background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; font-size: 0.88rem; line-height: 1.5; }
+        .cl-alert.good { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+
+        .cl-chart { padding: 1.25rem 1.25rem 1rem; border-radius: 20px; border: 1px solid #eef2ff; }
+        .cl-chart-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .cl-chart-head h4 { font-size: 0.95rem; }
+        .cl-legend { display: flex; gap: 0.9rem; font-size: 0.78rem; color: #6b7280; }
+        .cl-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 0.35rem; }
+        .cl-bars { display: flex; align-items: flex-end; gap: 4px; height: 150px; }
+        .cl-bar { flex: 1; display: flex; flex-direction: column-reverse; height: 100%; min-width: 0; position: relative; cursor: default; }
+        .cl-bar span { display: block; width: 100%; transition: height 0.5s ease; }
+        .cl-bar span:nth-of-type(2) { border-radius: 4px 4px 0 0; }
+        .cl-bar:hover span { filter: brightness(0.92); }
+        .cl-bar-tip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.35rem 0.55rem;
+            border-radius: 8px;
+            background: #1f2937;
+            color: #fff;
+            font-size: 0.72rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 2;
+        }
+        .cl-bar:hover .cl-bar-tip { opacity: 1; }
+        .cl-axis { display: flex; justify-content: space-between; margin-top: 0.45rem; color: #9ca3af; font-size: 0.72rem; }
+
+        .cl-sheet-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-radius: 16px; background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%); }
+        .cl-sheet-cta p { color: #374151; font-weight: 600; font-size: 0.93rem; }
+        .cl-sheet-cta .btn { padding: 0.7rem 1.3rem; font-size: 0.9rem; }
+        .cl-sheet-note { grid-column: 1 / -1; color: #9ca3af; font-size: 0.78rem; line-height: 1.6; text-align: center; }
+
+        /* ---------- Info strip ---------- */
+        .cl-why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .cl-why-item { display: flex; gap: 1rem; padding: 1.5rem; background: #fff; border: 1px solid rgba(102, 126, 234, 0.18); border-radius: 16px; }
+        .cl-why-item span { flex-shrink: 0; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; font-size: 1.3rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(245, 87, 108, 0.1)); }
+        .cl-why-item h3 { font-size: 1.02rem; margin-bottom: 0.25rem; }
+        .cl-why-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+        .cl-cta { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; padding: 3rem; border-radius: 24px; background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%); border: 1px solid rgba(102, 126, 234, 0.2); }
+        .cl-cta h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .cl-cta p { color: #4b5563; font-size: 1.05rem; }
+        .cl-cta-actions { display: flex; flex-direction: column; gap: 0.9rem; }
+        .cl-cta-actions .btn { text-align: center; }
+        .cl-cta-phone { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .cl-cta-phone a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .cl-disclaimer { padding: 2rem 0; border-top: 1px solid rgba(102, 126, 234, 0.15); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7; text-align: center; }
+        .cl-disclaimer strong { color: #374151; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .cl-grid { grid-template-columns: repeat(2, 1fr); }
+            .cl-sheet-body { grid-template-columns: 1fr; }
+            .cl-why { grid-template-columns: 1fr; }
+            .cl-cta { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .cl-section { padding: 4rem 0; }
+            .cl-hero h1 { font-size: 2.1rem; }
+            .cl-cta { padding: 2rem 1.5rem; }
+            .cl-sheet-top { padding: 0.6rem 1.1rem 0.9rem; }
+            .cl-sheet-body { padding: 1.25rem 1.1rem 1.5rem; }
+            .cl-value { flex-basis: 124px; width: 124px; }
+            .cl-field-top label { font-size: 0.9rem; }
+            .cl-summary { grid-template-columns: 1fr; justify-items: center; }
+            .cl-stats { width: 100%; }
+        }
+        @media (max-width: 600px) {
+            .cl-grid { grid-template-columns: 1fr; }
+            /* Filters: tidy 2 x 2 grid instead of a wrapped pill */
+            .cl-filters { display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 420px; gap: 0.5rem; }
+            .cl-filter { border-radius: 12px; padding: 0.65rem 0.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .cl-card-icon * { animation: none !important; }
+            .cl-sheet, .cl-backdrop { transition: none !important; }
+            .cl-js .cl-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <script>document.body.classList.add('cl-js');</script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link active">Calculators</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="cl-hero" data-rupee-rain>
+        <div class="container cl-reveal">
+            <div class="cl-eyebrow">Financial Calculators</div>
+            <h1>Plan with numbers, <span class="cl-gradient-text">not guesses</span></h1>
+            <p class="cl-hero-lead">See how your money can grow, how much to invest for a goal, and how long your savings can last. Tap any calculator to try it.</p>
+            <div class="cl-filters seg" role="group" aria-label="Filter calculators">
+                <button class="cl-filter" type="button" data-filter="all" aria-pressed="true">All</button>
+                <button class="cl-filter" type="button" data-filter="invest" aria-pressed="false">Grow wealth</button>
+                <button class="cl-filter" type="button" data-filter="plan" aria-pressed="false">Plan a goal</button>
+                <button class="cl-filter" type="button" data-filter="withdraw" aria-pressed="false">Regular income</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator cards -->
+    <section class="cl-section" style="padding-top: 2.5rem;">
+        <div class="container cl-grid" id="cl-grid"></div>
+    </section>
+
+    <!-- Why use -->
+    <section class="cl-section" style="padding-top: 0;">
+        <div class="container cl-why">
+            <div class="cl-why-item cl-reveal"><span>⚡</span><div><h3>Instant results</h3><p>Move the sliders and watch your numbers and charts update live.</p></div></div>
+            <div class="cl-why-item cl-reveal"><span>🎯</span><div><h3>Built around goals</h3><p>Work backwards from a goal to find exactly how much to invest.</p></div></div>
+            <div class="cl-why-item cl-reveal"><span>🤝</span><div><h3>Then talk to us</h3><p>Numbers are a start. We'll turn them into a real plan for your family.</p></div></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cl-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="cl-cta cl-reveal">
+                <div>
+                    <h2>Want a plan, not just a number?</h2>
+                    <p>In a 60-minute goal meeting we'll turn these numbers into the right mix of investments, insurance and tax saving.</p>
+                </div>
+                <div class="cl-cta-actions">
+                    <a href="contact.html" class="btn btn-primary btn-large">Book Your Goal Meeting</a>
+                    <div class="cl-cta-phone">or call <a href="tel:+919910210883">+91 9910210883</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container cl-disclaimer">
+        <p><strong>Disclaimer:</strong> These calculators are for illustration only and are not investment advice. Actual returns vary and are not guaranteed. Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance is not indicative of future returns.</p>
+    </div>
+
+    <!-- Bottom sheet -->
+    <div class="cl-backdrop" id="cl-backdrop"></div>
+    <section class="cl-sheet" id="cl-sheet" role="dialog" aria-modal="true" aria-labelledby="cl-sheet-title" aria-hidden="true">
+        <div class="cl-sheet-top" id="cl-sheet-top">
+            <div class="cl-handle" aria-hidden="true"></div>
+            <div class="cl-sheet-head">
+                <div class="cl-sheet-icon" id="cl-sheet-icon" aria-hidden="true"></div>
+                <div class="cl-sheet-title">
+                    <h2 id="cl-sheet-title">Calculator</h2>
+                    <p id="cl-sheet-sub"></p>
+                </div>
+                <img class="cl-brand" src="Images/logomain.png" alt="A2P Financial Services">
+                <button class="cl-close" id="cl-close" type="button" aria-label="Close calculator">✕</button>
+            </div>
+            <div class="cl-tabs" id="cl-tabs" role="tablist" aria-label="Switch calculator"></div>
+        </div>
+        <div class="cl-sheet-body" id="cl-sheet-body">
+            <div class="cl-fields" id="cl-fields"></div>
+            <div class="cl-results">
+                <div class="cl-summary">
+                    <div class="cl-donut">
+                        <svg viewBox="0 0 120 120" aria-hidden="true">
+                            <circle cx="60" cy="60" r="50" stroke="#eef2ff"/>
+                            <circle id="cl-donut-a" cx="60" cy="60" r="50" stroke-dasharray="0 400"/>
+                            <circle id="cl-donut-b" cx="60" cy="60" r="50" stroke-dasharray="0 400"/>
+                        </svg>
+                        <div class="cl-donut-center"><small id="cl-donut-label">Total</small><strong id="cl-donut-value">₹0</strong></div>
+                    </div>
+                    <div class="cl-stats" id="cl-stats"></div>
+                </div>
+                <div id="cl-alert"></div>
+                <div class="cl-chart">
+                    <div class="cl-chart-head">
+                        <h4 id="cl-chart-title">Year by year</h4>
+                        <div class="cl-legend" id="cl-legend"></div>
+                    </div>
+                    <div class="cl-bars" id="cl-bars"></div>
+                    <div class="cl-axis" id="cl-axis"></div>
+                </div>
+                <div class="cl-sign">
+                    <img src="Images/logomain.png" alt="">
+                    <span>Calculated with <strong>A2P Financial Services</strong><small>Aapke Sapno Ka Financial Planner</small></span>
+                </div>
+                <div class="cl-sheet-cta">
+                    <p>Want help reaching this number?</p>
+                    <a href="contact.html" class="btn btn-primary">Talk to Our Team</a>
+                </div>
+            </div>
+            <p class="cl-sheet-note">For illustration only. Actual returns vary and are not guaranteed. Mutual fund investments are subject to market risks.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer hm-foot">
+        <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 54px; animation-duration: 52s; animation-delay: -20s; transform: scale(0.7);" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 30px; animation-duration: 46s; animation-delay: -34s;" aria-hidden="true"></span>
+        <!-- The goal train: rides left to right across the footer -->
+        <div class="hf-rail" aria-hidden="true">
+            <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
+            <div class="hf-train">
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car hf-engine">
+                    <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
+                    <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
+                    <div class="hf-wheels"><i></i><i></i><i></i></div>
+                </div>
+            </div>
+            <div class="hf-track"></div>
+            <div class="hf-ground"></div>
+        </div>
+        <div class="footer-content">
+            <div class="hf-row">
+                <div class="hf-brand">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
+                    <div>
+                        <strong>A2P FINANCIAL SERVICES</strong>
+                        <em>Aapke Sapno Ka Financial Planner</em>
+                    </div>
+                </div>
+                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
+                <div class="hf-end">
+                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
+                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script-pro.js"></script>
+    <script>
+    (function () {
+        // ---------- Helpers ----------
+        const inr = (n) => '₹' + Math.round(Math.max(n, 0)).toLocaleString('en-IN');
+        const short = (n) => {
+            n = Math.max(n, 0);
+            if (n >= 1e7) return '₹' + (n / 1e7).toFixed(n >= 1e9 ? 0 : 2).replace(/\.?0+$/, '') + ' Cr';
+            if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2).replace(/\.?0+$/, '') + ' L';
+            return inr(n);
+        };
+        const BLUE = ['#c7d2fe', '#667eea'];
+        const COLORS = { invest: BLUE, plan: BLUE, withdraw: BLUE };
+
+        // SIP future value (investing at the start of each month)
+        const sipFV = (p, rAnnual, months) => {
+            const r = rAnnual / 12 / 100;
+            return r === 0 ? p * months : p * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
+        };
+
+        // ---------- Card icons ----------
+        const ICONS = {
+            sip: `<svg viewBox="0 0 72 72"><rect x="10" y="50" width="52" height="6" rx="3" fill="#c7d2fe"/>
+                <rect x="14" y="40" width="12" height="10" rx="2" fill="#a5b4fc"/><rect x="30" y="32" width="12" height="18" rx="2" fill="#818cf8"/><rect x="46" y="22" width="12" height="28" rx="2" fill="#667eea"/>
+                <g font-size="9" font-weight="800" text-anchor="middle" fill="#a16207">
+                <g class="ic-coin"><circle cx="20" cy="32" r="6" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/><text x="20" y="35">₹</text></g>
+                <g class="ic-coin ic-coin-2"><circle cx="36" cy="24" r="6" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/><text x="36" y="27">₹</text></g>
+                <g class="ic-coin ic-coin-3"><circle cx="52" cy="14" r="6" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/><text x="52" y="17">₹</text></g></g></svg>`,
+            stepup: `<svg viewBox="0 0 72 72"><rect x="8" y="58" width="56" height="5" rx="2.5" fill="#c7d2fe"/>
+                <rect class="ic-step" x="10" y="46" width="12" height="12" rx="2" fill="#a5b4fc"/><rect class="ic-step ic-step-2" x="24" y="36" width="12" height="22" rx="2" fill="#818cf8"/>
+                <rect class="ic-step ic-step-3" x="38" y="26" width="12" height="32" rx="2" fill="#667eea"/><rect class="ic-step ic-step-4" x="52" y="14" width="12" height="44" rx="2" fill="#5568d3"/>
+                <path d="M12 40 L 56 8" stroke="#f5576c" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M48 7 L 57 7 L 56 16" stroke="#f5576c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`,
+            lumpsum: `<svg viewBox="0 0 72 72"><g class="ic-grow"><path d="M27 18 L 45 18 L 41 26 L 31 26 Z" fill="#818cf8"/>
+                <path d="M30 26 Q 12 34 14 50 Q 16 62 36 62 Q 56 62 58 50 Q 60 34 42 26 Z" fill="#667eea"/>
+                <text x="36" y="51" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">₹</text></g>
+                <path d="M54 12 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 z" fill="#f4a700"/></svg>`,
+            swp: `<svg viewBox="0 0 72 72"><rect x="12" y="8" width="34" height="32" rx="8" fill="#eef2ff" stroke="#667eea" stroke-width="2"/>
+                <rect x="16" y="22" width="26" height="14" rx="4" fill="#a5b4fc"/><path d="M46 26 H 56 Q 60 26 60 30 V 34" stroke="#5568d3" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <g font-size="8" font-weight="800" text-anchor="middle" fill="#a16207">
+                <g class="ic-drip"><circle cx="60" cy="40" r="5" fill="#fff" stroke="#f4a700" stroke-width="1.5"/><text x="60" y="43">₹</text></g>
+                <g class="ic-drip ic-drip-2"><circle cx="60" cy="40" r="5" fill="#fff" stroke="#f4a700" stroke-width="1.5"/><text x="60" y="43">₹</text></g>
+                <g class="ic-drip ic-drip-3"><circle cx="60" cy="40" r="5" fill="#fff" stroke="#f4a700" stroke-width="1.5"/><text x="60" y="43">₹</text></g></g></svg>`,
+            goal: `<svg viewBox="0 0 72 72"><circle cx="34" cy="38" r="24" fill="#eef2ff" stroke="#667eea" stroke-width="3"/>
+                <circle cx="34" cy="38" r="15" fill="#fff" stroke="#667eea" stroke-width="3"/><circle cx="34" cy="38" r="6" fill="#667eea"/>
+                <g class="ic-arrow"><path d="M36 36 L 60 12" stroke="#374151" stroke-width="3" stroke-linecap="round"/><path d="M56 8 L 64 8 L 64 16 Z" fill="#f5576c"/></g></svg>`,
+            retire: `<svg viewBox="0 0 72 72"><g class="ic-sun"><circle cx="54" cy="16" r="8" fill="#fde68a"/>
+                <g stroke="#f4a700" stroke-width="2" stroke-linecap="round"><line x1="54" y1="3" x2="54" y2="6"/><line x1="54" y1="26" x2="54" y2="29"/><line x1="41" y1="16" x2="44" y2="16"/><line x1="64" y1="16" x2="67" y2="16"/></g></g>
+                <path d="M24 60 Q 26 40 22 26" stroke="#5568d3" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M22 26 Q 8 22 4 30 Q 14 26 22 28 Q 12 34 12 42 Q 20 32 23 28 Q 30 34 34 42 Q 32 30 24 27 Q 36 24 40 30 Q 34 20 22 26 Z" fill="#818cf8"/>
+                <path class="ic-wave" d="M4 62 Q 14 56 24 62 T 44 62 T 64 62 T 84 62" stroke="#a5b4fc" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`
+        };
+
+        // ---------- Calculator definitions ----------
+        const CALCS = [
+            {
+                id: 'sip', cat: 'invest', tag: 'Grow wealth', title: 'SIP Calculator',
+                sub: 'See what a monthly SIP can grow into.',
+                desc: 'Invest a fixed amount every month and see the power of compounding.',
+                fields: [
+                    { id: 'amt', label: 'Monthly investment', min: 500, max: 200000, step: 500, value: 10000, pre: '₹' },
+                    { id: 'rate', label: 'Expected return (p.a.)', min: 1, max: 30, step: 0.5, value: 12, post: '%' },
+                    { id: 'yrs', label: 'Time period', min: 1, max: 40, step: 1, value: 10, post: ' Yr' }
+                ],
+                compute: (v) => {
+                    const bars = [];
+                    for (let y = 1; y <= v.yrs; y++) {
+                        const inv = v.amt * 12 * y, tot = sipFV(v.amt, v.rate, y * 12);
+                        bars.push({ x: y, a: inv, b: tot - inv });
+                    }
+                    const inv = v.amt * 12 * v.yrs, tot = sipFV(v.amt, v.rate, v.yrs * 12);
+                    return {
+                        donut: { a: inv, b: tot - inv, label: 'Total value', total: tot },
+                        legend: ['Invested', 'Est. returns'],
+                        stats: [['Invested amount', inr(inv), 0], ['Est. returns', inr(tot - inv), 1], ['Total value', inr(tot), 'big']],
+                        bars, chartTitle: 'How your money grows'
+                    };
+                }
+            },
+            {
+                id: 'stepup', cat: 'invest', tag: 'Grow wealth', title: 'Step-Up SIP Calculator',
+                sub: 'Increase your SIP every year as your income grows.',
+                desc: 'Grow your SIP by a fixed % every year and reach goals faster.',
+                fields: [
+                    { id: 'amt', label: 'Starting monthly SIP', min: 500, max: 200000, step: 500, value: 10000, pre: '₹' },
+                    { id: 'step', label: 'Annual step-up', min: 1, max: 50, step: 1, value: 10, post: '%' },
+                    { id: 'rate', label: 'Expected return (p.a.)', min: 1, max: 30, step: 0.5, value: 12, post: '%' },
+                    { id: 'yrs', label: 'Time period', min: 1, max: 40, step: 1, value: 10, post: ' Yr' }
+                ],
+                compute: (v) => {
+                    const r = v.rate / 12 / 100;
+                    let bal = 0, inv = 0, sip = v.amt;
+                    const bars = [];
+                    for (let y = 1; y <= v.yrs; y++) {
+                        for (let m = 0; m < 12; m++) { bal = (bal + sip) * (1 + r); inv += sip; }
+                        bars.push({ x: y, a: inv, b: bal - inv });
+                        if (y < v.yrs) sip *= 1 + v.step / 100;
+                    }
+                    return {
+                        donut: { a: inv, b: bal - inv, label: 'Total value', total: bal },
+                        legend: ['Invested', 'Est. returns'],
+                        stats: [['Invested amount', inr(inv), 0], ['Est. returns', inr(bal - inv), 1], ['SIP in final year', inr(sip) + '/mo', 'plain'], ['Total value', inr(bal), 'big']],
+                        bars, chartTitle: 'How your money grows'
+                    };
+                }
+            },
+            {
+                id: 'lumpsum', cat: 'invest', tag: 'Grow wealth', title: 'Lumpsum Calculator',
+                sub: 'See how a one-time investment grows.',
+                desc: 'Invest a bonus or savings once and see what it can become.',
+                fields: [
+                    { id: 'amt', label: 'Total investment', min: 5000, max: 10000000, step: 5000, value: 500000, pre: '₹' },
+                    { id: 'rate', label: 'Expected return (p.a.)', min: 1, max: 30, step: 0.5, value: 12, post: '%' },
+                    { id: 'yrs', label: 'Time period', min: 1, max: 40, step: 1, value: 10, post: ' Yr' }
+                ],
+                compute: (v) => {
+                    const bars = [];
+                    for (let y = 1; y <= v.yrs; y++) bars.push({ x: y, a: v.amt, b: v.amt * Math.pow(1 + v.rate / 100, y) - v.amt });
+                    const tot = v.amt * Math.pow(1 + v.rate / 100, v.yrs);
+                    return {
+                        donut: { a: v.amt, b: tot - v.amt, label: 'Total value', total: tot },
+                        legend: ['Invested', 'Est. returns'],
+                        stats: [['Invested amount', inr(v.amt), 0], ['Est. returns', inr(tot - v.amt), 1], ['Total value', inr(tot), 'big']],
+                        bars, chartTitle: 'How your money grows'
+                    };
+                }
+            },
+            {
+                id: 'swp', cat: 'withdraw', tag: 'Regular income', title: 'SWP Calculator',
+                sub: 'Plan a regular monthly income from your savings.',
+                desc: 'Withdraw a fixed amount every month and see how long your money lasts.',
+                fields: [
+                    { id: 'amt', label: 'Total investment', min: 50000, max: 50000000, step: 10000, value: 1000000, pre: '₹' },
+                    { id: 'wd', label: 'Monthly withdrawal', min: 500, max: 500000, step: 500, value: 8000, pre: '₹' },
+                    { id: 'rate', label: 'Expected return (p.a.)', min: 1, max: 30, step: 0.5, value: 10, post: '%' },
+                    { id: 'yrs', label: 'Time period', min: 1, max: 40, step: 1, value: 10, post: ' Yr' }
+                ],
+                compute: (v) => {
+                    const r = v.rate / 12 / 100;
+                    let bal = v.amt, withdrawn = 0, emptyAt = 0;
+                    const bars = [];
+                    for (let y = 1; y <= v.yrs; y++) {
+                        for (let m = 1; m <= 12; m++) {
+                            if (bal <= 0) break;
+                            bal *= 1 + r;
+                            const take = Math.min(v.wd, bal);
+                            bal -= take; withdrawn += take;
+                            if (bal <= 0 && !emptyAt) emptyAt = (y - 1) * 12 + m;
+                        }
+                        bars.push({ x: y, a: withdrawn, b: Math.max(bal, 0) });
+                    }
+                    const yrs = Math.floor(emptyAt / 12), mos = emptyAt % 12;
+                    const lasts = [yrs ? `${yrs} year${yrs > 1 ? 's' : ''}` : '', mos ? `${mos} month${mos > 1 ? 's' : ''}` : ''].filter(Boolean).join(' ');
+                    return {
+                        donut: { a: withdrawn, b: Math.max(bal, 0), label: 'Final balance', total: Math.max(bal, 0) },
+                        legend: ['Withdrawn so far', 'Balance left'],
+                        stats: [['Total withdrawn', inr(withdrawn), 0], ['Gain on investment', inr(withdrawn + Math.max(bal, 0) - v.amt), 'plain'], ['Final balance', inr(bal), 'big']],
+                        alert: emptyAt
+                            ? { text: `⚠️ At this withdrawal, your money would run out in about ${lasts}. Try a lower withdrawal or a higher investment.` }
+                            : { good: true, text: `✓ Your money lasts the full ${v.yrs} years, with ${short(bal)} still left.` },
+                        bars, chartTitle: 'Withdrawals and balance over time'
+                    };
+                }
+            },
+            {
+                id: 'goal', cat: 'plan', tag: 'Plan a goal', title: 'Goal Planner',
+                sub: 'Find the monthly SIP you need for any goal.',
+                desc: "Child's education, a home, a car: find how much to invest every month.",
+                fields: [
+                    { id: 'target', label: "Goal amount (today's cost)", min: 50000, max: 50000000, step: 10000, value: 2500000, pre: '₹' },
+                    { id: 'yrs', label: 'Years to goal', min: 1, max: 40, step: 1, value: 12, post: ' Yr' },
+                    { id: 'inf', label: 'Inflation (p.a.)', min: 0, max: 15, step: 0.5, value: 6, post: '%' },
+                    { id: 'rate', label: 'Expected return (p.a.)', min: 1, max: 30, step: 0.5, value: 12, post: '%' }
+                ],
+                compute: (v) => {
+                    const future = v.target * Math.pow(1 + v.inf / 100, v.yrs);
+                    const months = v.yrs * 12;
+                    const sip = future / sipFV(1, v.rate, months);
+                    const lump = future / Math.pow(1 + v.rate / 100, v.yrs);
+                    const bars = [];
+                    for (let y = 1; y <= v.yrs; y++) {
+                        const inv = sip * 12 * y, tot = sipFV(sip, v.rate, y * 12);
+                        bars.push({ x: y, a: inv, b: tot - inv });
+                    }
+                    const inv = sip * months;
+                    return {
+                        donut: { a: inv, b: future - inv, label: 'Goal value', total: future },
+                        legend: ['You invest', 'Est. returns'],
+                        stats: [['Goal cost in ' + v.yrs + ' yrs', inr(future), 'plain'], ['Total you invest', inr(inv), 0], ['Or one-time today', inr(lump), 'plain'], ['Monthly SIP needed', inr(sip), 'big']],
+                        bars, chartTitle: 'Your path to the goal'
+                    };
+                }
+            },
+            {
+                id: 'retire', cat: 'plan', tag: 'Plan a goal', title: 'Retirement Planner',
+                sub: 'How much you need to retire, and how to get there.',
+                desc: 'Find your retirement corpus and the monthly SIP to build it.',
+                fields: [
+                    { id: 'age', label: 'Current age', min: 18, max: 60, step: 1, value: 30, post: ' Yr' },
+                    { id: 'retAge', label: 'Retirement age', min: 40, max: 75, step: 1, value: 60, post: ' Yr' },
+                    { id: 'exp', label: 'Monthly expenses today', min: 10000, max: 500000, step: 1000, value: 50000, pre: '₹' },
+                    { id: 'inf', label: 'Inflation (p.a.)', min: 0, max: 12, step: 0.5, value: 6, post: '%' },
+                    { id: 'rate', label: 'Return before retirement', min: 1, max: 20, step: 0.5, value: 12, post: '%' },
+                    { id: 'post', label: 'Return after retirement', min: 1, max: 15, step: 0.5, value: 8, post: '%' },
+                    { id: 'life', label: 'Plan till age', min: 70, max: 100, step: 1, value: 85, post: ' Yr' }
+                ],
+                compute: (v) => {
+                    const years = Math.max(v.retAge - v.age, 1);
+                    const retYears = Math.max(v.life - v.retAge, 1);
+                    const expAtRet = v.exp * Math.pow(1 + v.inf / 100, years);
+                    // Money must cover expenses that keep rising with inflation, while the corpus earns the post-retirement return
+                    const real = (1 + v.post / 100) / (1 + v.inf / 100) - 1;
+                    const annual = expAtRet * 12;
+                    const corpus = Math.abs(real) < 1e-9 ? annual * retYears : annual * ((1 - Math.pow(1 + real, -retYears)) / real) * (1 + real);
+                    const sip = corpus / sipFV(1, v.rate, years * 12);
+                    const bars = [];
+                    for (let y = 1; y <= years; y++) {
+                        const inv = sip * 12 * y, tot = sipFV(sip, v.rate, y * 12);
+                        bars.push({ x: v.age + y, a: inv, b: tot - inv });
+                    }
+                    const inv = sip * years * 12;
+                    return {
+                        donut: { a: inv, b: corpus - inv, label: 'Corpus needed', total: corpus },
+                        legend: ['You invest', 'Est. returns'],
+                        stats: [['Monthly expenses at ' + v.retAge, inr(expAtRet), 'plain'], ['Total you invest', inr(inv), 0], ['Corpus needed', inr(corpus), 'plain'], ['Monthly SIP needed', inr(sip), 'big']],
+                        alert: v.retAge <= v.age ? { text: '⚠️ Retirement age should be more than your current age.' } : null,
+                        bars, chartTitle: 'Building your retirement corpus (by age)'
+                    };
+                }
+            }
+        ];
+
+        // ---------- Cards ----------
+        const grid = document.getElementById('cl-grid');
+        grid.innerHTML = CALCS.map((c) => `
+            <button type="button" class="cl-card c-${c.cat} cl-reveal" data-id="${c.id}" data-cat="${c.cat}">
+                <span class="cl-card-icon" aria-hidden="true">${ICONS[c.id]}</span>
+                <span class="cl-card-tag">${c.tag}</span>
+                <span class="cl-card-title">${c.title}</span>
+                <span class="cl-card-desc">${c.desc}</span>
+                <span class="cl-card-go">Calculate now <span aria-hidden="true">→</span></span>
+            </button>`).join('');
+
+        // Filters
+        const filters = [...document.querySelectorAll('.cl-filter')];
+        filters.forEach((f) => f.addEventListener('click', () => {
+            filters.forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
+            document.querySelectorAll('.cl-card').forEach((card) => {
+                card.hidden = f.dataset.filter !== 'all' && card.dataset.cat !== f.dataset.filter;
+            });
+        }));
+
+        // ---------- Sheet ----------
+        const sheet = document.getElementById('cl-sheet');
+        const backdrop = document.getElementById('cl-backdrop');
+        const fieldsEl = document.getElementById('cl-fields');
+        const tabsEl = document.getElementById('cl-tabs');
+        const statsEl = document.getElementById('cl-stats');
+        const barsEl = document.getElementById('cl-bars');
+        const axisEl = document.getElementById('cl-axis');
+        const legendEl = document.getElementById('cl-legend');
+        const alertEl = document.getElementById('cl-alert');
+        const donutA = document.getElementById('cl-donut-a');
+        const donutB = document.getElementById('cl-donut-b');
+        const CIRC = 2 * Math.PI * 50;
+        let current = null, lastFocus = null;
+
+        tabsEl.innerHTML = CALCS.map((c) => `<button type="button" class="cl-tab" role="tab" data-id="${c.id}">${c.title.replace(' Calculator', '')}</button>`).join('');
+        tabsEl.addEventListener('click', (e) => { const t = e.target.closest('.cl-tab'); if (t) load(t.dataset.id, true); });
+
+        const fmtField = (f, n) => (f.pre ? '' : '') + (f.step < 1 ? n : Math.round(n).toLocaleString('en-IN'));
+
+        function load(id, keepOpen) {
+            const c = CALCS.find((x) => x.id === id);
+            if (!c) return;
+            current = c;
+            sheet.className = 'cl-sheet c-' + c.cat + (sheet.classList.contains('dragging') ? ' dragging' : '');
+            document.getElementById('cl-sheet-title').textContent = c.title;
+            document.getElementById('cl-sheet-sub').textContent = c.sub;
+            document.getElementById('cl-sheet-icon').innerHTML = ICONS[c.id];
+            tabsEl.querySelectorAll('.cl-tab').forEach((t) => {
+                const on = t.dataset.id === id;
+                t.setAttribute('aria-selected', String(on));
+                if (on) centerTab(t, keepOpen);
+            });
+            const [ca, cb] = COLORS[c.cat];
+            donutA.style.stroke = ca; donutB.style.stroke = cb;
+
+            fieldsEl.innerHTML = c.fields.map((f) => `
+                <div class="cl-field">
+                    <div class="cl-field-top">
+                        <label for="f-${f.id}">${f.label}</label>
+                        <div class="cl-value">${f.pre ? `<span>${f.pre}</span>` : ''}<input id="f-${f.id}-num" data-f="${f.id}" inputmode="decimal" aria-label="${f.label}" value="${fmtField(f, f.value)}">${f.post ? `<span>${f.post.trim()}</span>` : ''}</div>
+                    </div>
+                    <input class="cl-range" type="range" id="f-${f.id}" data-f="${f.id}" min="${f.min}" max="${f.max}" step="${f.step}" value="${f.value}">
+                    <div class="cl-minmax"><span>${f.pre || ''}${short(f.min).replace('₹', '')}${f.post || ''}</span><span>${f.pre || ''}${short(f.max).replace('₹', '')}${f.post || ''}</span></div>
+                </div>`).join('');
+            fieldsEl.querySelectorAll('.cl-range').forEach(paintRange);
+            sheet.querySelector('.cl-sheet-body').scrollTop = 0;
+            history.replaceState(null, '', '#' + id);
+            update();
+        }
+
+        // Scroll the tab row (only the row, never the page) so the selected calculator is in view
+        function centerTab(tab, smooth) {
+            const left = tab.offsetLeft - (tabsEl.clientWidth - tab.offsetWidth) / 2;
+            tabsEl.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
+        }
+
+        function paintRange(r) {
+            const pct = ((r.value - r.min) / (r.max - r.min)) * 100;
+            r.style.setProperty('--fill', pct + '%');
+        }
+
+        function values() {
+            const v = {};
+            current.fields.forEach((f) => { v[f.id] = Number(document.getElementById('f-' + f.id).value); });
+            return v;
+        }
+
+        // Slider -> number box
+        fieldsEl.addEventListener('input', (e) => {
+            const el = e.target;
+            const f = current && current.fields.find((x) => x.id === el.dataset.f);
+            if (!f) return;
+            if (el.classList.contains('cl-range')) {
+                document.getElementById(`f-${f.id}-num`).value = fmtField(f, Number(el.value));
+                paintRange(el);
+                update();
+            }
+        });
+        // Number box -> slider (on change/enter), clamped to the allowed range
+        const commit = (el) => {
+            const f = current.fields.find((x) => x.id === el.dataset.f);
+            let n = parseFloat(String(el.value).replace(/[^\d.]/g, ''));
+            if (isNaN(n)) n = f.value;
+            n = Math.min(Math.max(n, f.min), f.max);
+            if (f.step >= 1) n = Math.round(n / f.step) * f.step || f.min;
+            const range = document.getElementById('f-' + f.id);
+            range.value = n; paintRange(range);
+            el.value = fmtField(f, n);
+            update();
+        };
+        fieldsEl.addEventListener('change', (e) => { if (e.target.dataset.f && !e.target.classList.contains('cl-range')) commit(e.target); });
+        fieldsEl.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.dataset.f && !e.target.classList.contains('cl-range')) { e.preventDefault(); commit(e.target); } });
+
+        function update() {
+            const res = current.compute(values());
+            const [ca, cb] = COLORS[current.cat];
+            // Donut
+            const total = Math.max(res.donut.a + res.donut.b, 1);
+            const la = (Math.max(res.donut.a, 0) / total) * CIRC, lb = (Math.max(res.donut.b, 0) / total) * CIRC;
+            donutA.setAttribute('stroke-dasharray', `${la} ${CIRC}`);
+            donutB.setAttribute('stroke-dasharray', `${lb} ${CIRC}`);
+            donutB.setAttribute('stroke-dashoffset', String(-la));
+            document.getElementById('cl-donut-label').textContent = res.donut.label;
+            document.getElementById('cl-donut-value').textContent = short(res.donut.total);
+            // Stats
+            statsEl.innerHTML = res.stats.map(([label, value, kind]) => {
+                const dot = kind === 0 ? `<i style="background:${ca}"></i>` : kind === 1 ? `<i style="background:${cb}"></i>` : '';
+                return `<div class="cl-stat${kind === 'big' ? ' big' : ''}"><span>${dot}${label}</span><strong>${value}</strong></div>`;
+            }).join('');
+            alertEl.innerHTML = res.alert ? `<div class="cl-alert${res.alert.good ? ' good' : ''}">${res.alert.text}</div>` : '';
+            // Bars (max 30 shown)
+            const step = Math.ceil(res.bars.length / 30);
+            const shown = res.bars.filter((_, i) => (res.bars.length - 1 - i) % step === 0);
+            const max = Math.max(...shown.map((b) => Math.max(b.a, 0) + Math.max(b.b, 0)), 1);
+            barsEl.innerHTML = shown.map((b) => `
+                <div class="cl-bar">
+                    <span style="height:${(Math.max(b.a, 0) / max) * 100}%;background:${ca}"></span>
+                    <span style="height:${(Math.max(b.b, 0) / max) * 100}%;background:${cb}"></span>
+                    <div class="cl-bar-tip">${current.id === 'retire' ? 'Age ' : 'Year '}${b.x}: ${short(Math.max(b.a, 0) + Math.max(b.b, 0))}</div>
+                </div>`).join('');
+            axisEl.innerHTML = `<span>${current.id === 'retire' ? 'Age ' : 'Year '}${shown[0].x}</span><span>${current.id === 'retire' ? 'Age ' : 'Year '}${shown[shown.length - 1].x}</span>`;
+            legendEl.innerHTML = `<span><i style="background:${ca}"></i>${res.legend[0]}</span><span><i style="background:${cb}"></i>${res.legend[1]}</span>`;
+            document.getElementById('cl-chart-title').textContent = res.chartTitle;
+        }
+
+        function open(id) {
+            lastFocus = document.activeElement;
+            load(id);
+            document.body.classList.add('cl-open', 'cl-lock');
+            sheet.setAttribute('aria-hidden', 'false');
+            setTimeout(() => document.getElementById('cl-close').focus(), 50);
+        }
+        function close() {
+            document.body.classList.remove('cl-open', 'cl-lock');
+            sheet.setAttribute('aria-hidden', 'true');
+            sheet.style.transform = '';
+            history.replaceState(null, '', location.pathname);
+            if (lastFocus) lastFocus.focus();
+        }
+
+        grid.addEventListener('click', (e) => { const card = e.target.closest('.cl-card'); if (card) open(card.dataset.id); });
+        backdrop.addEventListener('click', close);
+        document.getElementById('cl-close').addEventListener('click', close);
+        document.addEventListener('keydown', (e) => {
+            if (!document.body.classList.contains('cl-open')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'Tab') {   // keep keyboard focus inside the sheet
+                const items = [...sheet.querySelectorAll('button, input, a[href]')].filter((el) => el.offsetParent !== null);
+                const first = items[0], last = items[items.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
+        });
+
+        // Drag the top bar down to close (touch and mouse)
+        const top = document.getElementById('cl-sheet-top');
+        let startY = null, dy = 0;
+        top.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('button')) return;
+            startY = e.clientY; dy = 0;
+            sheet.classList.add('dragging');
+            top.setPointerCapture(e.pointerId);
+        });
+        top.addEventListener('pointermove', (e) => {
+            if (startY === null) return;
+            dy = Math.max(0, e.clientY - startY);
+            sheet.style.transform = `translate(-50%, ${dy}px)`;
+        });
+        const endDrag = () => {
+            if (startY === null) return;
+            startY = null;
+            sheet.classList.remove('dragging');
+            if (dy > 120) close(); else sheet.style.transform = '';
+        };
+        top.addEventListener('pointerup', endDrag);
+        top.addEventListener('pointercancel', endDrag);
+
+        // Open straight from a link like calculators.html#sip
+        const fromHash = location.hash.slice(1);
+        if (CALCS.some((c) => c.id === fromHash)) setTimeout(() => open(fromHash), 250);
+
+        // Reveal + play card icons while visible
+        const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+            en.target.classList.toggle('playing', en.isIntersecting);
+            if (en.isIntersecting) en.target.classList.add('in');
+        }), { threshold: 0.2 });
+        document.querySelectorAll('.cl-reveal').forEach((el) => io.observe(el));
+    })();
+    </script>
+    <span id="site-ready" hidden></span>
+</body>
+</html>

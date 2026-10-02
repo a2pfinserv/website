@@ -3,261 +3,1385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2P Financial Services - Wealth Building Made Simple</title>
+    <meta name="description" content="A2P Financial Services: mutual funds and SIPs, stock investing, insurance and tax planning for Indian families. Open your investment account with us. AMFI Registered Mutual Fund Distributor.">
+    <title>A2P Financial Services - Aapke Sapno Ka Financial Planner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
+    <style>
+        /* ========================= HOME ========================= */
+        .hm-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; border-radius: 999px; background: rgba(102, 126, 234, 0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+        .hm-gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hm-js .hm-reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .hm-js .hm-reveal.in { opacity: 1; transform: none; }
+        .hm-section { padding: 4.5rem 0; }
+        .hm-head { text-align: center; margin-bottom: 2.5rem; }
+        .hm-head h2 { font-size: 2.3rem; line-height: 1.2; margin-bottom: 0.6rem; }
+        .hm-head p { color: var(--text-muted); font-size: 1.08rem; max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+        /* ---------- Hero ---------- */
+        .hm-hero {
+            position: relative;
+            min-height: calc(100vh - 82px);
+            display: flex;
+            align-items: center;
+            padding: 3rem 0;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 80% 30%, rgba(102, 126, 234, 0.16), transparent 42%),
+                radial-gradient(circle at 95% 90%, rgba(245, 87, 108, 0.1), transparent 40%),
+                radial-gradient(circle at 5% 85%, rgba(16, 185, 129, 0.08), transparent 40%),
+                linear-gradient(135deg, #fff 0%, #f3f5ff 100%);
+        }
+        .hm-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; width: 100%; }
+        .hm-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); animation: hmLive 1.8s infinite; }
+        @keyframes hmLive { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); } 70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+        .hm-hero h1 { font-size: 3.5rem; line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 1.2rem; }
+        .hm-hero-lead { font-size: 1.15rem; color: var(--text-muted); line-height: 1.75; max-width: 540px; margin-bottom: 2rem; }
+        .hm-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 2.25rem; }
+        .hm-actions .btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.95rem 1.5rem; font-size: 1rem; white-space: nowrap; }
+        .hm-btn-shine { position: relative; overflow: hidden; }
+        .hm-btn-shine::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent); animation: hmShine 3.6s ease-in-out infinite; }
+        @keyframes hmShine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+
+        /* Facts strip (slim, glassy — not cards) */
+        .hm-facts {
+            display: inline-grid;
+            grid-template-columns: repeat(4, auto);
+            align-items: center;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(102, 126, 234, 0.16);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.08);
+        }
+        .hm-fact { padding: 0.85rem 1.25rem; text-align: left; }
+        .hm-fact + .hm-fact { border-left: 1px solid rgba(102, 126, 234, 0.15); }
+        .hm-fact strong { display: block; font-size: 1.15rem; font-weight: 800; color: #1f2937; line-height: 1.2; font-variant-numeric: tabular-nums; }
+        .hm-fact span { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+        .hm-fact-note { margin-top: 0.75rem; font-size: 0.72rem; color: #9ca3af; max-width: 560px; line-height: 1.5; }
+
+        /* Services orbit */
+        .hm-orbit-wrap { position: relative; display: grid; place-items: center; }
+        .hm-orbit { --size: 480px; --r: 200px; position: relative; width: var(--size); height: var(--size); }
+        .hm-ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed rgba(102, 126, 234, 0.3); }
+        .hm-ring.inner { inset: 22%; border-style: solid; border-color: rgba(102, 126, 234, 0.14); background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(238, 242, 255, 0.4)); }
+        .hm-spin { position: absolute; inset: 0; animation: hmSpin 60s linear infinite; }
+        .hm-orbit:hover .hm-spin, .hm-orbit:hover .hm-sat-inner { animation-play-state: paused; }
+        @keyframes hmSpin { to { transform: rotate(360deg); } }
+        .hm-sat {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)));
+        }
+        .hm-sat-inner { animation: hmSpin 60s linear infinite reverse; }
+        .hm-sat a {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            width: 96px;
+            text-decoration: none;
+            color: #374151;
+        }
+        .hm-sat-icon {
+            display: grid;
+            place-items: center;
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            background: #fff;
+            font-size: 1.55rem;
+            box-shadow: 0 10px 26px rgba(102, 126, 234, 0.18);
+            border: 1px solid rgba(102, 126, 234, 0.14);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .hm-sat a:hover .hm-sat-icon, .hm-sat a:focus-visible .hm-sat-icon { transform: scale(1.12); box-shadow: 0 14px 32px rgba(102, 126, 234, 0.32); }
+        .hm-sat-label { font-size: 0.74rem; font-weight: 700; text-align: center; line-height: 1.2; padding: 0.2rem 0.5rem; border-radius: 999px; background: rgba(255, 255, 255, 0.85); }
+        .hm-core { position: absolute; top: 50%; left: 50%; width: 150px; height: 150px; margin: -75px 0 0 -75px; display: grid; place-items: center; text-align: center; border-radius: 50%; background: #fff; box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25); }
+        .hm-core::before, .hm-core::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(102, 126, 234, 0.35); animation: hmPulse 3s ease-out infinite; }
+        .hm-core::after { animation-delay: 1.5s; }
+        @keyframes hmPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
+        .hm-core img { width: 74px; height: auto; display: block; margin: 0 auto 0.25rem; }
+        .hm-core small { display: block; font-size: 0.7rem; font-weight: 700; color: var(--primary); letter-spacing: 0.04em; }
+
+        /* Service deck (stack of 3D cards that cycles through our services) */
+        .hm-deck-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+        .hm-deck-wrap::before { content: ''; position: absolute; width: 420px; height: 420px; top: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(102, 126, 234, 0.22), transparent 65%); filter: blur(10px); z-index: 0; }
+        .hm-deck { position: relative; width: 360px; height: 430px; perspective: 1200px; z-index: 1; touch-action: pan-y; }
+        .hm-card {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1.75rem;
+            border-radius: 28px;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.16);
+            box-shadow: 0 30px 60px rgba(55, 65, 140, 0.18);
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transform-origin: 50% 100%;
+            transition: transform 0.7s cubic-bezier(.34, 1.25, .64, 1), opacity 0.35s ease;
+            will-change: transform, opacity;
+        }
+        /* The front card is always fully solid straight away, so no other card ever shows through it */
+        .hm-card.front { transition: transform 0.7s cubic-bezier(.34, 1.25, .64, 1); }
+        .hm-card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 46%; background: linear-gradient(160deg, var(--soft) 0%, rgba(255, 255, 255, 0) 100%); z-index: 0; }
+        .hm-card > * { position: relative; z-index: 1; }
+        .hm-card.out { transform: translate(-115%, 30px) rotate(-16deg) scale(0.92) !important; opacity: 0 !important; transition: transform 0.5s ease-in, opacity 0.45s ease-in; }
+        .hm-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem; }
+        .hm-card-cat { padding: 0.3rem 0.8rem; border-radius: 999px; background: #fff; color: var(--c-text, var(--c)); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; box-shadow: 0 2px 8px rgba(31, 41, 55, 0.06); }
+        .hm-card-count { font-size: 0.8rem; font-weight: 700; color: #9ca3af; font-variant-numeric: tabular-nums; }
+        .hm-card-icon { display: grid; place-items: center; width: 92px; height: 92px; border-radius: 26px; background: #fff; font-size: 2.8rem; box-shadow: 0 14px 30px rgba(55, 65, 140, 0.16); margin-bottom: 1.4rem; }
+        .hm-card.front .hm-card-icon { animation: hmIconBob 3s ease-in-out infinite; }
+        @keyframes hmIconBob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-6px) rotate(-4deg); } }
+        .hm-card h3 { font-size: 1.6rem; line-height: 1.2; margin-bottom: 0.5rem; color: #1f2937; }
+        .hm-card p { color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+        .hm-card-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .hm-card-chips span { padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--soft); color: var(--c-text, var(--c)); font-size: 0.78rem; font-weight: 600; }
+        .hm-card-go { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #f1f3f9; color: var(--c-text, var(--c)); font-weight: 700; }
+        .hm-card-go i { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--c); color: #fff; font-style: normal; transition: transform 0.3s; }
+        .hm-card:hover .hm-card-go i { transform: translateX(4px); }
+        .d-invest { --c: #667eea; --soft: #eef2ff; --c-text: #5568d3; }
+        .d-protect { --c: #10b981; --soft: #ecfdf5; --c-text: #047857; }
+        .d-tax { --c: #f4a700; --soft: #fef6e0; --c-text: #a16207; }
+        .hm-deck-nav { position: relative; z-index: 1; display: flex; align-items: center; gap: 1rem; }
+        .hm-deck-btn { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(102, 126, 234, 0.25); background: #fff; color: var(--primary-dark); font-size: 1.1rem; cursor: pointer; box-shadow: 0 6px 16px rgba(102, 126, 234, 0.12); transition: transform 0.2s, background 0.2s, color 0.2s; }
+        .hm-deck-btn:hover { transform: scale(1.08); background: var(--primary); color: #fff; }
+        .hm-deck-dots { display: flex; gap: 6px; }
+        .hm-deck-dots button { width: 8px; height: 8px; padding: 0; border: none; border-radius: 999px; background: #d6dcf5; cursor: pointer; transition: width 0.35s, background 0.35s; }
+        .hm-deck-dots button[aria-current="true"] { width: 26px; background: var(--primary); }
+
+        /* Live bento grid: each tile is a tiny live animation of one service */
+        .hm-bento-wrap { position: relative; perspective: 1400px; }
+        .hm-bento-wrap::before { content: ''; position: absolute; inset: 8% 6%; border-radius: 40px; background: radial-gradient(circle at 40% 40%, rgba(102, 126, 234, 0.25), transparent 65%); filter: blur(20px); z-index: 0; }
+        .hm-bento {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 150px);
+            gap: 14px;
+            max-width: 540px;
+            margin: 0 auto;
+            transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+            transform-style: preserve-3d;
+            transition: transform 0.25s ease-out;
+        }
+        .bt {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 0.95rem 1rem;
+            border-radius: 22px;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.14);
+            box-shadow: 0 14px 34px rgba(55, 65, 140, 0.12);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bt:hover, .bt:focus-visible { transform: translateZ(34px) translateY(-4px); box-shadow: 0 24px 50px rgba(55, 65, 140, 0.22); }
+        .bt-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-text, var(--c)); }
+        .bt-title { font-size: 0.98rem; font-weight: 800; color: #1f2937; line-height: 1.2; margin-top: 0.15rem; }
+        .bt svg { display: block; width: 100%; height: auto; margin-top: auto; }
+        .bt-big { grid-column: 1 / 3; grid-row: 1 / 3; padding: 1.3rem; background: linear-gradient(160deg, #eef2ff 0%, #fff 60%); }
+        .bt-big .bt-title { font-size: 1.35rem; }
+        .bt-big-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.75rem; margin-top: 0.6rem; }
+        .bt-value { font-size: 1.7rem; font-weight: 800; color: #1f2937; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+        .bt-value small { display: block; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0; }
+        .bt-chip { padding: 0.3rem 0.65rem; border-radius: 999px; background: #ecfdf5; color: #047857; font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+        .bt-stock { --c: #10b981; --c-text: #047857; background: linear-gradient(160deg, #ecfdf5, #fff 70%); }
+        .bt-ins { --c: #10b981; --c-text: #047857; }
+        .bt-tax { --c: #f4a700; --c-text: #a16207; background: linear-gradient(160deg, #fef6e0, #fff 70%); }
+        .bt-ret { --c: #f5576c; --c-text: #be123c; background: linear-gradient(180deg, #fff1f3 0%, #fff 70%); }
+        .bt-child { --c: #667eea; --c-text: #5568d3; }
+        .bt-big { --c: #667eea; --c-text: #5568d3; }
+
+        @keyframes btDraw { 0% { stroke-dashoffset: 100; } 55%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+        @keyframes btFade { 0%, 20% { opacity: 0; } 55%, 90% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes btDrop { 0% { transform: translateY(-40px); opacity: 0; } 15% { opacity: 1; } 60% { transform: translateY(0); opacity: 1; } 75%, 100% { transform: translateY(4px); opacity: 0; } }
+        @keyframes btCandle { 0%, 100% { transform: scaleY(0.6); } 50% { transform: scaleY(1.15); } }
+        @keyframes btPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes btRing { 0% { stroke-dashoffset: 100; } 60%, 90% { stroke-dashoffset: 26; } 100% { stroke-dashoffset: 100; } }
+        @keyframes btSun { 0% { transform: translateY(26px); } 55%, 90% { transform: translateY(0); } 100% { transform: translateY(26px); } }
+        @keyframes btWave { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-12px); } }
+        @keyframes btCap { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-8px) rotate(6deg); } }
+        @keyframes btFill { 0% { width: 6%; } 60%, 90% { width: 82%; } 100% { width: 6%; } }
+        .a-draw { animation: btDraw 6s ease-in-out infinite; }
+        .a-fade { animation: btFade 6s ease-in-out infinite; }
+        .a-drop { animation: btDrop 2.2s ease-in infinite; }
+        .a-candle { transform-box: fill-box; transform-origin: center; animation: btCandle 2.2s ease-in-out infinite; }
+        .a-pulse { transform-box: fill-box; transform-origin: center; animation: btPulse 2.2s ease-in-out infinite; }
+        .a-ecg { animation: btDraw 2.6s linear infinite; }
+        .a-ring { animation: btRing 5s ease-in-out infinite; }
+        .a-sun { animation: btSun 5s ease-in-out infinite; }
+        .a-wave { animation: btWave 3s ease-in-out infinite; }
+        .a-cap { transform-box: fill-box; transform-origin: center; animation: btCap 2s ease-in-out infinite; }
+        .bt-bar { height: 8px; border-radius: 999px; background: #e0e7ff; overflow: hidden; margin-top: auto; }
+        .bt-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #10b981, #667eea); animation: btFill 5s ease-in-out infinite; }
+        .bt-cap { font-size: 2.2rem; text-align: center; margin: 0.4rem 0 0.5rem; display: inline-block; align-self: center; }
+
+        /* Dream journey hero: centred headline + a road of life goals with a ₹ coin travelling along it */
+        .hm-hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(102, 126, 234, 0.18) 1.2px, transparent 1.3px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); }
+        .hm-stage { position: relative; z-index: 1; width: 100%; text-align: center; }
+        .hm-intro { max-width: 860px; margin: 0 auto; }
+        .hm-stage h1 { font-size: 3.2rem; margin-bottom: 0.8rem; }
+        .hm-hero:has(.hm-stage) { padding: 1.6rem 0 1.4rem; }
+        .hm-word-wrap { display: inline-block; position: relative; }
+        .hm-word { display: inline-block; color: var(--w, var(--primary)); transition: opacity 0.28s ease, transform 0.28s ease, filter 0.28s ease; }
+        .hm-word::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 0.14em; border-radius: 99px; background: var(--w, var(--primary)); opacity: 0.22; }
+        .hm-word.out { opacity: 0; transform: translateY(0.35em); filter: blur(4px); }
+        .hm-stage .hm-hero-lead { margin: 0 auto 1.4rem; max-width: 620px; font-size: 1.08rem; line-height: 1.65; }
+        .hm-stage .hm-actions { justify-content: center; margin-bottom: 0.5rem; }
+
+        .hm-journey { position: relative; height: 205px; margin: 0.4rem auto 0.9rem; max-width: 1100px; }
+        .jn-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .jn-road { fill: none; stroke: #e7ebff; stroke-width: 26; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+        .jn-dash { fill: none; stroke: #fff; stroke-width: 2.5; stroke-dasharray: 10 12; vector-effect: non-scaling-stroke; animation: jnDash 1.2s linear infinite; }
+        .jn-trail { fill: none; stroke: url(#jnGrad); stroke-width: 8; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: 0.9; }
+        @keyframes jnDash { to { stroke-dashoffset: -22; } }
+        .jn-coin {
+            position: absolute; left: 0; top: 0; z-index: 3;
+            width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
+            display: grid; place-items: center;
+            background: radial-gradient(circle at 35% 30%, #fff7d6, #fbbf24 55%, #d97706);
+            color: #7c4a03; font-weight: 800; font-size: 1rem;
+            box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.22), 0 8px 18px rgba(217, 119, 6, 0.35);
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .jn-coin::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(251, 191, 36, 0.5); animation: jnRipple 1.6s ease-out infinite; }
+        @keyframes jnRipple { from { transform: scale(0.8); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
+        .jn-node {
+            position: absolute; left: 0; top: 0; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            width: 150px; margin-left: -75px; margin-top: -27px;
+            text-decoration: none; color: inherit;
+        }
+        .jn-ic {
+            width: 54px; height: 54px; border-radius: 18px;
+            display: grid; place-items: center; font-size: 1.55rem;
+            background: #fff; border: 2px solid #e5e7eb;
+            box-shadow: 0 8px 20px rgba(31, 41, 55, 0.08);
+            filter: grayscale(0.85); opacity: 0.75;
+            transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1), filter 0.35s, opacity 0.35s, border-color 0.35s, box-shadow 0.35s;
+        }
+        .jn-lbl { margin-top: 0.55rem; font-size: 0.86rem; font-weight: 700; color: #6b7280; line-height: 1.25; transition: color 0.3s; }
+        .jn-sub { font-size: 0.74rem; color: var(--text-muted); line-height: 1.35; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.35s ease; }
+        .jn-node.on .jn-ic { filter: none; opacity: 1; border-color: var(--c); }
+        .jn-node.on .jn-lbl { color: #1f2937; }
+        .jn-node.cur .jn-ic { transform: translateY(-6px) scale(1.12); box-shadow: 0 0 0 7px color-mix(in srgb, var(--c) 18%, transparent), 0 14px 26px rgba(31, 41, 55, 0.14); }
+        .jn-node.cur .jn-lbl { color: var(--c-text, var(--c)); }
+        .jn-node.cur .jn-sub { max-height: 3em; opacity: 1; }
+        .jn-node:focus-visible { outline: none; }
+        .jn-node:focus-visible .jn-ic { outline: 3px solid var(--primary); outline-offset: 3px; }
+        .jn-caption { display: none; }
+        .hm-stage .hm-facts { margin: 0 auto; }
+        .hm-stage .hm-fact-note { margin: 0.6rem auto 0; }
+
+        /* Chat hero: a friendly planner conversation the visitor can tap through */
+        .hm-hero:has(.hm-chat-grid) { padding: 2rem 0; }
+        .hm-chat-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: center; width: 100%; position: relative; z-index: 1; }
+        .hm-chat { max-width: 420px; width: 100%; margin: 0 auto; border-radius: 28px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.18); box-shadow: 0 30px 70px rgba(55, 65, 140, 0.18); overflow: hidden; }
+        .ch-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.1rem; background: linear-gradient(135deg, #667eea, #5568d3); color: #fff; }
+        .ch-av { width: 40px; height: 40px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; flex: none; }
+        .ch-av img { width: 30px; height: 30px; object-fit: contain; }
+        .ch-head strong { display: block; font-size: 0.95rem; line-height: 1.2; }
+        .ch-head small { display: flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; opacity: 0.9; }
+        .ch-head small i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; }
+        .ch-body { height: 480px; padding: 1rem; display: flex; flex-direction: column; gap: 0.55rem; overflow: hidden; background: linear-gradient(180deg, #f5f7ff, #fff); }
+        .ch-msg { max-width: 86%; padding: 0.65rem 0.9rem; border-radius: 18px; font-size: 0.9rem; line-height: 1.5; animation: chIn 0.35s ease both; }
+        .ch-bot { align-self: flex-start; background: #fff; border: 1px solid #e5e9ff; border-bottom-left-radius: 6px; color: #1f2937; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.07); }
+        .ch-me { align-self: flex-end; background: linear-gradient(135deg, #667eea, #5568d3); color: #fff; border-bottom-right-radius: 6px; }
+        @keyframes chIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
+        .ch-typing { display: inline-flex; gap: 4px; padding: 0.85rem 0.9rem; }
+        .ch-typing span { width: 7px; height: 7px; border-radius: 50%; background: #a5b0f5; animation: chDot 1s ease-in-out infinite; }
+        .ch-typing span:nth-child(2) { animation-delay: 0.15s; }
+        .ch-typing span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes chDot { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-4px); opacity: 1; } }
+        .ch-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .ch-chip { font: inherit; font-size: 0.82rem; font-weight: 600; padding: 0.45rem 0.8rem; border-radius: 999px; background: #fff; color: #4a5bd0; border: 1.5px solid #c7d0fb; cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.2s, border-color 0.2s; }
+        .ch-chip:hover { transform: translateY(-2px); border-color: #667eea; }
+        .ch-chip.sel { background: #667eea; border-color: #667eea; color: #fff; }
+        .ch-cta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: flex-start; animation: chIn 0.35s ease both; }
+        .ch-cta a { font-size: 0.82rem; font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 999px; text-decoration: none; background: #667eea; color: #fff; }
+        .ch-cta a + a { background: #fff; color: #4a5bd0; border: 1.5px solid #c7d0fb; }
+        .ch-foot { padding: 0.55rem 1rem; font-size: 0.7rem; color: #9ca3af; text-align: center; border-top: 1px solid #eef0ff; background: #fff; }
+
+        /* ---------- Open an account ---------- */
+        .hm-accounts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .hm-acc {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            border-radius: 24px;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.16);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .hm-acc:hover { transform: translateY(-6px); box-shadow: 0 24px 54px rgba(102, 126, 234, 0.18); border-color: var(--c); }
+        .hm-acc-glow { position: absolute; right: -70px; top: -70px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, var(--soft) 0%, transparent 70%); transition: transform 0.6s; }
+        .hm-acc:hover .hm-acc-glow { transform: scale(1.3); }
+        .hm-acc > *:not(.hm-acc-glow) { position: relative; }
+        .hm-acc-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+        .hm-acc-icon { flex-shrink: 0; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: var(--soft); }
+        .hm-acc-icon svg { width: 40px; height: 40px; }
+        .hm-acc-tag { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c); }
+        .hm-acc h3 { font-size: 1.45rem; line-height: 1.25; }
+        .hm-acc > p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.1rem; }
+        .hm-acc ul { list-style: none; display: grid; gap: 0.6rem; margin-bottom: 1.6rem; }
+        .hm-acc li { display: flex; gap: 0.6rem; align-items: flex-start; color: #374151; font-size: 0.95rem; line-height: 1.5; }
+        .hm-acc li::before { content: '✓'; flex-shrink: 0; display: grid; place-items: center; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: var(--soft); color: var(--c); font-size: 0.72rem; font-weight: 800; }
+        .hm-acc .btn { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .acc-mf { --c: #5568d3; --soft: #eef2ff; }
+        .acc-stock { --c: #047857; --soft: #ecfdf5; }
+        .acc-stock .btn-primary { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35); }
+        .hm-acc-note { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1.25rem; }
+        /* animated account icons */
+        .ic-bar { transform-box: fill-box; transform-origin: bottom; animation: icBar 2.6s ease-in-out infinite; }
+        .ic-bar:nth-child(2) { animation-delay: 0.2s; } .ic-bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes icBar { 0%, 100% { transform: scaleY(0.55); } 50% { transform: scaleY(1); } }
+        .ic-candle { transform-box: fill-box; transform-origin: center; animation: icCandle 2.4s ease-in-out infinite; }
+        .ic-candle:nth-of-type(2) { animation-delay: 0.3s; } .ic-candle:nth-of-type(3) { animation-delay: 0.6s; }
+        @keyframes icCandle { 0%, 100% { transform: scaleY(0.75); } 50% { transform: scaleY(1.1); } }
+
+        /* ---------- Services tabs ---------- */
+        .hm-tabs { display: flex; justify-content: center; margin-bottom: 1.75rem; }
+        .hm-tab-list { display: inline-flex; gap: 0.5rem; }
+        .hm-tab { padding: 0.65rem 1.3rem; border: none; border-radius: 999px; font: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+        .hm-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .hm-panel[hidden] { display: none; }
+        .hm-svc { display: flex; gap: 1rem; align-items: flex-start; padding: 1.4rem; border-radius: 18px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.16); text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; animation: fadeInUp 0.45s ease-out both; }
+        .hm-svc:nth-child(2) { animation-delay: 0.06s; } .hm-svc:nth-child(3) { animation-delay: 0.12s; }
+        .hm-svc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .hm-svc-icon { flex-shrink: 0; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 15px; font-size: 1.4rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(245, 87, 108, 0.1)); }
+        .hm-svc h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+        .hm-svc p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.55; }
+        .hm-svc-go { margin-left: auto; color: var(--primary); font-weight: 800; align-self: center; transition: transform 0.3s; }
+        .hm-svc:hover .hm-svc-go { transform: translateX(4px); }
+
+        /* ---------- Connect ---------- */
+        .hm-connect {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);   /* the moving logo strip must not widen the column */
+            gap: 2.5rem;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .hm-connect h2 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.6rem; }
+        .hm-connect > div > p { color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        /* Partners: an endless, slowly drifting row of logos on the page background (no boxes or borders) */
+        .hm-partners { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+        .hm-partners-label { font-size: 0.78rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .hm-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+        .hm-marquee-track { display: flex; width: max-content; list-style: none; margin: 0; padding: 0.3rem 0; animation: hmMarquee 26s linear infinite; }
+        .hm-marquee:hover .hm-marquee-track { animation-play-state: paused; }
+        @keyframes hmMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        .hm-marquee-track li { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0 1.4rem; }
+        .hm-marquee-track img { height: 42px; width: 96px; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s ease; }
+        .hm-marquee-track li:hover img { transform: scale(1.08); }
+        .hm-marquee-track span { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+        @media (prefers-reduced-motion: reduce) {
+            .hm-marquee { -webkit-mask-image: none; mask-image: none; }
+            .hm-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 0.8rem; }
+            .hm-marquee-track li[aria-hidden="true"] { display: none; }
+        }
+        .hm-ways { display: grid; gap: 0.85rem; }
+        .hm-way { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border-radius: 16px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.16); text-decoration: none; color: inherit; transition: transform 0.25s, box-shadow 0.25s; }
+        .hm-way:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+        .hm-way-icon { flex-shrink: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; font-size: 1.2rem; background: #eef2ff; }
+        .hm-way strong { display: block; color: #1f2937; }
+        .hm-way small { color: var(--text-muted); }
+        .hm-way em { margin-left: auto; font-style: normal; color: var(--primary); font-weight: 800; }
+        .hm-way.primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-color: transparent; color: #fff; box-shadow: 0 10px 24px rgba(102, 126, 234, 0.35); }
+        .hm-way.primary strong, .hm-way.primary small, .hm-way.primary em { color: #fff; }
+        .hm-way.primary .hm-way-icon { background: rgba(255, 255, 255, 0.2); }
+
+
+        .hm-disclaimer { padding: 2rem 0; border-top: 1px solid rgba(102, 126, 234, 0.15); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7; text-align: center; }
+        .hm-disclaimer strong { color: #374151; }
+
+        /* Circle 2 (card deck): cards on the left, text on the right — wide screens only, phones keep text first */
+        @media (min-width: 1025px) {
+            .hm-hero-grid[data-circle="2"] { grid-template-columns: 1fr 1.05fr; }
+            .hm-hero-grid[data-circle="2"] > .hm-deck-wrap { order: -1; }
+        }
+
+        /* ---------- Account popover: Wealthy sign-up shown inside the page ---------- */
+        .ap-backdrop { position: fixed; inset: 0; z-index: 2000; background: rgba(17, 24, 39, 0.45); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s 0.3s; }
+        .ap-sheet {
+            position: fixed; z-index: 2001; left: 50%; bottom: 0; width: min(980px, 100%); height: min(88vh, 860px);
+            display: flex; flex-direction: column; background: #fff; border-radius: 26px 26px 0 0; overflow: hidden;
+            box-shadow: 0 -20px 60px rgba(31, 41, 55, 0.25);
+            transform: translate(-50%, 104%); visibility: hidden; transition: transform 0.45s cubic-bezier(.22, 1, .36, 1), visibility 0s 0.45s;
+        }
+        .ap-open .ap-backdrop { opacity: 1; visibility: visible; transition: opacity 0.3s ease; }
+        .ap-open .ap-sheet { transform: translate(-50%, 0); visibility: visible; transition: transform 0.45s cubic-bezier(.22, 1, .36, 1); }
+        .ap-lock { overflow: hidden; }
+        .ap-open .fab-contact, .ap-open .fab-blog, .ap-open .dock { visibility: hidden; }
+        .ap-grab { width: 44px; height: 5px; border-radius: 3px; background: #d1d5db; margin: 10px auto 0; flex: none; }
+        .ap-head { display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 1.2rem 0.9rem; border-bottom: 1px solid #eef0ff; flex: none; }
+        .ap-head img { width: 46px; height: 46px; object-fit: contain; padding: 4px; border-radius: 12px; background: #f5f7ff; }
+        .ap-title { flex: 1; min-width: 0; }
+        .ap-title strong { display: block; font-size: 1.05rem; color: #1f2937; line-height: 1.25; }
+        .ap-title small { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--text-muted); }
+        .ap-title small::before { content: '🔒'; font-size: 0.75rem; }
+        .ap-ext { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0.9rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700; color: #4a5bd0; background: #eef2ff; text-decoration: none; white-space: nowrap; }
+        .ap-ext:hover { background: #e0e7ff; }
+        .ap-close { width: 40px; height: 40px; flex: none; border: none; border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: #4b5563; background: #f3f4f6; transition: background 0.2s, transform 0.2s; }
+        .ap-close:hover { background: #e5e7eb; transform: rotate(90deg); }
+        .ap-body { position: relative; flex: 1; background: #f8faff; }
+        .ap-body iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; opacity: 0; transition: opacity 0.35s ease; }
+        .ap-body.ready iframe { opacity: 1; }
+        .ap-load { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.9rem; }
+        .ap-load i { width: 38px; height: 38px; border-radius: 50%; border: 3px solid #e0e7ff; border-top-color: #667eea; animation: apSpin 0.8s linear infinite; }
+        @keyframes apSpin { to { transform: rotate(360deg); } }
+        .ap-body.ready .ap-load { display: none; }
+        @media (max-width: 768px) {
+            .ap-sheet { height: 100%; border-radius: 0; }
+            .ap-grab { display: none; }
+            .ap-head { padding: 0.75rem 0.9rem; gap: 0.6rem; }
+            .ap-head img { width: 38px; height: 38px; }
+            .ap-title strong { font-size: 0.95rem; }
+            .ap-title small { font-size: 0.72rem; }
+            .ap-ext span { display: none; }
+            .ap-ext { padding: 0.5rem 0.7rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ap-sheet, .ap-backdrop { transition: none !important; }
+        }
+
+        /* ---------- Top bar (Home): seamless frosted white, glowing logo, name revealed letter by letter ---------- */
+        /* no borders, no separating line or shadow, no tiles or rounded boxes */
+        .navbar.hm-top { background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: none; }
+        .hm-top .logo { position: relative; animation: htPop 0.7s cubic-bezier(.34, 1.56, .64, 1) both; }
+        .hm-top .logo::before {
+            content: ''; position: absolute; left: 50%; top: 50%; width: 130px; height: 90px; transform: translate(-50%, -50%); z-index: -1; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(102, 126, 234, 0.28), rgba(139, 92, 246, 0.1) 55%, transparent);
+            filter: blur(6px); animation: htGlow 3.6s ease-in-out infinite alternate;
+        }
+        @keyframes htPop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: none; } }
+        @keyframes htGlow { from { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } }
+        .hm-top .brand-text strong .ht-l { display: inline-block; font-style: normal; opacity: 0; transform: translateY(8px); animation: htLetter 0.5s ease forwards; }
+        .hm-top .brand-text strong .ht-sp { display: inline-block; width: 0.32em; }
+        @keyframes htLetter { to { opacity: 1; transform: none; } }
+        .hm-top .brand-text > span { opacity: 0; animation: htFade 0.7s ease 1s forwards; }
+        .hm-top .brand-text > span::before, .hm-top .brand-text > span::after { width: 0; animation: htRule 0.8s ease 1.2s forwards; }
+        @keyframes htFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+        @keyframes htRule { to { width: 28px; } }
+        @media (max-width: 768px) {
+            .hm-top .logo::before { width: 96px; height: 70px; }
+            .navbar.hm-top { background: rgba(255, 255, 255, 0.97); }   /* the menu slides away underneath it */
+            @keyframes htRule { to { width: 16px; } }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hm-top .logo, .hm-top .logo::before, .hm-top .brand-text strong .ht-l, .hm-top .brand-text span, .hm-top .brand-text span::before, .hm-top .brand-text span::after { animation: none !important; opacity: 1; transform: none; }
+            .hm-top .brand-text span::before, .hm-top .brand-text span::after { width: 28px; }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1200px) {
+            .hm-orbit { --size: 420px; --r: 175px; }
+            .hm-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 1024px) {
+            .hm-hero { min-height: auto; }
+            .hm-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hm-panel { grid-template-columns: 1fr 1fr; }
+            .hm-connect { grid-template-columns: minmax(0, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hm-hero { padding: 2rem 0 2.5rem; }
+            .hm-hero h1 { font-size: 2.3rem; }
+            .hm-hero-lead { font-size: 1.03rem; }
+            .hm-actions .btn { flex: 1 1 100%; justify-content: center; }
+            .hm-facts { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+            .hm-fact + .hm-fact { border-left: none; }
+            .hm-fact:nth-child(even) { border-left: 1px solid rgba(102, 126, 234, 0.15); }
+            .hm-fact:nth-child(n+3) { border-top: 1px solid rgba(102, 126, 234, 0.15); }
+            .hm-chat-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hm-orbit { --size: 320px; --r: 128px; }
+            .hm-sat a { width: 76px; }
+            .hm-sat-icon { width: 46px; height: 46px; font-size: 1.2rem; border-radius: 14px; }
+            .hm-sat-label { font-size: 0.64rem; }
+            .hm-core { width: 112px; height: 112px; margin: -56px 0 0 -56px; }
+            .hm-core img { width: 54px; }
+            .hm-core small { font-size: 0.6rem; }
+            .hm-deck { width: min(330px, 86vw); height: 410px; }
+            .hm-deck-wrap::before { width: 300px; height: 300px; }
+            .hm-card { padding: 1.4rem; }
+            .hm-card h3 { font-size: 1.4rem; }
+            .hm-bento { grid-template-columns: 1fr 1fr; grid-template-rows: 230px repeat(3, 132px); gap: 12px; }
+            .bt-big { grid-column: 1 / -1; grid-row: 1; }
+            .bt-child { grid-column: 1 / -1; }
+            .bt-child .bt-cap { margin: 0.2rem 0 0.4rem; font-size: 1.8rem; }
+            .bt-value { font-size: 1.4rem; }
+            .hm-stage h1 { font-size: 2.15rem; }
+            .hm-word-wrap { display: inline; }
+            .hm-journey { height: 150px; margin: 1.6rem auto 0; }
+            .jn-node { width: 44px; margin-left: -22px; margin-top: -21px; }
+            .jn-ic { width: 42px; height: 42px; border-radius: 14px; font-size: 1.2rem; }
+            .jn-lbl, .jn-sub { display: none; }
+            .jn-road { stroke-width: 18; }
+            .jn-trail { stroke-width: 6; }
+            .jn-coin { width: 28px; height: 28px; margin: -14px 0 0 -14px; font-size: 0.85rem; }
+            .jn-caption { display: block; min-height: 3.6rem; margin: 0 auto 1.4rem; padding: 0.7rem 1rem; max-width: 340px; border-radius: 16px; background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(102, 126, 234, 0.16); }
+            .jn-caption strong { display: block; font-size: 0.95rem; color: var(--c-text, #1f2937); }
+            .jn-caption span { font-size: 0.82rem; color: var(--text-muted); }
+            .ch-body { height: 560px; }
+            .hm-section { padding: 3.5rem 0; }
+            .hm-head h2 { font-size: 1.85rem; }
+            .hm-accounts { grid-template-columns: 1fr; }
+            .hm-acc { padding: 1.6rem; }
+            .hm-acc .btn { align-self: stretch; justify-content: center; }
+            .hm-panel { grid-template-columns: 1fr; }
+            .hm-connect { padding: 2rem 1.4rem; }
+            .hm-connect { grid-template-columns: minmax(0, 1fr); }
+            .hm-tab { white-space: nowrap; padding: 0.6rem 0.95rem; font-size: 0.88rem; }   /* lets the content shrink on very small phones */
+            .hm-way, .hm-way > div { min-width: 0; }
+            .hm-way strong { overflow-wrap: anywhere; }
+            .hm-connect h2 { font-size: 1.8rem; }
+        }
+        @media (max-width: 380px) {
+            .hm-orbit { --size: 290px; --r: 114px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hm-spin, .hm-sat-inner, .hm-core::before, .hm-core::after, .hm-card-icon, .hm-bento *, .jn-dash, .jn-coin::after { animation: none !important; }
+            .hm-card { transition: opacity 0.3s ease !important; }
+            .hm-bento { transform: none !important; }
+            .hm-dot, .hm-btn-shine::after, .ch-typing span, .ic-bar, .ic-candle { animation: none !important; }
+            .hm-js .hm-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
 </head>
 <body>
+    <script>document.body.classList.add('hm-js');</script>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar hm-top">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link active">Home</a></li>
                 <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link">Calculators</a></li>
                 <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">TRUSTED FINANCIAL GUIDANCE</div>
-            <h1>Build Your Wealth With Clarity & Confidence</h1>
-            <p>Expert financial guidance tailored to your goals. Trusted by 2,500+ families managing ₹180+ crore in assets. Your financial freedom starts here.</p>
-            <div class="hero-stats">
-                <div class="stat-box">
-                    <div class="stat-number">2,500+</div>
-                    <div class="stat-label">Families Guided</div>
+    <!-- 1. Hero -->
+    <section class="hm-hero" data-rupee-rain>
+        <div class="container hm-hero-grid" data-circle="1">
+            <div class="hm-reveal">
+                <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
+                <h1>Every investment service, <span class="hm-gradient-text">one trusted partner</span></h1>
+                <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
+                <div class="hm-actions">
+                    <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
+                    <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">₹180Cr+</div>
-                    <div class="stat-label">Assets Managed</div>
+                <div class="hm-facts" role="list">
+                    <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Up to <span id="hm-ret" style="font-size:inherit;color:inherit;font-weight:inherit;">15</span>%</strong><span>Returns achieved</span></div>
+                    <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">12 yrs</div>
-                    <div class="stat-label">Experience</div>
-                </div>
+                <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
             </div>
-            <div class="hero-buttons">
-                <a href="contact.html" class="btn btn-primary">Start Your Journey</a>
-                <a href="how-it-works.html" class="btn btn-outline">See How It Works</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="chart-card fade-in-up" style="animation-delay: 0.2s;">
-                <div class="chart-header">Portfolio Performance</div>
-                <div class="chart-bars">
-                    <div class="bar" style="height: 60%; animation-delay: 0.3s;"></div>
-                    <div class="bar" style="height: 75%; animation-delay: 0.4s;"></div>
-                    <div class="bar" style="height: 90%; animation-delay: 0.5s;"></div>
-                    <div class="bar" style="height: 70%; animation-delay: 0.6s;"></div>
-                    <div class="bar" style="height: 85%; animation-delay: 0.7s;"></div>
-                </div>
-                <div class="chart-footer">↗ 24.5% Annual Growth</div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Trust/Why Choose Section -->
-    <section class="trust-section">
-        <div class="container">
-            <h2>Why Thousands Trust A2P</h2>
-            <p class="section-subtitle">Professional guidance backed by years of expertise and proven results</p>
-            <div class="trust-grid">
-                <div class="trust-card fade-in-up">
-                    <div class="trust-icon">🔒</div>
-                    <h3>Secure & Regulated</h3>
-                    <p>SEBI Registered. SIPC Protected. Your investments are safe with institutional-grade security.</p>
-                </div>
-                <div class="trust-card fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="trust-icon">💰</div>
-                    <h3>Transparent Pricing</h3>
-                    <p>No hidden fees. Clear, upfront costs. You know exactly what you're paying for quality guidance.</p>
-                </div>
-                <div class="trust-card fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="trust-icon">👥</div>
-                    <h3>Expert Team</h3>
-                    <p>12+ years of expertise. Certified advisors dedicated to your personal financial success story.</p>
-                </div>
-                <div class="trust-card fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="trust-icon">📈</div>
-                    <h3>Proven Results</h3>
-                    <p>Average 12% annual returns. Your wealth grows consistently while you focus on life.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Products -->
-    <section class="featured-products">
-        <div class="container">
-            <h2>Our Popular Solutions</h2>
-            <p class="section-subtitle">Choose from our comprehensive suite of investment products</p>
-            <div class="products-grid">
-                <div class="product-card hover-lift">
-                    <div class="product-icon">💳</div>
-                    <h3>Smart Investment Card</h3>
-                    <p>Earn premium cashback on every investment transaction. Rewards that add up quickly.</p>
-                    <div class="product-features">
-                        <span>✓ 5% Cashback</span>
-                        <span>✓ Zero Annual Fee</span>
+            <!-- Services orbit -->
+            <div class="hm-orbit-wrap hm-reveal">
+                <div class="hm-orbit" aria-label="Our services">
+                    <div class="hm-ring"></div>
+                    <div class="hm-ring inner"></div>
+                    <div class="hm-spin">
+                        <div class="hm-sat" style="--a: -90deg;"><div class="hm-sat-inner"><a href="products.html#mf"><span class="hm-sat-icon">📈</span><span class="hm-sat-label">Mutual Funds</span></a></div></div>
+                        <div class="hm-sat" style="--a: -45deg;"><div class="hm-sat-inner"><a href="#open-account"><span class="hm-sat-icon">📈</span><span class="hm-sat-label">Stocks</span></a></div></div>
+                        <div class="hm-sat" style="--a: 0deg;"><div class="hm-sat-inner"><a href="products.html#retire"><span class="hm-sat-icon">🌴</span><span class="hm-sat-label">Retirement</span></a></div></div>
+                        <div class="hm-sat" style="--a: 45deg;"><div class="hm-sat-inner"><a href="products.html#health"><span class="hm-sat-icon">🩺</span><span class="hm-sat-label">Health Cover</span></a></div></div>
+                        <div class="hm-sat" style="--a: 90deg;"><div class="hm-sat-inner"><a href="products.html#term"><span class="hm-sat-icon">☂️</span><span class="hm-sat-label">Term Insurance</span></a></div></div>
+                        <div class="hm-sat" style="--a: 135deg;"><div class="hm-sat-inner"><a href="products.html#tax"><span class="hm-sat-icon">🧾</span><span class="hm-sat-label">Tax Saving</span></a></div></div>
+                        <div class="hm-sat" style="--a: 180deg;"><div class="hm-sat-inner"><a href="products.html#child"><span class="hm-sat-icon">🎓</span><span class="hm-sat-label">Child Education</span></a></div></div>
+                        <div class="hm-sat" style="--a: 225deg;"><div class="hm-sat-inner"><a href="products.html#lic"><span class="hm-sat-icon">🏛️</span><span class="hm-sat-label">LIC Plans</span></a></div></div>
                     </div>
-                    <a href="products.html" class="card-link">Explore →</a>
-                </div>
-                <div class="product-card hover-lift" style="animation-delay: 0.1s;">
-                    <div class="product-icon">📈</div>
-                    <h3>Portfolio Tracker Pro</h3>
-                    <p>Real-time analytics and insights. Track every rupee invested with precision.</p>
-                    <div class="product-features">
-                        <span>✓ Real-time Updates</span>
-                        <span>✓ Advanced Analytics</span>
-                    </div>
-                    <a href="products.html" class="card-link">Explore →</a>
-                </div>
-                <div class="product-card hover-lift" style="animation-delay: 0.2s;">
-                    <div class="product-icon">🤖</div>
-                    <h3>AI Wealth Advisor</h3>
-                    <p>Personalized recommendations powered by machine learning. Smart investing made easy.</p>
-                    <div class="product-features">
-                        <span>✓ AI-Powered</span>
-                        <span>✓ Personalized</span>
-                    </div>
-                    <a href="products.html" class="card-link">Explore →</a>
-                </div>
-            </div>
-            <div class="view-all-products">
-                <a href="products.html" class="btn btn-primary">View All Products →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process/How It Works Preview -->
-    <section class="process-preview">
-        <div class="container">
-            <h2>Get Started in 3 Easy Steps</h2>
-            <div class="process-steps">
-                <div class="step-card">
-                    <div class="step-number">01</div>
-                    <h3>Tell Us Your Goals</h3>
-                    <p>Share your financial dreams and current situation. A quick, simple assessment.</p>
-                    <div class="step-icon">🎯</div>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step-card">
-                    <div class="step-number">02</div>
-                    <h3>Get Your Plan</h3>
-                    <p>We create a personalized investment strategy designed just for you.</p>
-                    <div class="step-icon">📋</div>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step-card">
-                    <div class="step-number">03</div>
-                    <h3>Watch It Grow</h3>
-                    <p>Begin investing and watch your wealth grow with our expert guidance.</p>
-                    <div class="step-icon">📈</div>
-                </div>
-            </div>
-            <a href="how-it-works.html" class="btn btn-primary">See Detailed Process →</a>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2>What Our Clients Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"A2P transformed my financial life. Their guidance has been invaluable and their support is exceptional."</p>
-                    <div class="testimonial-author">
-                        <div class="avatar">SK</div>
+                    <div class="hm-core">
                         <div>
-                            <h4>Shreya Kapoor</h4>
-                            <p>Entrepreneur, Bengaluru</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Professional, transparent, and results-driven. The best financial decision I've made. Highly recommended!"</p>
-                    <div class="testimonial-author">
-                        <div class="avatar">RP</div>
-                        <div>
-                            <h4>Rajesh Patel</h4>
-                            <p>Business Owner, Delhi</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Made investing simple and stress-free. My portfolio has grown beyond expectations. Best decision ever!"</p>
-                    <div class="testimonial-author">
-                        <div class="avatar">NS</div>
-                        <div>
-                            <h4>Neha Singh</h4>
-                            <p>Marketing Director, Mumbai</p>
+                            <img src="Images/logomain.png" alt="A2P">
+                            <small>ALL IN ONE PLACE</small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Build Your Financial Future?</h2>
-            <p>Join thousands of families who've transformed their financial lives with A2P guidance.</p>
-            <a href="contact.html" class="btn btn-primary btn-large">Start Your Free Consultation Today</a>
+        <div class="container hm-hero-grid" data-circle="2">
+            <div class="hm-reveal">
+                <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
+                <h1>Every investment service, <span class="hm-gradient-text">one trusted partner</span></h1>
+                <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
+                <div class="hm-actions">
+                    <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
+                    <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
+                </div>
+                <div class="hm-facts" role="list">
+                    <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Up to <span id="hm-ret" style="font-size:inherit;color:inherit;font-weight:inherit;">15</span>%</strong><span>Returns achieved</span></div>
+                    <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
+                </div>
+                <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
+            </div>
+
+            <!-- Service deck -->
+            <div class="hm-deck-wrap hm-reveal">
+                <div class="hm-deck" id="hm-deck" role="region" aria-roledescription="carousel" aria-label="Our services">
+                    <a href="products.html#mf" class="hm-card d-invest" aria-label="Mutual Funds and SIPs: Grow your wealth with disciplined, goal-linked SIPs and lump-sum investing.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Invest</span><span class="hm-card-count">01 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">📈</div>
+                        <h3>Mutual Funds &amp; SIPs</h3>
+                        <p>Grow your wealth with disciplined, goal-linked SIPs and lump-sum investing.</p>
+                        <div class="hm-card-chips"><span>Start small</span><span>Equity · Debt · Hybrid</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="#open-account" class="hm-card d-invest" aria-label="Stocks: Invest in shares, ETFs and IPOs through our trusted partner platform.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Invest</span><span class="hm-card-count">02 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">📈</div>
+                        <h3>Stocks</h3>
+                        <p>Invest in shares, ETFs and IPOs through our trusted partner platform.</p>
+                        <div class="hm-card-chips"><span>Demat &amp; Trading</span><span>Account support</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#child" class="hm-card d-invest" aria-label="Child Education: A dedicated fund, timed to be ready when your child needs it.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Invest</span><span class="hm-card-count">03 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">🎓</div>
+                        <h3>Child Education</h3>
+                        <p>A dedicated fund, timed to be ready when your child needs it.</p>
+                        <div class="hm-card-chips"><span>Goal-linked</span><span>Up to 20 years</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#retire" class="hm-card d-invest" aria-label="Retirement: Build your retirement corpus, then turn it into a steady monthly income.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Invest</span><span class="hm-card-count">04 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">🌴</div>
+                        <h3>Retirement</h3>
+                        <p>Build your retirement corpus, then turn it into a steady monthly income.</p>
+                        <div class="hm-card-chips"><span>Corpus planning</span><span>Monthly income</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#health" class="hm-card d-protect" aria-label="Health Insurance: The right cover for your whole family, so medical bills never touch your goals.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Protect</span><span class="hm-card-count">05 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">🩺</div>
+                        <h3>Health Insurance</h3>
+                        <p>The right cover for your whole family, so medical bills never touch your goals.</p>
+                        <div class="hm-card-chips"><span>Family floater</span><span>Parents cover</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#term" class="hm-card d-protect" aria-label="Term Insurance: High life cover at a low premium to keep your family's future secure.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Protect</span><span class="hm-card-count">06 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">☂️</div>
+                        <h3>Term Insurance</h3>
+                        <p>High life cover at a low premium to keep your family's future secure.</p>
+                        <div class="hm-card-chips"><span>High cover</span><span>Lifetime cover</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#lic" class="hm-card d-protect" aria-label="LIC Plans: Trusted LIC policies that combine disciplined savings with life cover.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Protect</span><span class="hm-card-count">07 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">🏛️</div>
+                        <h3>LIC Plans</h3>
+                        <p>Trusted LIC policies that combine disciplined savings with life cover.</p>
+                        <div class="hm-card-chips"><span>Savings + cover</span><span>Long term</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                    <a href="products.html#tax" class="hm-card d-tax" aria-label="Tax Planning: Save tax every year with options that also build your wealth, including tax-free guaranteed plans.">
+                        <div class="hm-card-top"><span class="hm-card-cat">Save Tax</span><span class="hm-card-count">08 / 08</span></div>
+                        <div class="hm-card-icon" aria-hidden="true">🧾</div>
+                        <h3>Tax Planning</h3>
+                        <p>Save tax every year with options that also build your wealth, including tax-free guaranteed plans.</p>
+                        <div class="hm-card-chips"><span>ELSS</span><span>Tax-free maturity</span></div>
+                        <div class="hm-card-go">Explore <i aria-hidden="true">→</i></div>
+                    </a>
+                </div>
+                <div class="hm-deck-nav">
+                    <button class="hm-deck-btn" type="button" id="hm-prev" aria-label="Previous service">←</button>
+                    <div class="hm-deck-dots" id="hm-dots"></div>
+                    <button class="hm-deck-btn" type="button" id="hm-next" aria-label="Next service">→</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container hm-hero-grid" data-circle="3">
+            <div class="hm-reveal">
+                <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
+                <h1>Every investment service, <span class="hm-gradient-text">one trusted partner</span></h1>
+                <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
+                <div class="hm-actions">
+                    <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
+                    <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
+                </div>
+                <div class="hm-facts" role="list">
+                    <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Up to <span id="hm-ret" style="font-size:inherit;color:inherit;font-weight:inherit;">15</span>%</strong><span>Returns achieved</span></div>
+                    <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
+                </div>
+                <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
+            </div>
+
+            <!-- Live bento -->
+            <div class="hm-bento-wrap hm-reveal" id="hm-bento-wrap">
+                <div class="hm-bento" id="hm-bento">
+                    <!-- Mutual funds & SIPs (big) -->
+                    <a href="products.html#mf" class="bt bt-big" aria-label="Mutual Funds and SIPs">
+                        <span class="bt-label">Invest</span>
+                        <span class="bt-title">Mutual Funds &amp; SIPs</span>
+                        <div class="bt-big-row">
+                            <div class="bt-value"><span id="bt-value">₹50.4 L</span><small>₹10,000/month · 15 yrs · 12% p.a. (example)</small></div>
+                            <span class="bt-chip">▲ Compounding</span>
+                        </div>
+                        <svg viewBox="0 0 320 150" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="btArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#667eea" stop-opacity="0.3"/><stop offset="100%" stop-color="#667eea" stop-opacity="0"/></linearGradient>
+                                <linearGradient id="btLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#10b981"/><stop offset="60%" stop-color="#667eea"/><stop offset="100%" stop-color="#f5576c"/></linearGradient>
+                            </defs>
+                            <g stroke="#e0e7ff" stroke-width="1.2"><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="85" x2="320" y2="85"/><line x1="0" y1="130" x2="320" y2="130"/></g>
+                            <path class="a-fade" d="M0 138 C 40 134 70 128 100 118 S 160 104 190 88 S 250 56 280 36 L 320 18 L 320 150 L 0 150 Z" fill="url(#btArea)"/>
+                            <path class="a-draw" pathLength="100" stroke-dasharray="100" d="M0 138 C 40 134 70 128 100 118 S 160 104 190 88 S 250 56 280 36 L 320 18" fill="none" stroke="url(#btLine)" stroke-width="3.5" stroke-linecap="round"/>
+                            <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
+                                <g class="a-drop" style="animation-delay: 0s;"><circle cx="100" cy="104" r="9" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="100" y="108">₹</text></g>
+                                <g class="a-drop" style="animation-delay: 0.7s;"><circle cx="190" cy="74" r="9" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="190" y="78">₹</text></g>
+                                <g class="a-drop" style="animation-delay: 1.4s;"><circle cx="280" cy="22" r="9" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="280" y="26">₹</text></g>
+                            </g>
+                        </svg>
+                    </a>
+
+                    <!-- Stocks -->
+                    <a href="#open-account" class="bt bt-stock" aria-label="Stocks">
+                        <span class="bt-label">Invest</span>
+                        <span class="bt-title">Stocks</span>
+                        <svg viewBox="0 0 120 64" aria-hidden="true">
+                            <g stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round"><line x1="16" y1="10" x2="16" y2="58"/><line x1="40" y1="16" x2="40" y2="60"/><line x1="64" y1="6" x2="64" y2="52"/><line x1="88" y1="12" x2="88" y2="56"/><line x1="110" y1="4" x2="110" y2="46"/></g>
+                            <rect class="a-candle" style="animation-delay: 0s;" x="10" y="22" width="12" height="26" rx="2" fill="#10b981"/>
+                            <rect class="a-candle" style="animation-delay: 0.3s;" x="34" y="28" width="12" height="24" rx="2" fill="#f5576c"/>
+                            <rect class="a-candle" style="animation-delay: 0.6s;" x="58" y="16" width="12" height="28" rx="2" fill="#10b981"/>
+                            <rect class="a-candle" style="animation-delay: 0.9s;" x="82" y="24" width="12" height="22" rx="2" fill="#f5576c"/>
+                            <rect class="a-candle" style="animation-delay: 1.2s;" x="104" y="10" width="12" height="28" rx="2" fill="#10b981"/>
+                        </svg>
+                    </a>
+
+                    <!-- Insurance -->
+                    <a href="products.html#health" class="bt bt-ins" aria-label="Insurance: health, term and LIC">
+                        <span class="bt-label">Protect</span>
+                        <span class="bt-title">Health · Term · LIC</span>
+                        <svg viewBox="0 0 120 64" aria-hidden="true">
+                            <path class="a-ecg" pathLength="100" stroke-dasharray="100" d="M0 44 L 22 44 L 30 30 L 38 56 L 46 22 L 54 48 L 60 44 L 120 44" fill="none" stroke="#f5576c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <g class="a-pulse">
+                                <path d="M92 6 L 112 13 L 112 30 C 112 42 103 49 92 54 C 81 49 72 42 72 30 L 72 13 Z" fill="#ecfdf5" stroke="#10b981" stroke-width="2.4"/>
+                                <rect x="89" y="20" width="6" height="20" rx="2" fill="#10b981"/><rect x="82" y="27" width="20" height="6" rx="2" fill="#10b981"/>
+                            </g>
+                        </svg>
+                    </a>
+
+                    <!-- Tax saving -->
+                    <a href="products.html#tax" class="bt bt-tax" aria-label="Tax saving">
+                        <span class="bt-label">Save Tax</span>
+                        <span class="bt-title">Tax Saving</span>
+                        <svg viewBox="0 0 120 64" aria-hidden="true">
+                            <g transform="rotate(-90 60 34)">
+                                <circle cx="60" cy="34" r="24" fill="none" stroke="#fde68a" stroke-width="8"/>
+                                <circle class="a-ring" cx="60" cy="34" r="24" fill="none" stroke="#f4a700" stroke-width="8" stroke-linecap="round" pathLength="100" stroke-dasharray="100"/>
+                            </g>
+                            <text x="60" y="39" text-anchor="middle" style="font-size: 14px; font-weight: 800; fill: #a16207;">₹</text>
+                        </svg>
+                    </a>
+
+                    <!-- Retirement -->
+                    <a href="products.html#retire" class="bt bt-ret" aria-label="Retirement">
+                        <span class="bt-label">Plan</span>
+                        <span class="bt-title">Retirement</span>
+                        <svg viewBox="0 0 120 64" aria-hidden="true">
+                            <defs><clipPath id="btSky"><rect x="0" y="0" width="120" height="44"/></clipPath></defs>
+                            <g clip-path="url(#btSky)"><circle class="a-sun" cx="60" cy="40" r="15" fill="#fbbf24"/></g>
+                            <path class="a-wave" d="M-10 46 Q 5 40 20 46 T 50 46 T 80 46 T 110 46 T 140 46 V 64 H -10 Z" fill="#93c5fd"/>
+                            <path class="a-wave" style="animation-delay: 0.8s;" d="M-10 52 Q 5 47 20 52 T 50 52 T 80 52 T 110 52 T 140 52 V 64 H -10 Z" fill="#60a5fa"/>
+                        </svg>
+                    </a>
+
+                    <!-- Child education -->
+                    <a href="products.html#child" class="bt bt-child" aria-label="Child education">
+                        <span class="bt-label">Invest</span>
+                        <span class="bt-title">Child Education</span>
+                        <span class="bt-cap a-cap" aria-hidden="true">🎓</span>
+                        <div class="bt-bar" aria-hidden="true"><span></span></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container hm-stage" data-circle="4">
+            <div class="hm-intro hm-reveal">
+                <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
+                <h1>Plan your <span class="hm-word-wrap"><span class="hm-word" id="hm-word">wealth</span></span><br><span class="hm-gradient-text">with one trusted partner</span></h1>
+                <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
+                <div class="hm-actions">
+                    <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
+                    <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
+                </div>
+            </div>
+
+            <!-- Dream journey: a ₹ coin travels the road of life goals -->
+            <div class="hm-journey hm-reveal" id="hm-journey">
+                <svg class="jn-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+                    <defs><linearGradient id="jnGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#10b981"/><stop offset="55%" stop-color="#667eea"/><stop offset="100%" stop-color="#f5576c"/></linearGradient></defs>
+                    <path class="jn-road" id="jn-road" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                    <path class="jn-dash" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                    <path class="jn-trail" id="jn-trail" d="M0 130 C 90 130 120 67 200 67 S 320 130 410 130 S 530 58 610 58 S 730 121 810 112 S 930 40 1000 40"/>
+                </svg>
+                <a class="jn-node" href="products.html#mf" data-at="0.07" data-word="wealth" style="--c:#667eea;--c-text:#5568d3;"><span class="jn-ic">📈</span><span class="jn-lbl">Mutual Funds &amp; SIPs</span><span class="jn-sub">Grow wealth month by month</span></a>
+                <a class="jn-node" href="#open-account" data-at="0.245" data-word="stock portfolio" style="--c:#10b981;--c-text:#047857;"><span class="jn-ic">📈</span><span class="jn-lbl">Stocks</span><span class="jn-sub">Demat &amp; trading via our partner platform</span></a>
+                <a class="jn-node" href="products.html#health" data-at="0.42" data-word="family's safety" style="--c:#f5576c;--c-text:#be123c;"><span class="jn-ic">🛡️</span><span class="jn-lbl">Health · Term · LIC</span><span class="jn-sub">Term with lifetime cover, health &amp; LIC</span></a>
+                <a class="jn-node" href="products.html#child" data-at="0.595" data-word="child's education" style="--c:#8b5cf6;--c-text:#6d28d9;"><span class="jn-ic">🎓</span><span class="jn-lbl">Child Education</span><span class="jn-sub">A fund for school and college</span></a>
+                <a class="jn-node" href="products.html#tax" data-at="0.77" data-word="tax savings" style="--c:#f4a700;--c-text:#a16207;"><span class="jn-ic">🧾</span><span class="jn-lbl">Tax Planning</span><span class="jn-sub">Tax-saving &amp; tax-free guaranteed plans</span></a>
+                <a class="jn-node" href="products.html#retire" data-at="0.94" data-word="retirement" style="--c:#0ea5e9;--c-text:#0369a1;"><span class="jn-ic">🌅</span><span class="jn-lbl">Retirement</span><span class="jn-sub">Steady income after work</span></a>
+                <div class="jn-coin" id="jn-coin" aria-hidden="true">₹</div>
+            </div>
+            <div class="jn-caption" id="jn-caption" aria-live="polite" style="--c-text:#5568d3;"><strong>Mutual Funds &amp; SIPs</strong><span>Grow wealth month by month</span></div>
+
+            <div class="hm-reveal">
+                <div class="hm-facts" role="list">
+                    <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Up to <span id="hm-ret" style="font-size:inherit;color:inherit;font-weight:inherit;">15</span>%</strong><span>Returns achieved</span></div>
+                    <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
+                </div>
+                <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
+            </div>
+        </div>
+
+        <div class="container hm-chat-grid" data-circle="5">
+            <div class="hm-reveal">
+                <div class="hm-eyebrow"><span class="hm-dot"></span>AMFI Registered · Since 2025</div>
+                <h1>Every investment service, <span class="hm-gradient-text">one trusted partner</span></h1>
+                <p class="hm-hero-lead">Mutual funds, SIPs, stocks, insurance and tax planning, all in one place. Open your account with us and get a plan built around your family's goals.</p>
+                <div class="hm-actions">
+                    <a href="#open-account" class="btn btn-primary hm-btn-shine">Open an Account <span aria-hidden="true">→</span></a>
+                    <a href="contact.html" class="btn btn-outline">Book a Goal Meeting</a>
+                </div>
+                <div class="hm-facts" role="list">
+                    <div class="hm-fact" role="listitem"><strong>2025</strong><span>Started</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Thousands</strong><span>Families served</span></div>
+                    <div class="hm-fact" role="listitem"><strong>Up to <span id="hm-ret" style="font-size:inherit;color:inherit;font-weight:inherit;">15</span>%</strong><span>Returns achieved</span></div>
+                    <div class="hm-fact" role="listitem"><strong>3–6 mo</strong><span>Portfolio reviews</span></div>
+                </div>
+                <p class="hm-fact-note">Highest returns achieved on client portfolios since we started; individual returns vary. Past performance is not a guarantee of future returns.</p>
+            </div>
+
+            <!-- Planner chat: tap a goal to see how we would start -->
+            <div class="hm-chat hm-reveal" id="hm-chat" aria-label="Sample planner conversation">
+                <div class="ch-head">
+                    <span class="ch-av"><img src="Images/logomain.png" alt=""></span>
+                    <div><strong>A2P Financial Planner</strong><small><i></i>Aapke Sapno Ka Financial Planner</small></div>
+                </div>
+                <div class="ch-body" id="ch-body" aria-live="polite"></div>
+                <div class="ch-foot">Sample conversation. Your real plan is made with our team in a goal meeting.</div>
+            </div>
         </div>
     </section>
+    <script>
+    // Hero rotation: each time Home opens it shows the next design, 5 → 4 → 3 → 2 → 1 → 5 …
+    (function () {
+        let n = 5;
+        try {
+            const last = parseInt(localStorage.getItem('a2p-hero-circle'), 10);
+            if (last >= 1 && last <= 5) n = last === 1 ? 5 : last - 1;
+            localStorage.setItem('a2p-hero-circle', String(n));
+        } catch (e) { /* storage blocked: always show circle 5 */ }
+        document.querySelectorAll('.hm-hero [data-circle]').forEach((el) => { if (el.dataset.circle !== String(n)) el.remove(); });
+        document.querySelector('.hm-hero').dataset.show = n;
+    })();
+    // Coming back with the Back button restores a cached page, so reload it to move on to the next design
+    window.addEventListener('pageshow', (e) => { if (e.persisted) location.reload(); });
+    </script>
+
+    <!-- 2. Open an account -->
+    <section class="hm-section" id="open-account">
+        <div class="container">
+            <div class="hm-head hm-reveal">
+                <div class="hm-eyebrow">Open An Account With Us</div>
+                <h2>Start investing in a few simple steps</h2>
+                <p>Choose the account you need. We guide you through KYC and paperwork, and stay with you after you start.</p>
+            </div>
+            <div class="hm-accounts">
+                <div class="hm-acc acc-mf hm-reveal">
+                    <span class="hm-acc-glow" aria-hidden="true"></span>
+                    <div class="hm-acc-top">
+                        <div class="hm-acc-icon" aria-hidden="true">
+                            <svg viewBox="0 0 40 40"><rect x="5" y="32" width="30" height="3" rx="1.5" fill="#c7d2fe"/><g fill="#667eea"><rect class="ic-bar" x="8" y="18" width="6" height="14" rx="2"/><rect class="ic-bar" x="17" y="12" width="6" height="20" rx="2"/><rect class="ic-bar" x="26" y="6" width="6" height="26" rx="2"/></g></svg>
+                        </div>
+                        <div>
+                            <div class="hm-acc-tag">Mutual Funds · SIP</div>
+                            <h3>Mutual Fund &amp; SIP Account</h3>
+                        </div>
+                    </div>
+                    <p>Invest in mutual funds through monthly SIPs or a one-time lump sum, chosen to match your goals.</p>
+                    <ul>
+                        <li>Start small with a monthly SIP</li>
+                        <li>Equity, debt, hybrid and tax-saving (ELSS) funds</li>
+                        <li>All your investments tracked in one place</li>
+                        <li>Portfolio review every 3–6 months</li>
+                    </ul>
+                    <a href="https://www.wealthy.in/p/ankit61739" class="btn btn-primary" target="_blank" rel="noopener" data-acc-pop="Open MF / SIP Account">Open MF / SIP Account <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="hm-acc acc-stock hm-reveal">
+                    <span class="hm-acc-glow" aria-hidden="true"></span>
+                    <div class="hm-acc-top">
+                        <div class="hm-acc-icon" aria-hidden="true">
+                            <svg viewBox="0 0 40 40"><g stroke="#047857" stroke-width="1.6" stroke-linecap="round"><line x1="11" y1="8" x2="11" y2="32"/><line x1="20" y1="5" x2="20" y2="30"/><line x1="29" y1="10" x2="29" y2="34"/></g><rect class="ic-candle" x="8" y="14" width="6" height="12" rx="1.5" fill="#10b981"/><rect class="ic-candle" x="17" y="9" width="6" height="15" rx="1.5" fill="#f5576c"/><rect class="ic-candle" x="26" y="15" width="6" height="13" rx="1.5" fill="#10b981"/></svg>
+                        </div>
+                        <div>
+                            <div class="hm-acc-tag">Stocks · Demat</div>
+                            <h3>Stock Investment Account</h3>
+                        </div>
+                    </div>
+                    <p>A Demat and trading account to invest in shares, ETFs and IPOs, opened through our trusted partner platform.</p>
+                    <ul>
+                        <li>Invest in shares, ETFs and IPOs</li>
+                        <li>Easy online account opening with our help</li>
+                        <li>One place for your MF and stock investments</li>
+                        <li>Support whenever you need it</li>
+                    </ul>
+                    <a href="https://www.wealthy.in/p/ankit61739" class="btn btn-primary" target="_blank" rel="noopener" data-acc-pop="Open Stock Account">Open Stock Account <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+            <p class="hm-acc-note">🔐 Accounts are opened in your own name with the fund house or partner platform. Here we provide all investment services under one roof.</p>
+        </div>
+    </section>
+
+    <!-- 3. Services -->
+    <section class="hm-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="hm-head hm-reveal" style="margin-bottom: 1.5rem;">
+                <h2>Grow, protect and save, together</h2>
+            </div>
+            <div class="hm-tabs">
+                <div class="hm-tab-list seg" role="tablist" aria-label="Services">
+                    <button class="hm-tab" type="button" role="tab" data-tab="invest" aria-pressed="true">📈 Invest</button>
+                    <button class="hm-tab" type="button" role="tab" data-tab="protect" aria-pressed="false">🛡️ Protect</button>
+                    <button class="hm-tab" type="button" role="tab" data-tab="tax" aria-pressed="false">🧾 Save Tax</button>
+                </div>
+            </div>
+            <div class="hm-panel" data-panel="invest">
+                <a href="products.html#mf" class="hm-svc"><span class="hm-svc-icon">📈</span><div><h3>Mutual Funds &amp; SIPs</h3><p>Disciplined, goal-linked investing.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="products.html#child" class="hm-svc"><span class="hm-svc-icon">🎓</span><div><h3>Child Education</h3><p>A fund ready when your child needs it.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="products.html#retire" class="hm-svc"><span class="hm-svc-icon">🌴</span><div><h3>Retirement</h3><p>Build a corpus and a monthly income.</p></div><span class="hm-svc-go">→</span></a>
+            </div>
+            <div class="hm-panel" data-panel="protect" hidden>
+                <a href="products.html#health" class="hm-svc"><span class="hm-svc-icon">🩺</span><div><h3>Health Insurance</h3><p>Medical bills never touch your goals.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="products.html#term" class="hm-svc"><span class="hm-svc-icon">☂️</span><div><h3>Term Insurance</h3><p>High cover at a low premium.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="products.html#lic" class="hm-svc"><span class="hm-svc-icon">🏛️</span><div><h3>LIC Plans</h3><p>Savings with life cover built in.</p></div><span class="hm-svc-go">→</span></a>
+            </div>
+            <div class="hm-panel" data-panel="tax" hidden>
+                <a href="products.html#tax" class="hm-svc"><span class="hm-svc-icon">🧾</span><div><h3>Tax Planning</h3><p>Save tax every year, the smart way.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="products.html#guaranteed" class="hm-svc"><span class="hm-svc-icon">💎</span><div><h3>Tax-Free Guaranteed</h3><p>Guaranteed returns, tax-free maturity.</p></div><span class="hm-svc-go">→</span></a>
+                <a href="calculators.html#goal" class="hm-svc"><span class="hm-svc-icon">🎯</span><div><h3>Goal Planner</h3><p>Find the SIP you need for any goal.</p></div><span class="hm-svc-go">→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Connect -->
+    <section class="hm-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="hm-connect hm-reveal">
+                <div>
+                    <div class="hm-eyebrow">Let's Talk</div>
+                    <h2>Your next goal starts with <span class="hm-gradient-text">one conversation</span></h2>
+                    <p>Tell us what you're planning. In a 60-minute goal meeting we'll show you a clear path, with no pressure and no jargon.</p>
+                    <div class="hm-partners">
+                        <span class="hm-partners-label">Our partners</span>
+                        <div class="hm-marquee"><ul class="hm-marquee-track"><li><img src="Images/pblogo.png" alt="Policy Bazaar"><span>Policy Bazaar</span></li><li><img src="Images/smcinsurancelogo.png" alt="SMC Insurance"><span>SMC Insurance</span></li><li><img src="Images/wealthylogo.webp" alt="Wealthy"><span>Wealthy</span></li><li><img src="Images/njlogo.png" alt="NJ Wealth"><span>NJ Wealth</span></li><li><img src="Images/LICLogo.jpg" alt="LIC"><span>LIC</span></li><li aria-hidden="true"><img src="Images/pblogo.png" alt=""><span>Policy Bazaar</span></li><li aria-hidden="true"><img src="Images/smcinsurancelogo.png" alt=""><span>SMC Insurance</span></li><li aria-hidden="true"><img src="Images/wealthylogo.webp" alt=""><span>Wealthy</span></li><li aria-hidden="true"><img src="Images/njlogo.png" alt=""><span>NJ Wealth</span></li><li aria-hidden="true"><img src="Images/LICLogo.jpg" alt=""><span>LIC</span></li></ul></div>
+                    </div>
+                </div>
+                <div class="hm-ways">
+                    <a href="contact.html" class="hm-way primary"><span class="hm-way-icon">📅</span><div><strong>Book a goal meeting</strong><small>60 minutes, at your convenience</small></div><em>→</em></a>
+                    <a href="tel:+919910210883" class="hm-way"><span class="hm-way-icon">📞</span><div><strong>Call +91 99102 10883</strong><small>Talk to our team directly</small></div><em>→</em></a>
+                    <a href="mailto:A2pfinserv@gmail.com" class="hm-way"><span class="hm-way-icon">✉️</span><div><strong>A2pfinserv@gmail.com</strong><small>We reply within 24 hours</small></div><em>→</em></a>
+                    <a href="calculators.html" class="hm-way"><span class="hm-way-icon">🧮</span><div><strong>Try our calculators</strong><small>SIP, retirement, goal and more</small></div><em>→</em></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container hm-disclaimer">
+        <p><strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Investments in the securities market are subject to market risks. Past performance is not indicative of future returns. Insurance is the subject matter of solicitation. Tax benefits are as per prevailing tax laws and may change.</p>
+    </div>
+
+
+    <!-- Account popover: the partner sign-up opens inside the page -->
+    <div class="ap-backdrop" id="ap-backdrop"></div>
+    <div class="ap-sheet" id="ap-sheet" role="dialog" aria-modal="true" aria-labelledby="ap-name" aria-hidden="true">
+        <div class="ap-grab" aria-hidden="true"></div>
+        <div class="ap-head">
+            <img src="Images/logomain.png" alt="">
+            <div class="ap-title"><strong id="ap-name">Open an account</strong><small>Secure sign-up on Wealthy, our partner platform</small></div>
+            <a class="ap-ext" id="ap-ext" href="https://www.wealthy.in/p/ankit61739" target="_blank" rel="noopener"><span>Open in new tab</span> ↗</a>
+            <button type="button" class="ap-close" id="ap-close" aria-label="Close">✕</button>
+        </div>
+        <div class="ap-body" id="ap-body">
+            <div class="ap-load"><i></i>Opening secure sign-up…</div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>A2P Financial Services</h3>
-                    <p>Expert guidance for every earning journey. Building wealth with clarity and confidence.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact Us</h4>
-                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
-                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
-                </div>
-                <div class="footer-section">
-                    <h4>Security & Trust</h4>
-                    <p>🔒 SEBI Registered</p>
-                    <p>🛡️ SIPC Protected</p>
-                    <p>✓ ISO Certified</p>
+    <footer class="footer hm-foot">
+        <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 54px; animation-duration: 52s; animation-delay: -20s; transform: scale(0.7);" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 30px; animation-duration: 46s; animation-delay: -34s;" aria-hidden="true"></span>
+        <!-- The goal train: rides left to right across the footer -->
+        <div class="hf-rail" aria-hidden="true">
+            <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
+            <div class="hf-train">
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car hf-engine">
+                    <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
+                    <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
+                    <div class="hf-wheels"><i></i><i></i><i></i></div>
                 </div>
             </div>
+            <div class="hf-track"></div>
+            <div class="hf-ground"></div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 A2P Financial Services. All rights reserved. EST. 2025</p>
+        <div class="footer-content">
+            <div class="hf-row">
+                <div class="hf-brand">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
+                    <div>
+                        <strong>A2P FINANCIAL SERVICES</strong>
+                        <em>Aapke Sapno Ka Financial Planner</em>
+                    </div>
+                </div>
+                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
+                <div class="hf-end">
+                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
+                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="script-pro.js"></script>
+    <script>
+    (function () {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Reveal on scroll
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+        document.querySelectorAll('.hm-reveal').forEach((el) => io.observe(el));
+
+        // "Up to 15%" counts up once
+        const ret = document.getElementById('hm-ret');
+        if (!reduce) {
+            const t0 = performance.now() + 500;
+            const tick = (now) => { const t = Math.min(Math.max((now - t0) / 1200, 0), 1); ret.textContent = Math.round(15 * (1 - Math.pow(1 - t, 3))); if (t < 1) requestAnimationFrame(tick); };
+            ret.textContent = '0';
+            requestAnimationFrame(tick);
+        }
+
+        if (document.getElementById('hm-deck')) {
+            // Service deck: the front card flies away and the next one rises to the front
+            const deck = document.getElementById('hm-deck');
+            const cards = [...deck.querySelectorAll('.hm-card')];
+            const dotsEl = document.getElementById('hm-dots');
+            dotsEl.innerHTML = cards.map((c, i) => `<button type="button" aria-label="Show service ${i + 1}"></button>`).join('');
+            const dots = [...dotsEl.children];
+            const STACK = [
+                'translate(0, 0) rotate(0deg) scale(1)',
+                'translate(16px, -20px) rotate(4deg) scale(0.95)',
+                'translate(-16px, -38px) rotate(-4deg) scale(0.9)'
+            ];
+            let current = 0, busy = false;
+            const layout = () => {
+                cards.forEach((card, i) => {
+                    const pos = (i - current + cards.length) % cards.length;
+                    card.classList.toggle('front', pos === 0);
+                    card.style.zIndex = String(cards.length - pos);
+                    card.style.transform = STACK[pos] || 'translate(0, -50px) scale(0.86)';
+                    card.style.opacity = pos < STACK.length ? '1' : '0';
+                    card.tabIndex = pos === 0 ? 0 : -1;
+                    card.setAttribute('aria-hidden', String(pos !== 0));
+                });
+                dots.forEach((d, i) => d.setAttribute('aria-current', String(i === current)));
+            };
+            const go = (target, animateOut) => {
+                if (busy || target === current) return;
+                const leaving = cards[current];
+                const done = () => { current = (target + cards.length) % cards.length; layout(); busy = false; };
+                if (animateOut && !reduce) {
+                    busy = true;
+                    leaving.classList.add('out');
+                    setTimeout(() => { leaving.classList.remove('out'); done(); }, 420);
+                } else done();
+            };
+            const next = () => go((current + 1) % cards.length, true);
+            const prev = () => go((current - 1 + cards.length) % cards.length, false);
+            document.getElementById('hm-next').addEventListener('click', () => { next(); restart(); });
+            document.getElementById('hm-prev').addEventListener('click', () => { prev(); restart(); });
+            dots.forEach((d, i) => d.addEventListener('click', () => { go(i, true); restart(); }));
+
+            // Swipe on touch screens
+            let sx = null;
+            deck.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+            deck.addEventListener('pointerup', (e) => {
+                if (sx === null) return;
+                const dx = e.clientX - sx; sx = null;
+                if (Math.abs(dx) > 40) { e.preventDefault(); (dx < 0 ? next : prev)(); restart(); }
+            });
+            deck.addEventListener('click', (e) => { if (e.target.closest('.hm-card') && !e.target.closest('.hm-card.front')) e.preventDefault(); });
+
+            // Auto-play, paused while hovered, focused, off screen or in a background tab
+            let timer = null, paused = false, visible = true;
+            const restart = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!paused && visible && !document.hidden) next(); }, 3200); };
+            const wrap = deck.parentElement;
+            wrap.addEventListener('mouseenter', () => { paused = true; });
+            wrap.addEventListener('mouseleave', () => { paused = false; });
+            wrap.addEventListener('focusin', () => { paused = true; });
+            wrap.addEventListener('focusout', () => { paused = false; });
+            new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(deck);
+            layout();
+            restart();
+        }
+
+        if (document.getElementById('hm-bento-wrap')) {
+            // Live bento: the grid tilts gently toward the mouse
+            const bentoWrap = document.getElementById('hm-bento-wrap');
+            const bento = document.getElementById('hm-bento');
+            if (!reduce) {
+                bentoWrap.addEventListener('pointermove', (e) => {
+                    if (e.pointerType !== 'mouse') return;
+                    const r = bentoWrap.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width - 0.5;
+                    const py = (e.clientY - r.top) / r.height - 0.5;
+                    bento.style.setProperty('--ry', (px * 12).toFixed(2) + 'deg');
+                    bento.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg');
+                });
+                bentoWrap.addEventListener('pointerleave', () => { bento.style.setProperty('--rx', '0deg'); bento.style.setProperty('--ry', '0deg'); });
+            }
+        }
+
+        if (document.getElementById('hm-journey')) {
+            // Dream journey: the ₹ coin travels the road, lighting up each goal and changing the headline word
+            const journey = document.getElementById('hm-journey');
+            const road = document.getElementById('jn-road');
+            const trail = document.getElementById('jn-trail');
+            const coin = document.getElementById('jn-coin');
+            const word = document.getElementById('hm-word');
+            const caption = document.getElementById('jn-caption');
+            const nodes = [...journey.querySelectorAll('.jn-node')];
+            const total = road.getTotalLength();
+            const place = (el, f) => { const p = road.getPointAtLength(total * f); el.style.left = (p.x / 10) + '%'; el.style.top = (p.y / 2) + '%'; };
+            const stops = nodes.map((n) => parseFloat(n.dataset.at));
+            nodes.forEach((n, i) => place(n, stops[i]));
+
+            let cur = -1;
+            const setWord = (text, color) => {
+                word.classList.add('out');
+                setTimeout(() => { word.textContent = text; word.style.setProperty('--w', color); word.classList.remove('out'); }, 260);
+            };
+            const activate = (i) => {
+                if (i === cur) return;
+                cur = i;
+                nodes.forEach((n, k) => { n.classList.toggle('on', k <= i); n.classList.toggle('cur', k === i); });
+                const n = nodes[i];
+                const c = getComputedStyle(n).getPropertyValue('--c-text').trim();
+                setWord(n.dataset.word, c);
+                caption.style.setProperty('--c-text', c);
+                caption.querySelector('strong').textContent = n.querySelector('.jn-lbl').textContent;
+                caption.querySelector('span').textContent = n.querySelector('.jn-sub').textContent;
+            };
+            // The trail is drawn in screen pixels (non-scaling stroke), so measure its on-screen length
+            let cum = [], LEN = 1;
+            const measure = () => {
+                const r = journey.getBoundingClientRect(), N = 240;
+                cum = [0];
+                let prev = road.getPointAtLength(0);
+                for (let i = 1; i <= N; i++) {
+                    const p = road.getPointAtLength(total * i / N);
+                    cum.push(cum[i - 1] + Math.hypot((p.x - prev.x) * r.width / 1000, (p.y - prev.y) * r.height / 200));
+                    prev = p;
+                }
+                LEN = cum[N];
+                trail.style.strokeDasharray = LEN + ' ' + LEN;
+            };
+            const lenAt = (f) => { const x = f * (cum.length - 1), i = Math.floor(x); return i >= cum.length - 1 ? LEN : cum[i] + (cum[i + 1] - cum[i]) * (x - i); };
+            let lastF = 0;
+            const moveTo = (f) => { lastF = f; place(coin, f); trail.style.strokeDashoffset = LEN - lenAt(f); };
+            measure();
+
+            if (reduce) {
+                moveTo(stops[stops.length - 1]);
+                activate(nodes.length - 1);
+            } else {
+                const TRAVEL = 1300, DWELL = 1800, END = 1200;
+                const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+                let seg = 0, phase = 'travel', t0 = null, running = false, hovering = false, visible = true, gen = 0;   // the hero is on screen at load
+                const loop = (now, g) => {
+                    if (!running || g !== gen) return;   // a newer loop has taken over
+                    if (t0 === null) t0 = now;
+                    const dt = now - t0;
+                    if (phase === 'travel') {
+                        const from = seg === 0 ? 0 : stops[seg - 1];
+                        const k = Math.min(dt / TRAVEL, 1);
+                        moveTo(from + (stops[seg] - from) * ease(k));
+                        if (k >= 1) { activate(seg); phase = 'dwell'; t0 = now; }
+                    } else if (phase === 'dwell') {
+                        if (dt >= DWELL) {
+                            if (seg < stops.length - 1) { seg++; phase = 'travel'; }
+                            else { phase = 'end'; coin.style.opacity = '0'; trail.style.transition = 'stroke-dashoffset 0.8s ease'; trail.style.strokeDashoffset = LEN; }
+                            t0 = now;
+                        }
+                    } else if (dt >= END) {
+                        trail.style.transition = '';
+                        nodes.forEach((n) => n.classList.remove('on', 'cur'));
+                        cur = -1; seg = 0; phase = 'travel'; t0 = now;
+                        moveTo(0); coin.style.opacity = '1';
+                    }
+                    requestAnimationFrame((n) => loop(n, g));
+                };
+                const sync = () => {
+                    const should = visible && !hovering && !document.hidden;
+                    if (should && !running) { running = true; t0 = null; const g = ++gen; requestAnimationFrame((n) => loop(n, g)); }
+                    if (!should) running = false;
+                };
+                new IntersectionObserver((es) => { visible = es[0].isIntersecting; sync(); }, { threshold: 0.2 }).observe(journey);
+                document.addEventListener('visibilitychange', sync);
+                moveTo(0);
+                sync();
+                // Pointing at a goal jumps the coin there and holds it; leaving continues the trip from that goal
+                nodes.forEach((n, i) => {
+                    const hold = () => { hovering = true; sync(); trail.style.transition = 'stroke-dashoffset 0.4s ease'; moveTo(stops[i]); activate(i); seg = i; phase = 'dwell'; coin.style.opacity = '1'; };
+                    const release = () => { hovering = false; trail.style.transition = ''; sync(); };
+                    n.addEventListener('pointerenter', hold);
+                    n.addEventListener('focus', hold);
+                    n.addEventListener('pointerleave', release);
+                    n.addEventListener('blur', release);
+                });
+                window.addEventListener('resize', () => { nodes.forEach((n, i) => place(n, stops[i])); measure(); moveTo(lastF); });
+            }
+        }
+
+        if (document.getElementById('hm-chat')) {
+            // Planner chat: tap a goal (or watch the demo cycle through them)
+            const chBody = document.getElementById('ch-body');
+            const GOALS = [
+                { k: '🎓 Bachche ki padhai', a: 'Bachche ki padhai ke liye ek disciplined SIP ya child plan achha raha hai. Hum bachche ki age aur target ke hisaab se plan banate hain.', href: 'products.html#child' },
+                { k: '🌅 Retirement', a: 'Retirement ke liye jaldi shuru karna sabse bada fayda deta hai. Hum monthly SIP aur steady-income options ka plan banate hain.', href: 'products.html#retire' },
+                { k: '🛡️ Family ki suraksha', a: 'Health aur Term insurance (lifetime cover) se family ki suraksha pakki hoti hai. Hum aapki zaroorat ke hisaab se cover samjhate hain.', href: 'products.html#health' },
+                { k: '🧾 Tax bachana', a: 'Tax bachane ke liye tax-saving funds aur tax-free guaranteed plans hain. Hum aapke liye sahi mix chunte hain.', href: 'products.html#tax' },
+                { k: '📈 Wealth banana', a: 'Mutual Fund SIP se chhoti raashi se lambe samay mein wealth banti hai. Stocks ke liye Demat account bhi partner platform par khulwate hain.', href: 'products.html#mf' }
+            ];
+            const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; if (html) d.innerHTML = html; return d; };
+            let chips = [], dyn = [], timers = [], auto = !reduce, idx = 0, chatVisible = false;
+            const later = (fn, ms) => { const t = setTimeout(fn, ms); timers.push(t); };
+            const clearDyn = () => { timers.forEach(clearTimeout); timers = []; dyn.forEach((n) => n.remove()); dyn = []; };
+            const add = (n) => { chBody.appendChild(n); dyn.push(n); };
+            const ask = (i) => {
+                clearDyn();
+                chips.forEach((c, k) => c.classList.toggle('sel', k === i));
+                const g = GOALS[i];
+                add(el('ch-msg ch-me', g.k));
+                const typing = el('ch-msg ch-bot ch-typing', '<span></span><span></span><span></span>');
+                later(() => add(typing), reduce ? 0 : 500);
+                later(() => { typing.remove(); add(el('ch-msg ch-bot', g.a)); }, reduce ? 0 : 1600);
+                later(() => add(Object.assign(el('ch-cta'), { innerHTML: '<a href="' + g.href + '">See this plan →</a><a href="contact.html">Book a Goal Meeting</a>' })), reduce ? 0 : 2200);
+            };
+            chBody.appendChild(el('ch-msg ch-bot', 'Namaste 🙏 Main A2P ka financial planner hoon. Aapka sabse bada goal kya hai?'));
+            const row = el('ch-chips');
+            GOALS.forEach((g, i) => {
+                const b = document.createElement('button');
+                b.type = 'button'; b.className = 'ch-chip'; b.textContent = g.k;
+                b.addEventListener('click', () => { auto = false; idx = i; ask(i); });
+                row.appendChild(b); chips.push(b);
+            });
+            chBody.appendChild(row);
+            if (reduce) { ask(0); }
+            else {
+                const cycle = () => { if (auto && chatVisible && !document.hidden) { ask(idx); idx = (idx + 1) % GOALS.length; } if (auto) setTimeout(cycle, 6500); };
+                new IntersectionObserver((es) => { chatVisible = es[0].isIntersecting; }, { threshold: 0.3 }).observe(document.getElementById('hm-chat'));
+                setTimeout(cycle, 1800);
+            }
+        }
+
+        // Account popover: the "Open … Account" buttons show the partner sign-up inside the page
+        // (without JavaScript the buttons still open it in a new tab)
+        const apSheet = document.getElementById('ap-sheet');
+        const apBody = document.getElementById('ap-body');
+        let apLast = null;
+        const apClose = () => {
+            document.body.classList.remove('ap-open', 'ap-lock');
+            apSheet.setAttribute('aria-hidden', 'true');
+            if (apLast) apLast.focus();
+        };
+        document.querySelectorAll('[data-acc-pop]').forEach((btn) => btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            apLast = btn;
+            document.getElementById('ap-name').textContent = btn.dataset.accPop;
+            document.getElementById('ap-ext').href = btn.href;
+            if (!apBody.querySelector('iframe')) {
+                const f = document.createElement('iframe');
+                f.title = 'Wealthy account sign-up';
+                f.src = btn.href;
+                f.addEventListener('load', () => apBody.classList.add('ready'));
+                apBody.appendChild(f);
+            }
+            document.body.classList.add('ap-open', 'ap-lock');
+            apSheet.setAttribute('aria-hidden', 'false');
+            document.getElementById('ap-close').focus();
+        }));
+        document.getElementById('ap-close').addEventListener('click', apClose);
+        document.getElementById('ap-backdrop').addEventListener('click', apClose);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('ap-open')) apClose(); });
+
+        // Top bar: the company name appears letter by letter when Home opens
+        const htName = document.querySelector('.hm-top .brand-text strong');
+        if (htName && !reduce) {
+            const txt = htName.textContent;
+            htName.setAttribute('aria-label', txt);
+            htName.innerHTML = [...txt].map((ch, i) => ch === ' ' ? '<i class="ht-sp"></i>' : `<i class="ht-l" aria-hidden="true" style="animation-delay:${(0.15 + i * 0.035).toFixed(3)}s">${ch}</i>`).join('');
+        }
+
+        // Services tabs
+        const tabs = [...document.querySelectorAll('.hm-tab')];
+        const panels = [...document.querySelectorAll('.hm-panel')];
+        tabs.forEach((t) => t.addEventListener('click', () => {
+            tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === t)));
+            panels.forEach((p) => {
+                const show = p.dataset.panel === t.dataset.tab;
+                p.hidden = !show;
+                if (show) p.querySelectorAll('.hm-svc').forEach((c) => { c.style.animation = 'none'; void c.offsetWidth; c.style.animation = ''; });
+            });
+        }));
+    })();
+    </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>

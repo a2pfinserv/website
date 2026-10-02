@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The A2P Blog: simple, practical ideas on investing, protection and goal planning for Indian families.">
+    <title>Blog - A2P Financial Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
+    <style>
+        /* ========================= BLOG LIST ========================= */
+        .bl-eyebrow { display: inline-block; padding: 0.4rem 1rem; border-radius: 999px; background: rgba(102, 126, 234, 0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+        .bl-gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .bl-js .bl-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .bl-js .bl-reveal.in { opacity: 1; transform: none; }
+
+        /* ---------- Hero ---------- */
+        .bl-hero { padding: 4rem 0 3rem; overflow: hidden; background: radial-gradient(circle at 85% 20%, rgba(245, 87, 108, 0.08), transparent 45%), radial-gradient(circle at 10% 80%, rgba(102, 126, 234, 0.1), transparent 45%), linear-gradient(135deg, #fff 0%, #f0f4ff 100%); }
+        .bl-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; }
+        .bl-hero h1 { font-size: 3rem; line-height: 1.15; margin-bottom: 1.1rem; }
+        .bl-hero-lead { font-size: 1.12rem; color: var(--text-muted); line-height: 1.8; max-width: 540px; margin-bottom: 1.75rem; }
+        .bl-filters { display: inline-flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; background: transparent; border: none; }
+        .bl-filter { padding: 0.55rem 1.1rem; border: none; border-radius: 999px; background: transparent; font: inherit; font-weight: 600; font-size: 0.9rem; color: #4b5563; cursor: pointer; }
+        .bl-art { position: relative; }
+        .bl-art svg { display: block; width: 100%; height: auto; }
+
+        /* ---------- Money tip ---------- */
+        .bl-tip-wrap { padding: 0 0 1rem; }
+        .bl-tip {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.25rem;
+            align-items: center;
+            margin-top: -1.5rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 20px;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            box-shadow: 0 16px 40px rgba(102, 126, 234, 0.12);
+            position: relative;
+            z-index: 2;
+        }
+        .bl-tip-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; font-size: 1.5rem; background: linear-gradient(135deg, #fef3c7, #fde68a); animation: blBulb 3s ease-in-out infinite; }
+        @keyframes blBulb { 0%, 100% { box-shadow: 0 0 0 0 rgba(244, 167, 0, 0.0); } 50% { box-shadow: 0 0 0 10px rgba(244, 167, 0, 0.12); } }
+        .bl-tip-label { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #b07800; margin-bottom: 0.2rem; }
+        .bl-tip-text { position: relative; min-height: 1.6em; font-weight: 600; color: #1f2937; font-size: 1.02rem; line-height: 1.6; }
+        .bl-tip-text span { display: block; transition: opacity 0.45s ease, transform 0.45s ease; }
+        .bl-tip-text span.out { opacity: 0; transform: translateY(-10px); }
+        .bl-tip-text span.in-start { opacity: 0; transform: translateY(10px); }
+        .bl-tip-side { display: flex; align-items: center; gap: 1rem; }
+        .bl-tip-dots { display: flex; gap: 6px; }
+        .bl-tip-dots i { width: 7px; height: 7px; border-radius: 50%; background: #e0e7ff; transition: background 0.3s, width 0.3s; }
+        .bl-tip-dots i.on { width: 20px; border-radius: 999px; background: var(--primary); }
+        .bl-tip-link { color: var(--primary); font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+        .bl-tip-link:hover { text-decoration: underline; }
+
+        /* ---------- Articles ---------- */
+        .bl-section { padding: 3rem 0 5rem; }
+        .bl-section-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.75rem; }
+        .bl-section-head h2 { font-size: 1.9rem; }
+        .bl-count { color: var(--text-muted); font-weight: 600; font-size: 0.92rem; }
+        .bl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+        .bl-card { display: flex; flex-direction: column; background: #fff; border: 1px solid rgba(102, 126, 234, 0.18); border-radius: 22px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+        .bl-card:hover { transform: translateY(-6px); box-shadow: 0 22px 50px rgba(102, 126, 234, 0.16); border-color: var(--primary); }
+        .bl-card[hidden] { display: none; }
+        .bl-card-art { position: relative; background: radial-gradient(circle at 30% 25%, #fff 0%, transparent 60%), var(--soft); }
+        .bl-card-art svg { display: block; width: 100%; height: auto; }
+        .bl-card-body { flex: 1; display: flex; flex-direction: column; padding: 1.5rem 1.6rem 1.6rem; }
+        .bl-card-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; margin-bottom: 0.8rem; }
+        .bl-tag { padding: 0.28rem 0.75rem; border-radius: 999px; background: var(--soft); color: var(--primary-dark); font-size: 0.75rem; font-weight: 700; }
+        .bl-meta { color: var(--text-muted); font-size: 0.83rem; }
+        .bl-card h3 { font-size: 1.22rem; line-height: 1.4; margin-bottom: 0.55rem; }
+        .bl-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; margin-bottom: 1.2rem; }
+        .bl-read { margin-top: auto; display: inline-flex; align-items: center; gap: 0.45rem; color: var(--primary); font-weight: 700; transition: gap 0.3s; }
+        .bl-card:hover .bl-read { gap: 0.8rem; }
+        .t1 { --soft: #eef2ff; } .t2 { --soft: #f5f3ff; } .t3 { --soft: #eff6ff; } .t4 { --soft: #fdf2f8; }
+
+        /* Featured article spans the full row */
+        .bl-card.featured { grid-column: 1 / -1; flex-direction: row; }
+        .bl-card.featured .bl-card-art { flex: 1.1; display: grid; place-items: center; }
+        .bl-card.featured .bl-card-body { flex: 1; justify-content: center; padding: 2.25rem 2.5rem; }
+        .bl-card.featured h3 { font-size: 1.75rem; }
+        .bl-card.featured p { font-size: 1.02rem; }
+        .bl-new { padding: 0.28rem 0.7rem; border-radius: 999px; background: #f5576c; color: #fff; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; animation: blNewPulse 2.4s ease-in-out infinite; }
+        @keyframes blNewPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 87, 108, 0.4); } 50% { box-shadow: 0 0 0 7px rgba(245, 87, 108, 0); } }
+
+        /* ---------- Animations (run only while visible) ---------- */
+        .bl-anim * { animation-play-state: paused; }
+        .bl-anim.playing * { animation-play-state: running; }
+        .bl-lbl { font-size: 12px; font-weight: 700; fill: #374151; }
+        .bl-lbl-sm { font-size: 10.5px; font-weight: 600; fill: #6b7280; }
+
+        @keyframes blFloat { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-10px) rotate(var(--r, 0deg)); } }
+        @keyframes blWrite { 0% { transform: scaleX(0); } 35%, 85% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+        @keyframes blPen { 0% { transform: translate(0, 0); } 12% { transform: translate(120px, 0); } 13% { transform: translate(0, 18px); } 25% { transform: translate(100px, 18px); } 26% { transform: translate(0, 36px); } 36% { transform: translate(80px, 36px); } 85% { transform: translate(80px, 36px); } 100% { transform: translate(0, 0); } }
+        @keyframes blDraw { 0% { stroke-dashoffset: 100; } 50%, 88% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+        @keyframes blPop { 0%, 35% { transform: scale(0); opacity: 0; } 45%, 88% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.6); opacity: 0; } }
+        @keyframes blBar { 0% { transform: scaleY(0.05); } 30%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0.05); } }
+        @keyframes blArc { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: 1; } 50% { transform: translate(var(--mx), var(--my)); } 90% { opacity: 1; } 100% { transform: translate(var(--ex), var(--ey)); opacity: 0; } }
+        @keyframes blFlow { to { stroke-dashoffset: -24; } }
+        @keyframes blPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        @keyframes blRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.8); opacity: 0; } }
+        @keyframes blFall { 0% { transform: translateY(-30px); opacity: 0; } 15% { opacity: 1; } 75% { transform: translateY(var(--d, 70px)); opacity: 1; } 85%, 100% { transform: translateY(var(--d, 70px)); opacity: 0; } }
+        @keyframes blOut { 0%, 55% { transform: translateY(0); opacity: 0; } 65% { opacity: 1; } 85% { transform: translateY(34px); opacity: 1; } 100% { transform: translateY(34px); opacity: 0; } }
+        @keyframes blWave { 0%, 100% { transform: skewY(0deg); } 50% { transform: skewY(-8deg); } }
+        @keyframes blTwinkle { 0%, 100% { transform: scale(0.4); opacity: 0.2; } 50% { transform: scale(1); opacity: 1; } }
+
+        .a-float { animation: blFloat 5s ease-in-out infinite; }
+        .a-write { transform-box: fill-box; transform-origin: left center; animation: blWrite 6s ease-out infinite; }
+        .a-pen { animation: blPen 6s ease-in-out infinite; }
+        .a-draw { animation: blDraw 6s ease-in-out infinite; }
+        .a-pop { transform-box: fill-box; transform-origin: center; animation: blPop 6s ease-out infinite; }
+        .a-bar { transform-box: fill-box; transform-origin: center bottom; animation: blBar 6s ease-out infinite; }
+        .a-arc { animation: blArc 2.4s ease-in-out infinite; }
+        .a-flow { animation: blFlow 1.2s linear infinite; }
+        .a-pulse { transform-box: fill-box; transform-origin: center; animation: blPulse 2.4s ease-in-out infinite; }
+        .a-ring { transform-box: fill-box; transform-origin: center; animation: blRing 2.4s ease-out infinite; }
+        .a-fall { animation: blFall 2.8s ease-in infinite; }
+        .a-out { animation: blOut 2.8s ease-in infinite; }
+        .a-wave { transform-box: fill-box; transform-origin: left center; animation: blWave 1.6s ease-in-out infinite; }
+        .a-twinkle { transform-box: fill-box; transform-origin: center; animation: blTwinkle 2s ease-in-out infinite; }
+
+        /* ---------- CTA ---------- */
+        .bl-cta { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; margin-top: 4rem; padding: 3rem; border-radius: 24px; background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%); border: 1px solid rgba(102, 126, 234, 0.2); }
+        .bl-cta h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .bl-cta p { color: #4b5563; font-size: 1.05rem; }
+        .bl-cta-actions { display: flex; flex-direction: column; gap: 0.9rem; }
+        .bl-cta-actions .btn { text-align: center; }
+        .bl-cta-phone { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .bl-cta-phone a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .bl-disclaimer { padding: 2rem 0; border-top: 1px solid rgba(102, 126, 234, 0.15); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7; text-align: center; }
+        .bl-disclaimer strong { color: #374151; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .bl-grid { grid-template-columns: repeat(2, 1fr); }
+            .bl-card.featured { flex-direction: column; }
+            .bl-card.featured .bl-card-body { padding: 1.75rem; }
+        }
+        @media (max-width: 860px) {
+            .bl-hero-grid { grid-template-columns: 1fr; }
+            .bl-art { max-width: 520px; margin: 0 auto; width: 100%; }
+            .bl-cta { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+            .bl-tip { grid-template-columns: auto 1fr; }
+            .bl-tip-side { grid-column: 1 / -1; justify-content: space-between; }
+        }
+        @media (max-width: 768px) { .bl-hero h1 { font-size: 2.1rem; } .bl-card.featured h3 { font-size: 1.4rem; } }
+        @media (max-width: 640px) { .bl-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) {
+            .bl-filters { display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 420px; gap: 0.5rem; }
+            .bl-filter { border-radius: 12px; padding: 0.65rem 0.4rem; font-size: 0.84rem; white-space: nowrap; }
+            .bl-filter:first-child { grid-column: 1 / -1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bl-anim *, .bl-tip-icon, .bl-new { animation: none !important; }
+            .bl-js .bl-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <script>document.body.classList.add('bl-js');</script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link">Calculators</a></li>
+                <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="bl-hero">
+        <div class="container bl-hero-grid">
+            <div class="bl-reveal">
+                <div class="bl-eyebrow">A2P Blog</div>
+                <h1>Simple ideas for <span class="bl-gradient-text">smarter money</span></h1>
+                <p class="bl-hero-lead">Practical guidance on investing, protection and planning, written in plain words for Indian families. Short reads, no jargon.</p>
+                <div class="bl-filters seg" role="group" aria-label="Filter articles">
+                    <button class="bl-filter" type="button" data-filter="all" aria-pressed="true">All</button>
+                    <button class="bl-filter" type="button" data-filter="wealth" aria-pressed="false">Wealth</button>
+                    <button class="bl-filter" type="button" data-filter="strategy" aria-pressed="false">Strategy</button>
+                    <button class="bl-filter" type="button" data-filter="partners" aria-pressed="false">Partners</button>
+                    <button class="bl-filter" type="button" data-filter="philosophy" aria-pressed="false">Philosophy</button>
+                </div>
+            </div>
+
+            <!-- Hero animation: articles being written -->
+            <div class="bl-art bl-anim bl-reveal" aria-hidden="true">
+                <svg viewBox="0 0 440 340">
+                    <circle cx="330" cy="90" r="70" fill="#eef2ff"/>
+                    <circle cx="90" cy="270" r="50" fill="#fdf2f8"/>
+                    <!-- Back cards -->
+                    <g class="a-float" style="--r: -8deg; animation-delay: 0.6s;">
+                        <rect x="60" y="70" width="190" height="230" rx="18" fill="#fff" stroke="#e0e7ff" stroke-width="2"/>
+                        <rect x="80" y="92" width="80" height="12" rx="6" fill="#fde2e7"/>
+                    </g>
+                    <g class="a-float" style="--r: 7deg; animation-delay: 1.2s;">
+                        <rect x="200" y="60" width="190" height="230" rx="18" fill="#fff" stroke="#e0e7ff" stroke-width="2"/>
+                        <rect x="222" y="82" width="70" height="12" rx="6" fill="#dcfce7"/>
+                        <path class="a-draw" pathLength="100" stroke-dasharray="100" d="M224 250 L 260 226 L 290 238 L 330 196 L 366 178" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <!-- Front card being written -->
+                    <g class="a-float">
+                        <rect x="120" y="40" width="210" height="260" rx="20" fill="#fff" stroke="#c7d2fe" stroke-width="2"/>
+                        <rect x="144" y="64" width="64" height="20" rx="10" fill="#eef2ff"/>
+                        <text x="176" y="78" text-anchor="middle" style="font-size: 10px; font-weight: 800; fill: #5568d3;">NEW</text>
+                        <rect x="144" y="100" width="162" height="12" rx="6" fill="#1f2937" opacity="0.85"/>
+                        <rect x="144" y="120" width="120" height="12" rx="6" fill="#1f2937" opacity="0.85"/>
+                        <rect x="144" y="150" width="162" height="78" rx="12" fill="#f5f3ff"/>
+                        <g>
+                            <rect class="a-bar" style="animation-delay: 0s;" x="162" y="196" width="18" height="22" rx="4" fill="#a5b4fc"/>
+                            <rect class="a-bar" style="animation-delay: 0.2s;" x="190" y="184" width="18" height="34" rx="4" fill="#818cf8"/>
+                            <rect class="a-bar" style="animation-delay: 0.4s;" x="218" y="172" width="18" height="46" rx="4" fill="#667eea"/>
+                            <rect class="a-bar" style="animation-delay: 0.6s;" x="246" y="160" width="18" height="58" rx="4" fill="#5568d3"/>
+                        </g>
+                        <rect class="a-write" style="animation-delay: 0s;" x="144" y="244" width="140" height="8" rx="4" fill="#c7d2fe"/>
+                        <rect class="a-write" style="animation-delay: 0.6s;" x="144" y="262" width="120" height="8" rx="4" fill="#c7d2fe"/>
+                        <rect class="a-write" style="animation-delay: 1.1s;" x="144" y="280" width="100" height="8" rx="4" fill="#c7d2fe"/>
+                    </g>
+                    <!-- Pen -->
+                    <g class="a-pen">
+                        <g transform="translate(150 222) rotate(-40)">
+                            <rect x="0" y="-4" width="56" height="9" rx="4" fill="#667eea"/>
+                            <path d="M0 -4 L -12 0.5 L 0 5 Z" fill="#f4a700"/>
+                            <rect x="40" y="-4" width="10" height="9" fill="#5568d3"/>
+                        </g>
+                    </g>
+                    <!-- Badges -->
+                    <g class="a-pop" style="animation-delay: 0.4s;">
+                        <rect x="300" y="248" width="120" height="32" rx="16" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+                        <text class="bl-lbl" x="360" y="269" text-anchor="middle" style="fill:#047857">⏱️ 5-min reads</text>
+                    </g>
+                    <g class="a-twinkle" style="animation-delay: 0.3s;"><path d="M392 40 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z" fill="#f4a700"/></g>
+                    <g class="a-twinkle" style="animation-delay: 1.1s;"><path d="M50 50 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" fill="#f5576c"/></g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Money tip -->
+    <section class="bl-tip-wrap">
+        <div class="container">
+            <div class="bl-tip bl-reveal" aria-live="polite">
+                <div class="bl-tip-icon" aria-hidden="true">💡</div>
+                <div>
+                    <div class="bl-tip-label">Money tip</div>
+                    <div class="bl-tip-text" id="bl-tip-text"><span>Start early: even a small monthly SIP gets more years to compound.</span></div>
+                </div>
+                <div class="bl-tip-side">
+                    <div class="bl-tip-dots" id="bl-tip-dots" aria-hidden="true"></div>
+                    <a href="calculators.html" class="bl-tip-link">Try our calculators →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles -->
+    <section class="bl-section">
+        <div class="container">
+            <div class="bl-section-head">
+                <h2>Latest articles</h2>
+                <span class="bl-count" id="bl-count">4 articles</span>
+            </div>
+            <div class="bl-grid">
+
+                <!-- Featured: Wealth building -->
+                <a href="blog-2.html" class="bl-card featured t2 bl-reveal" data-cat="wealth">
+                    <div class="bl-card-art bl-anim" aria-hidden="true">
+                        <svg viewBox="0 0 520 300">
+                            <!-- Wallet (income) -->
+                            <g>
+                                <rect x="40" y="150" width="110" height="78" rx="16" fill="#667eea"/>
+                                <rect x="110" y="172" width="48" height="34" rx="10" fill="#5568d3"/>
+                                <circle cx="128" cy="189" r="6" fill="#c7d2fe"/>
+                                <text class="bl-lbl" x="95" y="252" text-anchor="middle">Income</text>
+                            </g>
+                            <!-- Coins travelling from income into wealth -->
+                            <g font-size="12" font-weight="800" text-anchor="middle" fill="#a16207">
+                                <g class="a-arc" style="--mx: 90px; --my: -80px; --ex: 190px; --ey: -10px; animation-delay: 0s;"><circle cx="150" cy="170" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="150" y="174">₹</text></g>
+                                <g class="a-arc" style="--mx: 90px; --my: -80px; --ex: 190px; --ey: -10px; animation-delay: 0.8s;"><circle cx="150" cy="170" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="150" y="174">₹</text></g>
+                                <g class="a-arc" style="--mx: 90px; --my: -80px; --ex: 190px; --ey: -10px; animation-delay: 1.6s;"><circle cx="150" cy="170" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="150" y="174">₹</text></g>
+                            </g>
+                            <path d="M150 168 Q 240 80 340 160" fill="none" stroke="#c7d2fe" stroke-width="2.5" stroke-dasharray="4 7"/>
+                            <!-- Growing wealth -->
+                            <line x1="320" y1="232" x2="490" y2="232" stroke="#c7d2fe" stroke-width="3" stroke-linecap="round"/>
+                            <rect class="a-bar" style="animation-delay: 0.2s;" x="330" y="190" width="26" height="42" rx="6" fill="#a5b4fc"/>
+                            <rect class="a-bar" style="animation-delay: 0.5s;" x="368" y="160" width="26" height="72" rx="6" fill="#818cf8"/>
+                            <rect class="a-bar" style="animation-delay: 0.8s;" x="406" y="124" width="26" height="108" rx="6" fill="#667eea"/>
+                            <rect class="a-bar" style="animation-delay: 1.1s;" x="444" y="84" width="26" height="148" rx="6" fill="#5568d3"/>
+                            <path class="a-draw" pathLength="100" stroke-dasharray="100" d="M343 182 C 370 172 372 150 381 150 S 410 118 419 114 S 448 80 457 74" fill="none" stroke="#f5576c" stroke-width="3.5" stroke-linecap="round"/>
+                            <text class="bl-lbl" x="405" y="256" text-anchor="middle">Wealth</text>
+                            <g class="a-pop" style="animation-delay: 0.8s;">
+                                <rect x="330" y="30" width="150" height="32" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                                <text class="bl-lbl" x="405" y="51" text-anchor="middle" style="fill:#047857">📈 Assets keep growing</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="bl-card-body">
+                        <div class="bl-card-top"><span class="bl-new">NEW</span><span class="bl-tag">Wealth Building</span><span class="bl-meta">📅 Aug 22, 2026 · ⏱️ 7 min read</span></div>
+                        <h3>You Know How to Earn. We Know How to Build Wealth.</h3>
+                        <p>Earning money and building wealth are two different skills. Discover how to turn your earnings into lasting wealth and financial security for your family.</p>
+                        <span class="bl-read">Read article <span aria-hidden="true">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Partnerships -->
+                <a href="blog-1.html" class="bl-card t1 bl-reveal" data-cat="partners">
+                    <div class="bl-card-art bl-anim" aria-hidden="true">
+                        <svg viewBox="0 0 360 200">
+                            <g fill="none" stroke="#a5b4fc" stroke-width="2.5" stroke-dasharray="6 6" class="a-flow">
+                                <path d="M84 52 L 180 100"/><path d="M276 52 L 180 100"/><path d="M84 150 L 180 100"/><path d="M276 150 L 180 100"/>
+                            </g>
+                            <g>
+                                <rect x="40" y="28" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/pblogo.png" x="50" y="34" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                                <rect x="232" y="28" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/smcinsurancelogo.png" x="242" y="34" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                                <rect x="40" y="126" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/wealthylogo.webp" x="50" y="132" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                                <rect x="232" y="126" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/njlogo.png" x="242" y="132" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                            </g>
+                            <circle class="a-ring" cx="180" cy="100" r="30" fill="none" stroke="#667eea" stroke-width="2"/>
+                            <g class="a-pulse">
+                                <circle cx="180" cy="100" r="30" fill="#667eea"/>
+                                <text x="180" y="105" text-anchor="middle" style="font-size: 14px; font-weight: 800; fill: #fff;">A2P</text>
+                            </g>
+                            <text class="bl-lbl-sm" x="180" y="190" text-anchor="middle">You get the best of every partner</text>
+                        </svg>
+                    </div>
+                    <div class="bl-card-body">
+                        <div class="bl-card-top"><span class="bl-tag">Partnerships</span><span class="bl-meta">⏱️ 5 min read</span></div>
+                        <h3>Trusted Partners, Better Plans</h3>
+                        <p>Why A2P works with trusted names like Policy Bazaar, SMC, Wealthy and NJ Wealth, and how that helps you find the right plan.</p>
+                        <span class="bl-read">Read article <span aria-hidden="true">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Strategy: choice paradox -->
+                <a href="blog-3.html" class="bl-card t3 bl-reveal" data-cat="strategy">
+                    <div class="bl-card-art bl-anim" aria-hidden="true">
+                        <svg viewBox="0 0 360 200">
+                            <g>
+                                <circle class="a-fall" style="--d: 62px; animation-delay: 0s;" cx="130" cy="30" r="6" fill="#a5b4fc"/>
+                                <circle class="a-fall" style="--d: 58px; animation-delay: 0.3s;" cx="160" cy="24" r="6" fill="#f5576c"/>
+                                <circle class="a-fall" style="--d: 64px; animation-delay: 0.6s;" cx="200" cy="28" r="6" fill="#10b981"/>
+                                <circle class="a-fall" style="--d: 60px; animation-delay: 0.9s;" cx="232" cy="26" r="6" fill="#f4a700"/>
+                                <circle class="a-fall" style="--d: 62px; animation-delay: 1.2s;" cx="146" cy="20" r="6" fill="#818cf8"/>
+                                <circle class="a-fall" style="--d: 60px; animation-delay: 1.5s;" cx="214" cy="22" r="6" fill="#fb7185"/>
+                                <circle class="a-fall" style="--d: 64px; animation-delay: 1.8s;" cx="178" cy="18" r="6" fill="#34d399"/>
+                                <circle class="a-fall" style="--d: 58px; animation-delay: 2.1s;" cx="250" cy="30" r="6" fill="#a5b4fc"/>
+                            </g>
+                            <path d="M110 70 H 270 L 200 130 V 150 H 160 V 130 Z" fill="#fff" stroke="#667eea" stroke-width="3" stroke-linejoin="round"/>
+                            <text x="190" y="100" text-anchor="middle" style="font-size: 11px; font-weight: 800; fill: #5568d3;">EXPERT FILTER</text>
+                            <g>
+                                <circle class="a-out" style="animation-delay: 0.2s;" cx="172" cy="152" r="6" fill="#10b981"/>
+                                <circle class="a-out" style="animation-delay: 0.5s;" cx="180" cy="152" r="6" fill="#10b981"/>
+                                <circle class="a-out" style="animation-delay: 0.8s;" cx="188" cy="152" r="6" fill="#10b981"/>
+                            </g>
+                            <text class="bl-lbl-sm" x="60" y="40" text-anchor="middle">500 options</text>
+                            <g class="a-pop" style="animation-delay: 0.6s;">
+                                <rect x="246" y="160" width="100" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                                <text class="bl-lbl" x="296" y="178" text-anchor="middle" style="fill:#047857">✓ 2–3 that fit</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="bl-card-body">
+                        <div class="bl-card-top"><span class="bl-tag">Investment Strategy</span><span class="bl-meta">⏱️ 6 min read</span></div>
+                        <h3>The Investment Plan Paradox</h3>
+                        <p>Why more choice can make investing harder, and how narrowing down to a few plans that fit you helps you start with confidence.</p>
+                        <span class="bl-read">Read article <span aria-hidden="true">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Philosophy: your goals reached -->
+                <a href="blog-4.html" class="bl-card t4 bl-reveal" data-cat="philosophy">
+                    <div class="bl-card-art bl-anim" aria-hidden="true">
+                        <svg viewBox="0 0 360 200">
+                            <path d="M20 180 L 130 70 L 190 120 L 250 40 L 340 180 Z" fill="#fbcfe8" opacity="0.7"/>
+                            <path d="M60 180 L 150 96 L 196 134 L 250 40 L 320 180 Z" fill="#f9a8d4" opacity="0.6"/>
+                            <path class="a-draw" pathLength="100" stroke-dasharray="100" d="M70 178 C 110 160 120 150 150 140 S 200 130 210 110 S 236 70 250 46" fill="none" stroke="#5568d3" stroke-width="3" stroke-linecap="round"/>
+                            <g transform="translate(250 40)">
+                                <line x1="0" y1="0" x2="0" y2="-34" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+                                <path class="a-wave" d="M0 -34 L 30 -28 L 0 -20 Z" fill="#f5576c"/>
+                            </g>
+                            <g class="a-pop" style="animation-delay: 0.9s;">
+                                <rect x="40" y="20" width="132" height="28" rx="14" fill="#fff" stroke="#f9a8d4" stroke-width="1.5"/>
+                                <text class="bl-lbl" x="106" y="38" text-anchor="middle" style="fill:#be185d">🏆 Your goal, reached</text>
+                            </g>
+                            <g class="a-twinkle" style="animation-delay: 0.2s;"><path d="M296 30 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" fill="#f4a700"/></g>
+                            <g class="a-twinkle" style="animation-delay: 1s;"><path d="M214 24 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 z" fill="#f4a700"/></g>
+                        </svg>
+                    </div>
+                    <div class="bl-card-body">
+                        <div class="bl-card-top"><span class="bl-tag">Our Philosophy</span><span class="bl-meta">⏱️ 6 min read</span></div>
+                        <h3>Your Achievement is Our Mission</h3>
+                        <p>We measure success by the goals you reach. Here's how that shapes every plan we build with you.</p>
+                        <span class="bl-read">Read article <span aria-hidden="true">→</span></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="bl-cta bl-reveal">
+                <div>
+                    <h2>Ready to act on your finances?</h2>
+                    <p>Let's talk about your goals and build a plan that fits your family.</p>
+                </div>
+                <div class="bl-cta-actions">
+                    <a href="contact.html" class="btn btn-primary btn-large">Book Your Goal Meeting</a>
+                    <div class="bl-cta-phone">or call <a href="tel:+919910210883">+91 9910210883</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container bl-disclaimer">
+        <p><strong>Disclaimer:</strong> Articles and tips are for general information only and are not investment advice. Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Insurance is the subject matter of solicitation.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer hm-foot">
+        <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 54px; animation-duration: 52s; animation-delay: -20s; transform: scale(0.7);" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 30px; animation-duration: 46s; animation-delay: -34s;" aria-hidden="true"></span>
+        <!-- The goal train: rides left to right across the footer -->
+        <div class="hf-rail" aria-hidden="true">
+            <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
+            <div class="hf-train">
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car hf-engine">
+                    <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
+                    <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
+                    <div class="hf-wheels"><i></i><i></i><i></i></div>
+                </div>
+            </div>
+            <div class="hf-track"></div>
+            <div class="hf-ground"></div>
+        </div>
+        <div class="footer-content">
+            <div class="hf-row">
+                <div class="hf-brand">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
+                    <div>
+                        <strong>A2P FINANCIAL SERVICES</strong>
+                        <em>Aapke Sapno Ka Financial Planner</em>
+                    </div>
+                </div>
+                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
+                <div class="hf-end">
+                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
+                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script-pro.js"></script>
+    <script>
+        (function () {
+            // Reveal on scroll
+            const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+            document.querySelectorAll('.bl-reveal').forEach((el) => io.observe(el));
+
+            // Play each animation only while it is on screen
+            const play = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('playing', e.isIntersecting)), { threshold: 0.15 });
+            document.querySelectorAll('.bl-anim').forEach((el) => play.observe(el));
+
+            // Filters
+            const filters = [...document.querySelectorAll('.bl-filter')];
+            const cards = [...document.querySelectorAll('.bl-card')];
+            const count = document.getElementById('bl-count');
+            filters.forEach((f) => f.addEventListener('click', () => {
+                filters.forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
+                cards.forEach((c) => { c.hidden = f.dataset.filter !== 'all' && c.dataset.cat !== f.dataset.filter; });
+                const n = cards.filter((c) => !c.hidden).length;
+                count.textContent = `${n} article${n === 1 ? '' : 's'}`;
+            }));
+
+            // Rotating money tips
+            const tips = [
+                'Start early: even a small monthly SIP gets more years to compound.',
+                'Keep an emergency fund of about 6 months of expenses before taking market risk.',
+                'Get health cover for the whole family before you start investing heavily.',
+                'Raise your SIP a little every year as your income grows. That is a step-up SIP.',
+                'Review your portfolio every 3–6 months, not every day.',
+                'Match each investment to a goal and a date. It makes every decision easier.'
+            ];
+            const textEl = document.getElementById('bl-tip-text');
+            const dotsEl = document.getElementById('bl-tip-dots');
+            dotsEl.innerHTML = tips.map(() => '<i></i>').join('');
+            const dots = [...dotsEl.children];
+            let i = 0;
+            const show = (n) => {
+                dots.forEach((d, k) => d.classList.toggle('on', k === n));
+                const old = textEl.querySelector('span');
+                const next = document.createElement('span');
+                next.textContent = tips[n];
+                next.className = 'in-start';
+                if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 450); old.style.position = 'absolute'; old.style.inset = '0'; }
+                textEl.appendChild(next);
+                requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('in-start')));
+            };
+            textEl.innerHTML = '';
+            show(0);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                setInterval(() => { i = (i + 1) % tips.length; show(i); }, 5000);
+            }
+        })();
+    </script>
+    <span id="site-ready" hidden></span>
+</body>
+</html>

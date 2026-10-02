@@ -3,278 +3,1042 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How A2P Financial Services works: a 60-minute goal meeting, a personal plan for investments, insurance and tax, easy setup, and portfolio reviews every 3–6 months.">
     <title>How It Works - A2P Financial Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
+    <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
+    <style>
+        /* ========================= HOW IT WORKS PAGE ========================= */
+        :root { --nav-h: 82px; }
+        .hw-section { padding: 5.5rem 0; }
+        .hw-section h2 {
+            font-size: 2.4rem;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        .hw-eyebrow {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .hw-center { text-align: center; }
+        .hw-gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hw-tint { background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%); }
+
+        .hw-js .hw-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .hw-js .hw-reveal.in { opacity: 1; transform: none; }
+
+        /* ---------- Hero ---------- */
+        .hw-hero {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(245, 87, 108, 0.08), transparent 45%),
+                radial-gradient(circle at 10% 80%, rgba(102, 126, 234, 0.1), transparent 45%),
+                linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+        }
+        .hw-hero h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            max-width: 820px;
+            margin: 0 auto 1.25rem;
+        }
+        .hw-hero-lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+        }
+        .hw-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 980px;
+            margin: 0 auto;
+            list-style: none;
+            counter-reset: hw;
+        }
+        .hw-overview a {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            height: 100%;
+            padding: 1rem 1.1rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 14px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .hw-overview a:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .hw-overview-icon {
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(245, 87, 108, 0.1));
+        }
+        .hw-overview small { display: block; color: var(--text-muted); font-weight: 500; font-size: 0.78rem; }
+
+        /* ---------- Scroll story ---------- */
+        .hw-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .hw-stage {
+            position: sticky;
+            top: calc(var(--nav-h) + 1.5rem);
+            height: calc(100vh - var(--nav-h) - 3rem);
+            max-height: 600px;
+            min-height: 460px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .hw-stage-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .hw-stage-count { font-size: 0.8rem; font-weight: 700; color: var(--primary); letter-spacing: 0.06em; text-transform: uppercase; }
+        .hw-stage-title { font-weight: 700; font-size: 1.05rem; color: #1f2937; transition: opacity 0.3s; }
+        .hw-stage-progress {
+            height: 6px;
+            margin-top: 0.9rem;
+            border-radius: 999px;
+            background: #e0e7ff;
+            overflow: hidden;
+        }
+        .hw-stage-progress span {
+            display: block;
+            height: 100%;
+            width: calc(var(--p, 0) * 100%);
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent-green), var(--primary), var(--secondary));
+            transition: width 0.15s linear;
+        }
+        .hw-canvas {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            margin: 0.75rem 0;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.08), transparent 55%),
+                radial-gradient(circle at 80% 85%, rgba(245, 87, 108, 0.07), transparent 50%),
+                #f8faff;
+        }
+        .hw-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .hw-dots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+        .hw-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.5rem 0.25rem;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: background 0.3s, color 0.3s;
+        }
+        .hw-dot i {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-style: normal;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #eef2ff;
+            color: var(--primary);
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+        }
+        .hw-dot.done i { background: rgba(16, 185, 129, 0.15); color: #047857; }
+        .hw-dot.active { background: #eef2ff; color: #1f2937; }
+        .hw-dot.active i { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; transform: scale(1.1); }
+
+        /* Scenes */
+        .hw-scene { opacity: 0; transform: scale(0.94); transform-origin: center; transform-box: view-box; transition: opacity 0.5s ease, transform 0.6s ease; }
+        .hw-stage[data-step="1"] .hw-s1,
+        .hw-stage[data-step="2"] .hw-s2,
+        .hw-stage[data-step="3"] .hw-s3,
+        .hw-stage[data-step="4"] .hw-s4 { opacity: 1; transform: none; }
+
+        .hw-pop, .hw-grow, .hw-drop, .hw-fill { transform-box: fill-box; }
+        .hw-pop { transform-origin: center; }
+        .hw-grow { transform-origin: left center; }
+        .hw-fill { transform-origin: center bottom; }
+        .hw-stage[data-step="1"] .hw-s1 .hw-pop,
+        .hw-stage[data-step="2"] .hw-s2 .hw-pop,
+        .hw-stage[data-step="3"] .hw-s3 .hw-pop,
+        .hw-stage[data-step="4"] .hw-s4 .hw-pop { animation: hwPop 0.55s cubic-bezier(.34,1.56,.64,1) var(--d, 0s) both; }
+        .hw-stage[data-step="2"] .hw-s2 .hw-grow { animation: hwGrow 0.9s ease-out var(--d, 0s) both; }
+        .hw-stage[data-step="2"] .hw-s2 .hw-draw,
+        .hw-stage[data-step="4"] .hw-s4 .hw-draw { animation: hwDraw 1.4s ease-out var(--d, 0s) both; }
+        .hw-stage[data-step="3"] .hw-s3 .hw-drop { animation: hwDrop 2.4s ease-in var(--d, 0s) infinite; }
+        .hw-stage[data-step="3"] .hw-s3 .hw-fill { animation: hwFill 2.6s ease-out 0.4s both; }
+        .hw-hand { transform-origin: 336px 70px; animation: hwSpin 4s linear infinite; }
+        .hw-orbit { transform-box: fill-box; transform-origin: center; animation: hwSpin 6s linear infinite; }
+        .hw-bob { animation: float 4s ease-in-out infinite; }
+        .hw-shield-pulse { transform-box: fill-box; transform-origin: center; animation: hwPulse 2.4s ease-in-out infinite; }
+
+        @keyframes hwPop { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+        @keyframes hwGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes hwDraw { from { stroke-dashoffset: var(--len, 400); } to { stroke-dashoffset: 0; } }
+        @keyframes hwDrop {
+            0% { transform: translateY(-40px); opacity: 0; }
+            15% { opacity: 1; }
+            70% { transform: translateY(95px); opacity: 1; }
+            85%, 100% { transform: translateY(105px); opacity: 0; }
+        }
+        @keyframes hwFill { from { transform: scaleY(0.15); } to { transform: scaleY(1); } }
+        @keyframes hwSpin { to { transform: rotate(360deg); } }
+        @keyframes hwPulse { 0%, 100% { opacity: 0.85; transform: scale(1); } 50% { opacity: 0.55; transform: scale(1.05); } }
+
+        .hw-label { font-size: 12px; font-weight: 600; fill: #374151; }
+        .hw-label-sm { font-size: 10.5px; font-weight: 600; fill: #6b7280; }
+
+        /* Step cards */
+        .hw-steps { display: grid; }
+        .hw-step {
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        .hw-step-card {
+            width: 100%;
+            padding: 2.25rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            opacity: 0.45;
+            transform: scale(0.97);
+            transition: opacity 0.5s, transform 0.5s, box-shadow 0.5s, border-color 0.5s;
+        }
+        .hw-step.active .hw-step-card { opacity: 1; transform: none; box-shadow: var(--shadow-lg); border-color: rgba(102, 126, 234, 0.4); }
+        .hw-step-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hw-step-num {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-weight: 800;
+        }
+        .hw-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.12);
+            color: #047857;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .hw-step-card h2 { text-align: left; font-size: 1.9rem; margin-bottom: 0.6rem; }
+        .hw-step-lead { color: #4b5563; font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.5rem; }
+        .hw-details { list-style: none; display: grid; gap: 1.1rem; }
+        .hw-details li { display: flex; gap: 1rem; align-items: flex-start; }
+        .hw-details .hw-di {
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #f0f4ff;
+            font-size: 1.15rem;
+        }
+        .hw-details h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .hw-details p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.6; }
+        .hw-get {
+            margin-top: 1.5rem;
+            padding: 0.9rem 1.1rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%);
+            color: #374151;
+            font-size: 0.93rem;
+        }
+        .hw-get strong { color: var(--primary-dark); }
+
+        /* ---------- Bring checklist ---------- */
+        .hw-bring {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .hw-bring h2 { text-align: left; }
+        .hw-bring-text p { color: #4b5563; font-size: 1.05rem; line-height: 1.8; }
+        .hw-bring-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .hw-bring-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1.1rem 1.25rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .hw-bring-list span { font-size: 1.4rem; }
+        .hw-bring-note { grid-column: 1 / -1; color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ---------- Deliverables ---------- */
+        .hw-gets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .hw-gets-card {
+            padding: 1.75rem 1.5rem;
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.18);
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .hw-gets-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .hw-gets-icon {
+            display: grid;
+            place-items: center;
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 1rem;
+            border-radius: 16px;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.14), rgba(245, 87, 108, 0.1));
+        }
+        .hw-gets-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .hw-gets-card p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.65; }
+
+        /* ---------- Promise band ---------- */
+        .hw-promise {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .hw-promise-item { text-align: center; padding: 0 0.5rem; }
+        .hw-promise-num { font-size: 2.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 0.4rem; }
+        .hw-promise-item h3 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+        .hw-promise-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .hw-note { text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem; }
+
+        /* ---------- FAQ ---------- */
+        .hw-faq { max-width: 820px; margin: 3rem auto 0; display: grid; gap: 1rem; }
+        .hw-faq details {
+            background: #fff;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 14px;
+            padding: 0 1.5rem;
+            transition: box-shadow 0.3s;
+        }
+        .hw-faq details[open] { box-shadow: var(--shadow-md); }
+        .hw-faq summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.25rem 0;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .hw-faq summary::-webkit-details-marker { display: none; }
+        .hw-faq summary::after { content: '+'; flex-shrink: 0; font-size: 1.4rem; color: var(--primary); transition: transform 0.3s; }
+        .hw-faq details[open] summary::after { transform: rotate(45deg); }
+        .hw-faq details p { color: var(--text-muted); line-height: 1.75; padding-bottom: 1.25rem; }
+
+        /* ---------- CTA ---------- */
+        .hw-cta {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .hw-cta h2 { text-align: left; font-size: 2rem; }
+        .hw-cta p { color: #4b5563; font-size: 1.05rem; }
+        .hw-cta-actions { display: flex; flex-direction: column; gap: 0.9rem; }
+        .hw-cta-actions .btn { text-align: center; }
+        .hw-cta-phone { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .hw-cta-phone a { color: var(--primary); font-weight: 600; text-decoration: none; }
+
+        .hw-disclaimer {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .hw-disclaimer strong { color: #374151; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .hw-overview, .hw-gets, .hw-promise { grid-template-columns: repeat(2, 1fr); }
+            .hw-story { gap: 2rem; }
+            .hw-bring { grid-template-columns: 1fr; gap: 2rem; }
+            .hw-cta { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .hw-story { grid-template-columns: 1fr; gap: 0; }
+            .hw-stage {
+                top: var(--nav-h);
+                z-index: 5;
+                height: 300px;
+                min-height: 0;
+                padding: 1rem;
+                border-radius: 0 0 20px 20px;
+                margin: 0 -2rem;
+            }
+            .hw-dots span { display: none; }
+            .hw-step { min-height: 70vh; }
+            .hw-step-card { padding: 1.75rem; }
+        }
+        @media (max-width: 768px) {
+            .hw-section { padding: 4rem 0; }
+            .hw-section h2 { font-size: 1.9rem; }
+            .hw-hero h1 { font-size: 2.1rem; }
+            .hw-step-card h2 { font-size: 1.5rem; }
+            .hw-bring-list { grid-template-columns: 1fr; }
+            .hw-cta { padding: 2rem 1.5rem; }
+        }
+        @media (max-width: 560px) {
+            .hw-overview, .hw-gets, .hw-promise { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hw-scene, .hw-step-card { transition: none; }
+            .hw-pop, .hw-grow, .hw-draw, .hw-drop, .hw-fill, .hw-hand, .hw-orbit, .hw-bob, .hw-shield-pulse { animation: none !important; }
+            .hw-draw { stroke-dashoffset: 0 !important; }
+            .hw-js .hw-reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
 </head>
 <body>
+    <script>document.body.classList.add('hw-js');</script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="home.html" class="logo">
-                <img src="Images/A2Plogo.png" alt="A2P" class="logo-img">
+                <img src="Images/logomain.png" alt="A2P" class="logo-img">
             </a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
                 <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="calculators.html" class="nav-link">Calculators</a></li>
                 <li><a href="how-it-works.html" class="nav-link active">How It Works</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle">🌙</button>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <h1>Get Started in 3 Simple Steps</h1>
-        <p>Your journey to financial freedom begins here</p>
+    <!-- Hero -->
+    <section class="hw-hero" data-rupee-rain>
+        <div class="container hw-reveal">
+            <div class="hw-eyebrow">How It Works</div>
+            <h1>From your first meeting to <span class="hw-gradient-text">every goal reached</span></h1>
+            <p class="hw-hero-lead">A simple, four-step process built around your family's goals. We listen first, plan clearly, set everything up for you, and keep reviewing your plan every 3–6 months.</p>
+            <ol class="hw-overview">
+                <li><a href="#step-1"><span class="hw-overview-icon">🤝</span><span>Goal meeting<small>60 minutes</small></span></a></li>
+                <li><a href="#step-2"><span class="hw-overview-icon">📋</span><span>Your personal plan<small>Invest · Protect · Save tax</small></span></a></li>
+                <li><a href="#step-3"><span class="hw-overview-icon">🛡️</span><span>Invest &amp; protect<small>We handle the setup</small></span></a></li>
+                <li><a href="#step-4"><span class="hw-overview-icon">🔄</span><span>Regular reviews<small>Every 3–6 months</small></span></a></li>
+            </ol>
+        </div>
     </section>
 
-    <!-- Process Flow -->
-    <section class="process-section">
+    <!-- Scroll story -->
+    <section class="hw-section" style="padding-top: 3rem;">
+        <div class="container hw-story">
+            <!-- Sticky animation -->
+            <div class="hw-stage" id="hwStage" data-step="1" aria-hidden="true">
+                <div class="hw-stage-head">
+                    <div>
+                        <div class="hw-stage-count">Step <span id="hwStepNum">1</span> of 4</div>
+                        <div class="hw-stage-title" id="hwStepTitle">Understand your goals</div>
+                    </div>
+                </div>
+                <div class="hw-stage-progress"><span></span></div>
+
+                <div class="hw-canvas">
+                    <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet">
+                        <!-- ===== Scene 1: 60-minute goal meeting ===== -->
+                        <g class="hw-scene hw-s1">
+                            <!-- Clock -->
+                            <g class="hw-pop" style="--d: 0.1s;">
+                                <circle cx="336" cy="70" r="28" fill="#fff" stroke="#c7d2fe" stroke-width="3"/>
+                                <circle cx="336" cy="70" r="3" fill="#667eea"/>
+                                <line class="hw-hand" x1="336" y1="70" x2="336" y2="50" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+                                <text class="hw-label" x="336" y="116" text-anchor="middle">60 min</text>
+                            </g>
+                            <!-- Speech bubbles -->
+                            <g class="hw-pop" style="--d: 0.35s;">
+                                <rect x="40" y="52" width="104" height="34" rx="17" fill="#fff" stroke="#c7d2fe" stroke-width="2"/>
+                                <path d="M92 86 L 100 98 L 106 86" fill="#fff" stroke="#c7d2fe" stroke-width="2" stroke-linejoin="round"/>
+                                <rect x="92" y="84" width="16" height="4" fill="#fff"/>
+                                <text class="hw-label" x="92" y="74" text-anchor="middle">🎯 Your goals</text>
+                            </g>
+                            <g class="hw-pop" style="--d: 0.75s;">
+                                <rect x="160" y="30" width="96" height="34" rx="17" fill="#fff" stroke="#fbcfe8" stroke-width="2"/>
+                                <text class="hw-label" x="208" y="52" text-anchor="middle">₹ Income</text>
+                            </g>
+                            <g class="hw-pop" style="--d: 1.15s;">
+                                <rect x="178" y="82" width="124" height="34" rx="17" fill="#fff" stroke="#bbf7d0" stroke-width="2"/>
+                                <path d="M246 116 L 252 128 L 258 116" fill="#fff" stroke="#bbf7d0" stroke-width="2" stroke-linejoin="round"/>
+                                <rect x="244" y="114" width="16" height="4" fill="#fff"/>
+                                <text class="hw-label" x="240" y="104" text-anchor="middle">📊 Investments</text>
+                            </g>
+                            <!-- Advisor -->
+                            <g class="hw-bob">
+                                <circle cx="110" cy="168" r="16" fill="#f5c9a8"/>
+                                <path d="M94 166 A 16 16 0 0 1 126 166 Q 110 157 94 166 Z" fill="#374151"/>
+                                <rect x="88" y="186" width="44" height="58" rx="18" fill="#667eea"/>
+                                <rect x="104" y="190" width="12" height="20" rx="3" fill="#fff" opacity="0.9"/>
+                                <text class="hw-label-sm" x="110" y="276" text-anchor="middle">A2P advisor</text>
+                            </g>
+                            <!-- Family -->
+                            <g class="hw-bob" style="animation-delay: 1s;">
+                                <circle cx="268" cy="166" r="15" fill="#e9b38f"/>
+                                <rect x="248" y="184" width="40" height="60" rx="17" fill="#f5576c"/>
+                                <circle cx="312" cy="186" r="11" fill="#f5c9a8"/>
+                                <rect x="299" y="200" width="26" height="44" rx="11" fill="#f4a700"/>
+                                <text class="hw-label-sm" x="288" y="276" text-anchor="middle">Your family</text>
+                            </g>
+                            <!-- Table -->
+                            <rect x="70" y="236" width="270" height="14" rx="7" fill="#c7d2fe"/>
+                            <rect x="80" y="250" width="8" height="10" rx="2" fill="#a5b4fc"/>
+                            <rect x="322" y="250" width="8" height="10" rx="2" fill="#a5b4fc"/>
+                            <!-- Notepad on table -->
+                            <g class="hw-pop" style="--d: 1.5s;">
+                                <rect x="176" y="214" width="56" height="24" rx="4" fill="#fff" stroke="#c7d2fe" stroke-width="2"/>
+                                <line x1="184" y1="222" x2="222" y2="222" stroke="#c7d2fe" stroke-width="2"/>
+                                <line x1="184" y1="229" x2="212" y2="229" stroke="#c7d2fe" stroke-width="2"/>
+                            </g>
+                            <g class="hw-pop" style="--d: 1.8s;">
+                                <rect class="hw-chip" x="128" y="288" width="144" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                                <text class="hw-label" x="200" y="305" text-anchor="middle" style="fill:#047857">✓ Risk profile understood</text>
+                            </g>
+                        </g>
+
+                        <!-- ===== Scene 2: Personal plan ===== -->
+                        <g class="hw-scene hw-s2">
+                            <g class="hw-pop" style="--d: 0s;">
+                                <rect x="70" y="34" width="200" height="262" rx="16" fill="#fff" stroke="#c7d2fe" stroke-width="2.5"/>
+                                <rect x="138" y="24" width="64" height="20" rx="8" fill="#a5b4fc"/>
+                                <text x="170" y="74" text-anchor="middle" style="font-size: 15px; font-weight: 800; fill: #1f2937;">Your Family Plan</text>
+                                <line x1="96" y1="88" x2="244" y2="88" stroke="#e0e7ff" stroke-width="2"/>
+                            </g>
+                            <!-- Rows -->
+                            <g>
+                                <text class="hw-label" x="96" y="118">📈 Invest</text>
+                                <rect x="96" y="126" width="148" height="10" rx="5" fill="#eef2ff"/>
+                                <rect class="hw-grow" style="--d: 0.4s;" x="96" y="126" width="124" height="10" rx="5" fill="#667eea"/>
+                                <g class="hw-pop" style="--d: 1.2s;"><circle cx="252" cy="113" r="9" fill="#10b981"/><path d="M247.5 113 l3 3 l5.5 -6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <g>
+                                <text class="hw-label" x="96" y="170">🛡️ Protect</text>
+                                <rect x="96" y="178" width="148" height="10" rx="5" fill="#ecfdf5"/>
+                                <rect class="hw-grow" style="--d: 0.8s;" x="96" y="178" width="108" height="10" rx="5" fill="#10b981"/>
+                                <g class="hw-pop" style="--d: 1.6s;"><circle cx="252" cy="165" r="9" fill="#10b981"/><path d="M247.5 165 l3 3 l5.5 -6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <g>
+                                <text class="hw-label" x="96" y="222">🧾 Save tax</text>
+                                <rect x="96" y="230" width="148" height="10" rx="5" fill="#fef3c7"/>
+                                <rect class="hw-grow" style="--d: 1.2s;" x="96" y="230" width="92" height="10" rx="5" fill="#f4a700"/>
+                                <g class="hw-pop" style="--d: 2s;"><circle cx="252" cy="217" r="9" fill="#10b981"/><path d="M247.5 217 l3 3 l5.5 -6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+                            </g>
+                            <g class="hw-pop" style="--d: 2.2s;">
+                                <rect class="hw-chip" x="96" y="256" width="148" height="24" rx="12" fill="#eef2ff"/>
+                                <text class="hw-label" x="170" y="272" text-anchor="middle" style="fill:#5568d3">Explained in simple words</text>
+                            </g>
+                            <!-- Donut -->
+                            <g class="hw-pop" style="--d: 0.3s;">
+                                <circle cx="318" cy="150" r="48" fill="#fff" stroke="#e0e7ff" stroke-width="2"/>
+                            </g>
+                            <g transform="rotate(-90 318 150)">
+                                <circle class="hw-draw" style="--len: 110; --d: 0.6s;" cx="318" cy="150" r="35" fill="none" stroke="#667eea" stroke-width="14" stroke-dasharray="110 400"/>
+                                <circle class="hw-draw" style="--len: 66; --d: 1s;" cx="318" cy="150" r="35" fill="none" stroke="#10b981" stroke-width="14" stroke-dasharray="66 400" transform="rotate(180 318 150)"/>
+                                <circle class="hw-draw" style="--len: 44; --d: 1.4s;" cx="318" cy="150" r="35" fill="none" stroke="#f4a700" stroke-width="14" stroke-dasharray="44 400" transform="rotate(288 318 150)"/>
+                            </g>
+                            <text class="hw-label-sm" x="318" y="216" text-anchor="middle">Goal-wise mix</text>
+                        </g>
+
+                        <!-- ===== Scene 3: Invest & protect ===== -->
+                        <g class="hw-scene hw-s3">
+                            <!-- Shield with family -->
+                            <path class="hw-shield-pulse" d="M130 62 L 206 88 L 206 162 C 206 214 172 244 130 260 C 88 244 54 214 54 162 L 54 88 Z" fill="rgba(16,185,129,0.12)" stroke="#10b981" stroke-width="3"/>
+                            <g>
+                                <circle cx="112" cy="146" r="12" fill="#f5c9a8"/>
+                                <rect x="98" y="160" width="28" height="44" rx="12" fill="#667eea"/>
+                                <circle cx="146" cy="148" r="11" fill="#e9b38f"/>
+                                <rect x="133" y="161" width="26" height="42" rx="11" fill="#f5576c"/>
+                                <circle cx="129" cy="186" r="8" fill="#f5c9a8"/>
+                                <rect x="120" y="196" width="18" height="24" rx="8" fill="#f4a700"/>
+                            </g>
+                            <g class="hw-pop" style="--d: 0.3s;">
+                                <rect class="hw-chip" x="56" y="276" width="148" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                                <text class="hw-label" x="130" y="293" text-anchor="middle" style="fill:#047857">🩺 Health + term cover</text>
+                            </g>
+                            <!-- Jar -->
+                            <g>
+                                <rect x="262" y="148" width="92" height="112" rx="20" fill="#fff" stroke="#c7d2fe" stroke-width="3"/>
+                                <rect x="276" y="138" width="64" height="14" rx="6" fill="#c7d2fe"/>
+                                <clipPath id="hwJarClip"><rect x="265" y="151" width="86" height="106" rx="17"/></clipPath>
+                                <g clip-path="url(#hwJarClip)">
+                                    <rect class="hw-fill" x="262" y="190" width="92" height="70" fill="#fde68a"/>
+                                </g>
+                                <rect class="hw-chip" x="270" y="208" width="76" height="22" rx="6" fill="#fff" stroke="#f4a700" stroke-width="1.5"/>
+                                <text class="hw-label-sm" x="308" y="223" text-anchor="middle" style="fill:#a16207">In your name</text>
+                            </g>
+                            <!-- Falling coins -->
+                            <g style="font-size: 12px; font-weight: 800;" text-anchor="middle">
+                                <g class="hw-drop" style="--d: 0s;"><circle cx="292" cy="60" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="292" y="64" style="fill:#a16207">₹</text></g>
+                                <g class="hw-drop" style="--d: 0.8s;"><circle cx="312" cy="50" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="312" y="54" style="fill:#a16207">₹</text></g>
+                                <g class="hw-drop" style="--d: 1.6s;"><circle cx="328" cy="62" r="11" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="328" y="66" style="fill:#a16207">₹</text></g>
+                            </g>
+                            <!-- Badges -->
+                            <g class="hw-pop" style="--d: 0.6s;">
+                                <rect class="hw-chip" x="20" y="20" width="88" height="26" rx="13" fill="#eef2ff" stroke="#667eea" stroke-width="1.5"/>
+                                <text class="hw-label" x="64" y="37" text-anchor="middle" style="fill:#5568d3">✓ KYC done</text>
+                            </g>
+                            <g class="hw-pop" style="--d: 1s;">
+                                <rect class="hw-chip" x="246" y="276" width="124" height="26" rx="13" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/>
+                                <text class="hw-label" x="308" y="293" text-anchor="middle" style="fill:#a16207">📈 SIP started</text>
+                            </g>
+                        </g>
+
+                        <!-- ===== Scene 4: Review every 3–6 months ===== -->
+                        <g class="hw-scene hw-s4">
+                            <g class="hw-pop" style="--d: 0s;">
+                                <rect x="30" y="40" width="290" height="236" rx="16" fill="#fff" stroke="#c7d2fe" stroke-width="2"/>
+                                <text x="54" y="70" style="font-size: 14px; font-weight: 800; fill: #1f2937;">Portfolio review</text>
+                            </g>
+                            <!-- Grid -->
+                            <g stroke="#eef2ff" stroke-width="2">
+                                <line x1="54" y1="110" x2="300" y2="110"/>
+                                <line x1="54" y1="160" x2="300" y2="160"/>
+                                <line x1="54" y1="210" x2="300" y2="210"/>
+                                <line x1="54" y1="240" x2="300" y2="240"/>
+                            </g>
+                            <path class="hw-draw" style="--len: 100; --d: 0.3s;" pathLength="100" d="M54 232 C 90 222 100 200 128 204 S 170 178 196 172 S 236 150 258 132 S 290 106 300 98" fill="none" stroke="url(#hwLine)" stroke-width="4" stroke-linecap="round" stroke-dasharray="100 200"/>
+                            <defs>
+                                <linearGradient id="hwLine" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#10b981"/>
+                                    <stop offset="60%" stop-color="#667eea"/>
+                                    <stop offset="100%" stop-color="#f5576c"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Review checkpoints -->
+                            <g class="hw-pop" style="--d: 0.8s;"><circle cx="128" cy="204" r="8" fill="#fff" stroke="#10b981" stroke-width="3"/><text class="hw-label-sm" x="128" y="262" text-anchor="middle">Review</text><line x1="128" y1="214" x2="128" y2="248" stroke="#bbf7d0" stroke-width="2" stroke-dasharray="3 4"/></g>
+                            <g class="hw-pop" style="--d: 1.2s;"><circle cx="196" cy="172" r="8" fill="#fff" stroke="#10b981" stroke-width="3"/><text class="hw-label-sm" x="196" y="262" text-anchor="middle">Review</text><line x1="196" y1="182" x2="196" y2="248" stroke="#bbf7d0" stroke-width="2" stroke-dasharray="3 4"/></g>
+                            <g class="hw-pop" style="--d: 1.6s;"><circle cx="258" cy="132" r="8" fill="#fff" stroke="#10b981" stroke-width="3"/><text class="hw-label-sm" x="258" y="262" text-anchor="middle">Review</text><line x1="258" y1="142" x2="258" y2="248" stroke="#bbf7d0" stroke-width="2" stroke-dasharray="3 4"/></g>
+                            <!-- Rotating review icon -->
+                            <g class="hw-pop" style="--d: 0.4s;">
+                                <circle cx="350" cy="64" r="30" fill="#ecfdf5" stroke="#10b981" stroke-width="2" transform="translate(16 0)"/>
+                                <g transform="translate(16 0)"><g class="hw-orbit">
+                                    <path d="M332 64 A 18 18 0 0 1 362 50" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                                    <path d="M356 44 L 364 50 L 356 56" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M368 64 A 18 18 0 0 1 338 78" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                                    <path d="M344 84 L 336 78 L 344 72" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g></g>
+                                <text class="hw-label" x="366" y="112" text-anchor="middle" style="fill:#047857">3–6 months</text>
+                            </g>
+                            <g class="hw-pop" style="--d: 2s;">
+                                <rect class="hw-chip" x="186" y="284" width="148" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                                <text class="hw-label" x="276" y="302" text-anchor="middle" style="fill:#047857">✓ Rebalanced &amp; on track</text>
+                            </g>
+                            <g class="hw-pop" style="--d: 2.3s;">
+                                <rect class="hw-chip" x="34" y="284" width="140" height="28" rx="14" fill="#eef2ff" stroke="#667eea" stroke-width="1.5"/>
+                                <text class="hw-label" x="96" y="302" text-anchor="middle" style="fill:#5568d3">📞 Always a call away</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="hw-dots">
+                    <button class="hw-dot active" data-go="1" type="button"><i>1</i><span>Meet</span></button>
+                    <button class="hw-dot" data-go="2" type="button"><i>2</i><span>Plan</span></button>
+                    <button class="hw-dot" data-go="3" type="button"><i>3</i><span>Invest</span></button>
+                    <button class="hw-dot" data-go="4" type="button"><i>4</i><span>Review</span></button>
+                </div>
+            </div>
+
+            <!-- Step content -->
+            <div class="hw-steps">
+                <article class="hw-step active" id="step-1" data-step="1" data-title="Understand your goals">
+                    <div class="hw-step-card">
+                        <div class="hw-step-top">
+                            <span class="hw-step-num">1</span>
+                            <span class="hw-pill">⏱️ 60-minute meeting</span>
+                        </div>
+                        <h2>Understand your goals</h2>
+                        <p class="hw-step-lead">We start with a 60-minute meeting to understand your goals, income and current investments. No forms to fill and no products pushed, just a conversation about your family.</p>
+                        <ul class="hw-details">
+                            <li><span class="hw-di">🎯</span><div><h4>Your goals and timelines</h4><p>Child's education, a home, retirement, a vacation. We note what matters and by when.</p></div></li>
+                            <li><span class="hw-di" style="font-weight:800;color:#a16207;">₹</span><div><h4>Income, expenses and savings</h4><p>A clear picture of how much you can comfortably invest every month.</p></div></li>
+                            <li><span class="hw-di">📊</span><div><h4>Existing investments and insurance</h4><p>We look at what you already have, so nothing is duplicated or missed.</p></div></li>
+                            <li><span class="hw-di">⚖️</span><div><h4>Your comfort with risk</h4><p>How you feel about market ups and downs, so your plan lets you sleep well.</p></div></li>
+                        </ul>
+                        <p class="hw-get"><strong>You get:</strong> a clear list of your family's goals, with a target amount and date for each.</p>
+                    </div>
+                </article>
+
+                <article class="hw-step" id="step-2" data-step="2" data-title="Build your personal plan">
+                    <div class="hw-step-card">
+                        <div class="hw-step-top">
+                            <span class="hw-step-num">2</span>
+                            <span class="hw-pill">📋 Made for your family</span>
+                        </div>
+                        <h2>Build your personal plan</h2>
+                        <p class="hw-step-lead">We prepare one complete plan that covers investing, protection and tax saving, and walk you through it in simple words. You decide what to go ahead with.</p>
+                        <ul class="hw-details">
+                            <li><span class="hw-di">📈</span><div><h4>Goal-wise investments</h4><p>The right SIPs and lump-sum investments for each goal, based on how far away it is.</p></div></li>
+                            <li><span class="hw-di">🛡️</span><div><h4>Protection first</h4><p>Health insurance, term insurance and LIC plans sized to your family's real needs.</p></div></li>
+                            <li><span class="hw-di">🧾</span><div><h4>Tax saving built in</h4><p>Tax-saving options and tax-free guaranteed plans that fit your income and tax regime.</p></div></li>
+                        </ul>
+                        <p class="hw-get"><strong>You get:</strong> a written plan showing what to invest, where, and why, for every goal.</p>
+                    </div>
+                </article>
+
+                <article class="hw-step" id="step-3" data-step="3" data-title="Invest &amp; protect">
+                    <div class="hw-step-card">
+                        <div class="hw-step-top">
+                            <span class="hw-step-num">3</span>
+                            <span class="hw-pill">✍️ We handle the setup</span>
+                        </div>
+                        <h2>Start investing &amp; get protected</h2>
+                        <p class="hw-step-lead">Once you're happy with the plan, we take care of the paperwork so getting started is easy, and your family is protected from day one.</p>
+                        <ul class="hw-details">
+                            <li><span class="hw-di">🪪</span><div><h4>KYC and paperwork</h4><p>We guide you through KYC, forms and SIP mandates step by step.</p></div></li>
+                            <li><span class="hw-di">🔐</span><div><h4>Money stays in your name</h4><p>Your money goes directly to the fund house or insurer, in your own name. A2P never holds your money.</p></div></li>
+                            <li><span class="hw-di">🩺</span><div><h4>Insurance in place</h4><p>Health and term cover activated, so a medical bill or emergency never derails your goals.</p></div></li>
+                        </ul>
+                        <p class="hw-get"><strong>You get:</strong> SIPs running, policies active, and a summary of everything you hold.</p>
+                    </div>
+                </article>
+
+                <article class="hw-step" id="step-4" data-step="4" data-title="Review every 3–6 months">
+                    <div class="hw-step-card">
+                        <div class="hw-step-top">
+                            <span class="hw-step-num">4</span>
+                            <span class="hw-pill">🔄 Every 3–6 months</span>
+                        </div>
+                        <h2>Review, rebalance, repeat</h2>
+                        <p class="hw-step-lead">Your plan isn't a one-time document. Every 3–6 months we review your portfolio with you, so it stays on track for good returns and your goals.</p>
+                        <ul class="hw-details">
+                            <li><span class="hw-di">📉</span><div><h4>Portfolio check-up</h4><p>How each investment is performing against your goals, explained clearly.</p></div></li>
+                            <li><span class="hw-di">⚖️</span><div><h4>Rebalance when needed</h4><p>We adjust your mix when markets move or a goal comes closer.</p></div></li>
+                            <li><span class="hw-di">👨‍👩‍👧</span><div><h4>Life changes, plan updates</h4><p>New job, new baby, new home or a bonus? We update your plan whenever life changes.</p></div></li>
+                        </ul>
+                        <p class="hw-get"><strong>You get:</strong> peace of mind, and a team that's always a call away.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to bring -->
+    <section class="hw-section hw-tint">
+        <div class="container hw-bring">
+            <div class="hw-bring-text hw-reveal">
+                <div class="hw-eyebrow">Before We Meet</div>
+                <h2>What to keep handy for your first meeting</h2>
+                <p>Having these ready helps us use your 60 minutes well. Don't worry if you don't have everything. We can work with what you have.</p>
+            </div>
+            <ul class="hw-bring-list hw-reveal">
+                <li><span>📑</span>Existing investment statements</li>
+                <li><span>🛡️</span>Current insurance policy details</li>
+                <li><span>🏦</span>Loan or EMI details</li>
+                <li><span>🎯</span>A rough list of your goals</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- What you get -->
+    <section class="hw-section">
         <div class="container">
-            <div class="process-timeline">
-                <!-- Step 1 -->
-                <div class="timeline-item fade-in-up">
-                    <div class="timeline-marker">
-                        <div class="marker-circle">1</div>
-                        <div class="marker-icon">🎯</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h2>Assessment & Goal Setting</h2>
-                        <p class="timeline-subtitle">Understand Your Financial Situation</p>
-                        <div class="step-details">
-                            <div class="detail-item">
-                                <span class="detail-icon">📋</span>
-                                <div>
-                                    <h4>Initial Consultation</h4>
-                                    <p>Free 30-minute call to understand your goals, income, and current investments</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">📊</span>
-                                <div>
-                                    <h4>Financial Assessment</h4>
-                                    <p>We analyze your complete financial picture including assets, liabilities, and risks</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">🎯</span>
-                                <div>
-                                    <h4>Goal Definition</h4>
-                                    <p>Together we define your financial goals and create milestone targets</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-duration">⏱️ Typically 5-7 days</div>
-                    </div>
+            <div class="hw-center"><div class="hw-eyebrow">What You Get</div></div>
+            <h2>Everything your family needs, in one plan</h2>
+            <p class="section-subtitle">Clear, practical outcomes from every step of the process.</p>
+            <div class="hw-gets">
+                <div class="hw-gets-card hw-reveal">
+                    <div class="hw-gets-icon">🗺️</div>
+                    <h3>Goal-wise roadmap</h3>
+                    <p>Every goal with a target amount, a date, and a monthly plan to reach it.</p>
                 </div>
-
-                <!-- Arrow -->
-                <div class="timeline-arrow">↓</div>
-
-                <!-- Step 2 -->
-                <div class="timeline-item fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="timeline-marker">
-                        <div class="marker-circle">2</div>
-                        <div class="marker-icon">📋</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h2>Personalized Strategy Creation</h2>
-                        <p class="timeline-subtitle">Build Your Investment Plan</p>
-                        <div class="step-details">
-                            <div class="detail-item">
-                                <span class="detail-icon">📈</span>
-                                <div>
-                                    <h4>Portfolio Design</h4>
-                                    <p>We design an investment portfolio tailored to your risk profile and timeline</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">💡</span>
-                                <div>
-                                    <h4>Strategic Recommendations</h4>
-                                    <p>Get specific investment recommendations with detailed rationale</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">📊</span>
-                                <div>
-                                    <h4>Plan Documentation</h4>
-                                    <p>Receive comprehensive documentation with projections and milestones</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-duration">⏱️ Typically 7-10 days</div>
-                    </div>
+                <div class="hw-gets-card hw-reveal">
+                    <div class="hw-gets-icon">🛡️</div>
+                    <h3>Insurance check-up</h3>
+                    <p>Know if your health and life cover is enough, and fix the gaps.</p>
                 </div>
-
-                <!-- Arrow -->
-                <div class="timeline-arrow">↓</div>
-
-                <!-- Step 3 -->
-                <div class="timeline-item fade-in-up" style="animation-delay: 0.4s;">
-                    <div class="timeline-marker">
-                        <div class="marker-circle">3</div>
-                        <div class="marker-icon">🚀</div>
-                    </div>
-                    <div class="timeline-content">
-                        <h2>Implementation & Growth</h2>
-                        <p class="timeline-subtitle">Start Your Journey to Wealth</p>
-                        <div class="step-details">
-                            <div class="detail-item">
-                                <span class="detail-icon">💰</span>
-                                <div>
-                                    <h4>Investment Execution</h4>
-                                    <p>We execute your investment plan with precision and efficiency</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">📱</span>
-                                <div>
-                                    <h4>Portfolio Monitoring</h4>
-                                    <p>Real-time tracking via our Portal Tracker Pro dashboard</p>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">🔄</span>
-                                <div>
-                                    <h4>Regular Reviews</h4>
-                                    <p>Quarterly reviews and annual strategy adjustments as needed</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-duration">⏱️ Ongoing Partnership</div>
-                    </div>
+                <div class="hw-gets-card hw-reveal">
+                    <div class="hw-gets-icon">🧾</div>
+                    <h3>Tax-saving plan</h3>
+                    <p>Save tax every year with options that also build your wealth.</p>
+                </div>
+                <div class="hw-gets-card hw-reveal">
+                    <div class="hw-gets-icon">🔄</div>
+                    <h3>Regular reviews</h3>
+                    <p>A portfolio review every 3–6 months, plus help whenever you call.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Flow Animation GIF-style Section -->
-    <section class="process-animation">
+    <!-- Promise band -->
+    <section class="hw-section hw-tint">
         <div class="container">
-            <h2>Your Path to Financial Freedom</h2>
-            <p class="section-subtitle">See how your journey unfolds step by step</p>
-            
-            <div class="animation-container">
-                <svg class="process-flow-diagram" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background -->
-                    <rect width="1200" height="600" fill="none"/>
-                    
-                    <!-- Step 1: Assessment -->
-                    <g class="step-group step-1">
-                        <circle cx="200" cy="300" r="80" fill="#667eea" opacity="0.1"/>
-                        <circle cx="200" cy="300" r="80" stroke="#667eea" stroke-width="3" fill="none"/>
-                        <text x="200" y="310" text-anchor="middle" font-size="40" font-weight="bold" fill="#667eea">1</text>
-                        <text x="200" y="400" text-anchor="middle" font-size="18" fill="currentColor">Assessment</text>
-                    </g>
-                    
-                    <!-- Arrow 1 to 2 -->
-                    <g class="arrow arrow-1">
-                        <line x1="280" y1="300" x2="420" y2="300" stroke="currentColor" stroke-width="3" opacity="0.5"/>
-                        <polygon points="420,300 410,295 410,305" fill="currentColor" opacity="0.5"/>
-                    </g>
-                    
-                    <!-- Step 2: Planning -->
-                    <g class="step-group step-2">
-                        <circle cx="600" cy="300" r="80" fill="#ec4899" opacity="0.1"/>
-                        <circle cx="600" cy="300" r="80" stroke="#ec4899" stroke-width="3" fill="none"/>
-                        <text x="600" y="310" text-anchor="middle" font-size="40" font-weight="bold" fill="#ec4899">2</text>
-                        <text x="600" y="400" text-anchor="middle" font-size="18" fill="currentColor">Planning</text>
-                    </g>
-                    
-                    <!-- Arrow 2 to 3 -->
-                    <g class="arrow arrow-2">
-                        <line x1="680" y1="300" x2="820" y2="300" stroke="currentColor" stroke-width="3" opacity="0.5"/>
-                        <polygon points="820,300 810,295 810,305" fill="currentColor" opacity="0.5"/>
-                    </g>
-                    
-                    <!-- Step 3: Growth -->
-                    <g class="step-group step-3">
-                        <circle cx="1000" cy="300" r="80" fill="#06b6d4" opacity="0.1"/>
-                        <circle cx="1000" cy="300" r="80" stroke="#06b6d4" stroke-width="3" fill="none"/>
-                        <text x="1000" y="310" text-anchor="middle" font-size="40" font-weight="bold" fill="#06b6d4">3</text>
-                        <text x="1000" y="400" text-anchor="middle" font-size="18" fill="currentColor">Growth</text>
-                    </g>
-                    
-                    <!-- Progress indicator line (animated) -->
-                    <line x1="150" y1="300" x2="1050" y2="300" stroke="currentColor" stroke-width="2" opacity="0.2" class="progress-line"/>
-                </svg>
+            <div class="hw-center"><div class="hw-eyebrow">Our Commitment</div></div>
+            <h2>A process you can trust</h2>
+            <div class="hw-promise">
+                <div class="hw-promise-item hw-reveal">
+                    <div class="hw-promise-num hw-gradient-text">60 min</div>
+                    <h3>To understand you</h3>
+                    <p>A focused first meeting about your goals, not our products.</p>
+                </div>
+                <div class="hw-promise-item hw-reveal">
+                    <div class="hw-promise-num hw-gradient-text">3–6 mo</div>
+                    <h3>Review cycle</h3>
+                    <p>Regular portfolio reviews to keep you on track.</p>
+                </div>
+                <div class="hw-promise-item hw-reveal">
+                    <div class="hw-promise-num hw-gradient-text">Up to 15%*</div>
+                    <h3>Returns achieved</h3>
+                    <p>For our clients since we started in 2025.</p>
+                </div>
+                <div class="hw-promise-item hw-reveal">
+                    <div class="hw-promise-num hw-gradient-text">100%</div>
+                    <h3>In your name</h3>
+                    <p>Your investments and policies are always held in your name.</p>
+                </div>
             </div>
+            <p class="hw-note">*Highest returns achieved on client portfolios since we started; individual returns vary. Past performance may or may not be sustained in future and is not a guarantee of future returns.</p>
         </div>
     </section>
 
-    <!-- Timeline Benefits -->
-    <section class="timeline-benefits">
+    <!-- FAQ -->
+    <section class="hw-section">
         <div class="container">
-            <h2>What Happens Next</h2>
-            <div class="benefits-grid">
-                <div class="benefit-box fade-in-up">
-                    <div class="benefit-number">30 days</div>
-                    <h3>Quick Start</h3>
-                    <p>From consultation to first investment, all within 30 days</p>
-                </div>
-                <div class="benefit-box fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="benefit-number">12%</div>
-                    <h3>Average Returns</h3>
-                    <p>Historical average annual returns for our clients</p>
-                </div>
-                <div class="benefit-box fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="benefit-number">24/7</div>
-                    <h3>Support</h3>
-                    <p>Round-the-clock customer support for all your needs</p>
-                </div>
-                <div class="benefit-box fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="benefit-number">100%</div>
-                    <h3>Transparent</h3>
-                    <p>Zero hidden fees. Complete transparency in all dealings</p>
-                </div>
+            <div class="hw-center"><div class="hw-eyebrow">Questions</div></div>
+            <h2>Common questions about the process</h2>
+            <div class="hw-faq">
+                <details class="hw-reveal">
+                    <summary>How long is the first meeting?</summary>
+                    <p>About 60 minutes. That's enough time to understand your goals, income and current investments properly, without rushing.</p>
+                </details>
+                <details class="hw-reveal">
+                    <summary>Do I have to invest immediately after the meeting?</summary>
+                    <p>No, there's no pressure to invest right away. Take your time to understand the plan, discuss it with your family and ask us any questions. You decide what to go ahead with, and when you're ready, we'll help you get started.</p>
+                </details>
+                <details class="hw-reveal">
+                    <summary>I already have some investments and policies. Can you still help?</summary>
+                    <p>Yes. We review what you already have and build your plan around it, so nothing is duplicated and any gaps are filled.</p>
+                </details>
+                <details class="hw-reveal">
+                    <summary>What happens during a review?</summary>
+                    <p>Every 3–6 months we go through how your investments are doing against your goals, rebalance if needed, and update the plan if anything in your life has changed.</p>
+                </details>
+                <details class="hw-reveal">
+                    <summary>Can I contact you between reviews?</summary>
+                    <p>Of course. Whether it's a new goal, a bonus to invest or a question about the market, our team is always just a call away.</p>
+                </details>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="hw-section" style="padding-top: 0;">
         <div class="container">
-            <h2>Ready to Start Your Journey?</h2>
-            <p>Schedule a free consultation with our financial experts today.</p>
-            <a href="contact.html" class="btn btn-primary btn-large">Book Your Consultation</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>A2P Financial Services</h3>
-                    <p>Expert guidance for every earning journey.</p>
+            <div class="hw-cta hw-reveal">
+                <div>
+                    <h2>Ready for step one?</h2>
+                    <p>Book your 60-minute goal meeting. Our team will be with you at every step after that.</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="home.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📞 <a href="tel:+919910210883">+91 9910210883</a></p>
-                    <p>📧 <a href="mailto:A2pfinserv@gmail.com">A2pfinserv@gmail.com</a></p>
+                <div class="hw-cta-actions">
+                    <a href="contact.html" class="btn btn-primary btn-large">Book Your Goal Meeting</a>
+                    <div class="hw-cta-phone">or call <a href="tel:+919910210883">+91 9910210883</a></div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 A2P Financial Services. All rights reserved.</p>
+    </section>
+
+    <div class="container hw-disclaimer">
+        <p><strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance is not indicative of future returns. Insurance is the subject matter of solicitation. Tax benefits are as per prevailing tax laws and may change.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer hm-foot">
+        <span class="hf-cloud" style="top: 18px; animation-duration: 38s;" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 54px; animation-duration: 52s; animation-delay: -20s; transform: scale(0.7);" aria-hidden="true"></span>
+        <span class="hf-cloud" style="top: 30px; animation-duration: 46s; animation-delay: -34s;" aria-hidden="true"></span>
+        <!-- The goal train: rides left to right across the footer -->
+        <div class="hf-rail" aria-hidden="true">
+            <div class="hf-hills"><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg><svg viewBox="0 0 720 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 60 10 120 10 180 34 S 300 6 380 28 S 520 4 600 30 S 690 20 720 34 V 46 Z" fill="rgba(102,126,234,0.10)"/><path d="M0 46 C 80 26 150 26 230 40 S 380 22 470 38 S 640 24 720 40 V 46 Z" fill="rgba(139,92,246,0.10)"/></svg></div>
+            <div class="hf-train">
+                <div class="hf-car"><span class="hf-load hf-coin">₹</span><div class="hf-box" style="--c:#10b981">SIP</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🛡️</span><div class="hf-box" style="--c:#f5576c">COVER</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🎓</span><div class="hf-box" style="--c:#8b5cf6">STUDY</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🧾</span><div class="hf-box" style="--c:#f4a700">TAX</div><div class="hf-wheels"><i></i><i></i></div></div><div class="hf-car"><span class="hf-load">🌅</span><div class="hf-box" style="--c:#0ea5e9">RETIRE</div><div class="hf-wheels"><i></i><i></i></div></div>
+                <div class="hf-car hf-engine">
+                    <span class="hf-puff"></span><span class="hf-puff"></span><span class="hf-puff"></span>
+                    <div class="hf-box"><span class="hf-cab"></span><span class="hf-chim"></span><span class="hf-light"></span>A2P</div>
+                    <div class="hf-wheels"><i></i><i></i><i></i></div>
+                </div>
+            </div>
+            <div class="hf-track"></div>
+            <div class="hf-ground"></div>
+        </div>
+        <div class="footer-content">
+            <div class="hf-row">
+                <div class="hf-brand">
+                    <img src="Images/logomain.png" alt="A2P Financial Services">
+                    <div>
+                        <strong>A2P FINANCIAL SERVICES</strong>
+                        <em>Aapke Sapno Ka Financial Planner</em>
+                    </div>
+                </div>
+                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
+                <div class="hf-end">
+                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
+                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="script-pro.js"></script>
+    <script>
+        (function () {
+            // Reveal sections as they scroll into view
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.hw-reveal').forEach((el) => revealObserver.observe(el));
+
+            // Size each badge so its label always fits with even padding
+            const fitChips = () => {
+                document.querySelectorAll('.hw-canvas rect.hw-chip').forEach((rect) => {
+                    const text = rect.nextElementSibling;
+                    if (!text || text.tagName !== 'text') return;
+                    const box = text.getBBox();
+                    const cx = box.x + box.width / 2;
+                    const width = Math.ceil(box.width + 28);
+                    rect.setAttribute('x', (cx - width / 2).toFixed(1));
+                    rect.setAttribute('width', width);
+                });
+            };
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitChips);
+            fitChips();
+
+            // Scroll-driven step animation
+            const stage = document.getElementById('hwStage');
+            const steps = [...document.querySelectorAll('.hw-step')];
+            const dots = [...document.querySelectorAll('.hw-dot')];
+            const numEl = document.getElementById('hwStepNum');
+            const titleEl = document.getElementById('hwStepTitle');
+            const bar = stage.querySelector('.hw-stage-progress');
+            let current = 1;
+
+            const setStep = (n) => {
+                if (n === current) return;
+                current = n;
+                stage.dataset.step = n;
+                numEl.textContent = n;
+                titleEl.textContent = steps[n - 1].dataset.title;
+                steps.forEach((s, i) => s.classList.toggle('active', i === n - 1));
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === n - 1);
+                    d.classList.toggle('done', i < n - 1);
+                });
+            };
+
+            const update = () => {
+                const mid = window.innerHeight / 2;
+                let active = 1;
+                steps.forEach((s, i) => {
+                    if (s.getBoundingClientRect().top < mid) active = i + 1;
+                });
+                setStep(active);
+
+                const first = steps[0].getBoundingClientRect();
+                const last = steps[steps.length - 1].getBoundingClientRect();
+                const span = last.bottom - first.top;
+                const p = Math.min(Math.max((mid - first.top) / span, 0), 1);
+                bar.style.setProperty('--p', p.toFixed(3));
+            };
+
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => { update(); ticking = false; });
+            }, { passive: true });
+            window.addEventListener('resize', update);
+            update();
+
+            // Step dots and overview links jump to a step
+            const goTo = (n) => {
+                const target = steps[n - 1];
+                const y = target.getBoundingClientRect().top + window.scrollY + target.offsetHeight / 2 - window.innerHeight / 2;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            };
+            dots.forEach((d) => d.addEventListener('click', () => goTo(Number(d.dataset.go))));
+            document.querySelectorAll('.hw-overview a').forEach((a, i) => {
+                a.addEventListener('click', (e) => { e.preventDefault(); goTo(i + 1); });
+            });
+        })();
+    </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>
