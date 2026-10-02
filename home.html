@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
     <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
     <style>
         /* ========================= HOME ========================= */
         .hm-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; border-radius: 999px; background: rgba(102, 126, 234, 0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
@@ -376,7 +378,7 @@
         /* ---------- Connect ---------- */
         .hm-connect {
             display: grid;
-            grid-template-columns: 1.15fr 1fr;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);   /* the moving logo strip must not widen the column */
             gap: 2.5rem;
             align-items: center;
             padding: 3rem;
@@ -386,9 +388,22 @@
         }
         .hm-connect h2 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.6rem; }
         .hm-connect > div > p { color: #4b5563; font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem; }
-        .hm-partners { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
-        .hm-partners span { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 0.25rem; }
-        .hm-partners img { height: 34px; width: 84px; object-fit: contain; padding: 0.3rem 0.5rem; border-radius: 10px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.14); }
+        /* Partners: an endless, slowly drifting row of logos on the page background (no boxes or borders) */
+        .hm-partners { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+        .hm-partners-label { font-size: 0.78rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .hm-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+        .hm-marquee-track { display: flex; width: max-content; list-style: none; margin: 0; padding: 0.3rem 0; animation: hmMarquee 26s linear infinite; }
+        .hm-marquee:hover .hm-marquee-track { animation-play-state: paused; }
+        @keyframes hmMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        .hm-marquee-track li { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0 1.4rem; }
+        .hm-marquee-track img { height: 42px; width: 96px; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s ease; }
+        .hm-marquee-track li:hover img { transform: scale(1.08); }
+        .hm-marquee-track span { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+        @media (prefers-reduced-motion: reduce) {
+            .hm-marquee { -webkit-mask-image: none; mask-image: none; }
+            .hm-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 0.8rem; }
+            .hm-marquee-track li[aria-hidden="true"] { display: none; }
+        }
         .hm-ways { display: grid; gap: 0.85rem; }
         .hm-way { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border-radius: 16px; background: #fff; border: 1px solid rgba(102, 126, 234, 0.16); text-decoration: none; color: inherit; transition: transform 0.25s, box-shadow 0.25s; }
         .hm-way:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
@@ -454,6 +469,34 @@
             .ap-sheet, .ap-backdrop { transition: none !important; }
         }
 
+        /* ---------- Top bar (Home): seamless frosted white, glowing logo, name revealed letter by letter ---------- */
+        /* no borders, no separating line or shadow, no tiles or rounded boxes */
+        .navbar.hm-top { background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: none; }
+        .hm-top .logo { position: relative; animation: htPop 0.7s cubic-bezier(.34, 1.56, .64, 1) both; }
+        .hm-top .logo::before {
+            content: ''; position: absolute; left: 50%; top: 50%; width: 130px; height: 90px; transform: translate(-50%, -50%); z-index: -1; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(102, 126, 234, 0.28), rgba(139, 92, 246, 0.1) 55%, transparent);
+            filter: blur(6px); animation: htGlow 3.6s ease-in-out infinite alternate;
+        }
+        @keyframes htPop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: none; } }
+        @keyframes htGlow { from { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } }
+        .hm-top .brand-text strong .ht-l { display: inline-block; font-style: normal; opacity: 0; transform: translateY(8px); animation: htLetter 0.5s ease forwards; }
+        .hm-top .brand-text strong .ht-sp { display: inline-block; width: 0.32em; }
+        @keyframes htLetter { to { opacity: 1; transform: none; } }
+        .hm-top .brand-text > span { opacity: 0; animation: htFade 0.7s ease 1s forwards; }
+        .hm-top .brand-text > span::before, .hm-top .brand-text > span::after { width: 0; animation: htRule 0.8s ease 1.2s forwards; }
+        @keyframes htFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+        @keyframes htRule { to { width: 28px; } }
+        @media (max-width: 768px) {
+            .hm-top .logo::before { width: 96px; height: 70px; }
+            .navbar.hm-top { background: rgba(255, 255, 255, 0.97); }   /* the menu slides away underneath it */
+            @keyframes htRule { to { width: 16px; } }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hm-top .logo, .hm-top .logo::before, .hm-top .brand-text strong .ht-l, .hm-top .brand-text span, .hm-top .brand-text span::before, .hm-top .brand-text span::after { animation: none !important; opacity: 1; transform: none; }
+            .hm-top .brand-text span::before, .hm-top .brand-text span::after { width: 28px; }
+        }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 1200px) {
             .hm-orbit { --size: 420px; --r: 175px; }
@@ -463,7 +506,7 @@
             .hm-hero { min-height: auto; }
             .hm-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .hm-panel { grid-template-columns: 1fr 1fr; }
-            .hm-connect { grid-template-columns: 1fr; }
+            .hm-connect { grid-template-columns: minmax(0, 1fr); }
         }
         @media (max-width: 768px) {
             .hm-hero { padding: 2rem 0 2.5rem; }
@@ -511,6 +554,10 @@
             .hm-acc .btn { align-self: stretch; justify-content: center; }
             .hm-panel { grid-template-columns: 1fr; }
             .hm-connect { padding: 2rem 1.4rem; }
+            .hm-connect { grid-template-columns: minmax(0, 1fr); }
+            .hm-tab { white-space: nowrap; padding: 0.6rem 0.95rem; font-size: 0.88rem; }   /* lets the content shrink on very small phones */
+            .hm-way, .hm-way > div { min-width: 0; }
+            .hm-way strong { overflow-wrap: anywhere; }
             .hm-connect h2 { font-size: 1.8rem; }
         }
         @media (max-width: 380px) {
@@ -529,7 +576,7 @@
     <script>document.body.classList.add('hm-js');</script>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar hm-top">
         <div class="nav-container">
             <a href="home.html" class="logo">
                 <img src="Images/logomain.png" alt="A2P" class="logo-img">
@@ -970,7 +1017,10 @@
                     <div class="hm-eyebrow">Let's Talk</div>
                     <h2>Your next goal starts with <span class="hm-gradient-text">one conversation</span></h2>
                     <p>Tell us what you're planning. In a 60-minute goal meeting we'll show you a clear path, with no pressure and no jargon.</p>
-                    <div class="hm-partners"><span>Our partners</span><img src="Images/pbplogo.jpeg" alt="Policy Bazaar"><img src="Images/smcinsurancelogo.png" alt="SMC"><img src="Images/wealthylogo.jpg" alt="Wealthy"><img src="Images/njlogo.png" alt="NJ Wealth"></div>
+                    <div class="hm-partners">
+                        <span class="hm-partners-label">Our partners</span>
+                        <div class="hm-marquee"><ul class="hm-marquee-track"><li><img src="Images/pblogo.png" alt="Policy Bazaar"><span>Policy Bazaar</span></li><li><img src="Images/smcinsurancelogo.png" alt="SMC Insurance"><span>SMC Insurance</span></li><li><img src="Images/wealthylogo.webp" alt="Wealthy"><span>Wealthy</span></li><li><img src="Images/njlogo.png" alt="NJ Wealth"><span>NJ Wealth</span></li><li><img src="Images/LICLogo.jpg" alt="LIC"><span>LIC</span></li><li aria-hidden="true"><img src="Images/pblogo.png" alt=""><span>Policy Bazaar</span></li><li aria-hidden="true"><img src="Images/smcinsurancelogo.png" alt=""><span>SMC Insurance</span></li><li aria-hidden="true"><img src="Images/wealthylogo.webp" alt=""><span>Wealthy</span></li><li aria-hidden="true"><img src="Images/njlogo.png" alt=""><span>NJ Wealth</span></li><li aria-hidden="true"><img src="Images/LICLogo.jpg" alt=""><span>LIC</span></li></ul></div>
+                    </div>
                 </div>
                 <div class="hm-ways">
                     <a href="contact.html" class="hm-way primary"><span class="hm-way-icon">📅</span><div><strong>Book a goal meeting</strong><small>60 minutes, at your convenience</small></div><em>→</em></a>
@@ -1311,6 +1361,14 @@
         document.getElementById('ap-backdrop').addEventListener('click', apClose);
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('ap-open')) apClose(); });
 
+        // Top bar: the company name appears letter by letter when Home opens
+        const htName = document.querySelector('.hm-top .brand-text strong');
+        if (htName && !reduce) {
+            const txt = htName.textContent;
+            htName.setAttribute('aria-label', txt);
+            htName.innerHTML = [...txt].map((ch, i) => ch === ' ' ? '<i class="ht-sp"></i>' : `<i class="ht-l" aria-hidden="true" style="animation-delay:${(0.15 + i * 0.035).toFixed(3)}s">${ch}</i>`).join('');
+        }
+
         // Services tabs
         const tabs = [...document.querySelectorAll('.hm-tab')];
         const panels = [...document.querySelectorAll('.hm-panel')];
@@ -1324,5 +1382,6 @@
         }));
     })();
     </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>

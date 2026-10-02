@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
     <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
     <style>
         /* ========================= PRODUCTS PAGE ========================= */
         :root {
@@ -262,6 +264,8 @@
         .cat-tax { --c: var(--tax); --soft: var(--tax-soft); }
         .cat-tax .pd-kicker, .cat-tax .pd-cat-count { color: #b07800; }
 
+        /* Badges: soft filled pills, no outline */
+        .pd-media rect.pd-badge { stroke: none; }
         /* ---------- Animations (play only while visible) ---------- */
         /* Child education: the child grows (baby → kid → teen → graduate) while the ₹ fund stack grows beside them */
         .gw-s { transform-box: fill-box; transform-origin: center bottom; opacity: 0; }
@@ -558,8 +562,8 @@
                             </linearGradient>
                         </defs>
                         <g>
-                            <rect class="pd-badge" x="236" y="22" width="140" height="32" rx="16" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
-                            <text class="pd-label" x="306" y="43" text-anchor="middle">📅 SIP every month</text>
+                            <rect class="pd-badge" x="236" y="22" width="140" height="32" rx="16" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/>
+                            <text class="pd-label" x="306" y="43" text-anchor="middle">📅&#160;SIP every month</text>
                         </g>
                         <line x1="44" y1="262" x2="364" y2="262" stroke="#c7d2fe" stroke-width="3" stroke-linecap="round"/>
                         <rect class="pd-bar" style="--i: 0;" x="62" y="222" width="32" height="40" rx="6" fill="url(#pdBarGrad)"/>
@@ -576,10 +580,10 @@
                             <g class="pd-coin" style="--i: 4;"><circle cx="278" cy="98" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="278" y="102">₹</text></g>
                             <g class="pd-coin" style="--i: 5;"><circle cx="328" cy="56" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="328" y="60">₹</text></g>
                         </g>
-                        <path class="pd-draw" pathLength="100" stroke-dasharray="100" d="M78 214 C 110 206 120 196 128 196 S 160 176 178 172 S 212 146 228 142 S 262 110 278 106 S 314 70 328 64" fill="none" stroke="#f5576c" stroke-width="3.5" stroke-linecap="round"/>
+                        <path class="pd-draw" pathLength="100" stroke-dasharray="100" d="M78 214 C 110 206 120 196 128 196 S 160 176 178 172 S 212 146 228 142 S 262 110 278 106 S 314 70 328 64" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
                         <g class="pd-pop-late">
                             <rect class="pd-badge" x="40" y="70" width="150" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
-                            <text class="pd-label" x="115" y="90" text-anchor="middle" style="fill:#047857">📈 Compounding at work</text>
+                            <text class="pd-label" x="115" y="90" text-anchor="middle" style="fill:#047857">📈&#160;Compounding at work</text>
                         </g>
                         <text class="pd-label-sm" x="204" y="284" text-anchor="middle">Month by month, your wealth grows</text>
                     </svg>
@@ -610,14 +614,14 @@
                 <div class="pd-media pd-reveal" aria-hidden="true">
                     <span class="pd-media-tag">Invest</span>
                     <svg viewBox="0 0 400 300">
-                        <text class="pd-label" x="40" y="40">Education fund grows with your child</text>
+                        <text class="pd-label" x="364" y="38" text-anchor="end">Education fund grows with your child</text>
 
                         <!-- Stage caption -->
                         <g class="pd-label" text-anchor="middle">
-                            <g class="gw-s gw-s1"><rect x="82" y="58" width="116" height="26" rx="13" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 1 · Start a SIP</text></g>
-                            <g class="gw-s gw-s2"><rect x="82" y="58" width="116" height="26" rx="13" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 5 · School begins</text></g>
-                            <g class="gw-s gw-s3"><rect x="82" y="58" width="116" height="26" rx="13" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 15 · Class 10</text></g>
-                            <g class="gw-s gw-s4"><rect x="82" y="58" width="116" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/><text x="140" y="75" style="fill:#047857">Age 20 · College ✓</text></g>
+                            <g class="gw-s gw-s1"><rect class="pd-badge" x="82" y="58" width="116" height="26" rx="13" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 1 · Start a SIP</text></g>
+                            <g class="gw-s gw-s2"><rect class="pd-badge" x="82" y="58" width="116" height="26" rx="13" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 5 · School begins</text></g>
+                            <g class="gw-s gw-s3"><rect class="pd-badge" x="82" y="58" width="116" height="26" rx="13" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/><text x="140" y="75">Age 15 · Class 10</text></g>
+                            <g class="gw-s gw-s4"><rect class="pd-badge" x="82" y="58" width="116" height="26" rx="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/><text x="140" y="75" style="fill:#047857">Age 20 · College ✓</text></g>
                         </g>
 
                         <ellipse cx="140" cy="241" rx="44" ry="6" fill="#e0e7ff"/>
@@ -689,8 +693,8 @@
 
                         <!-- Goal reached -->
                         <g class="gw-s gw-s4">
-                            <rect x="226" y="52" width="140" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
-                            <text class="pd-label" x="296" y="71" text-anchor="middle" style="fill:#047857">✓ Fund ready on time</text>
+                            <rect class="pd-badge" x="226" y="52" width="140" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+                            <text class="pd-label" x="296" y="71" text-anchor="middle" style="fill:#047857">✓&#160;Fund ready on time</text>
                         </g>
 
                         <!-- Age timeline -->
@@ -814,7 +818,7 @@
                         </g>
                         <g class="pd-pop-late">
                             <rect class="pd-badge" x="90" y="64" width="152" height="30" rx="15" fill="#fef3c7" stroke="#f4a700" stroke-width="1.5"/>
-                            <text class="pd-label" x="166" y="84" text-anchor="middle" style="fill:#a16207">✓ Tax-free maturity</text>
+                            <text class="pd-label" x="166" y="84" text-anchor="middle" style="fill:#a16207">✓&#160;Tax-free maturity</text>
                         </g>
                         <text class="pd-label-sm" x="200" y="276" text-anchor="middle">Know exactly what you get, and when</text>
                     </svg>
@@ -846,7 +850,7 @@
                     <svg viewBox="0 0 400 300">
                         <!-- Tax bill -->
                         <rect x="36" y="70" width="170" height="168" rx="14" fill="#fff" stroke="#f3e2b3" stroke-width="2"/>
-                        <text x="56" y="100" style="font-size: 14px; font-weight: 800; fill: #1f2937;">🧾 Tax payable</text>
+                        <text x="56" y="100" style="font-size: 14px; font-weight: 800; fill: #1f2937;">🧾&#160;Tax payable</text>
                         <rect x="56" y="118" width="130" height="18" rx="9" fill="#fde2e7"/>
                         <rect class="pd-shrinkx" x="56" y="118" width="130" height="18" rx="9" fill="#f5576c"/>
                         <g stroke="#f3f4f6" stroke-width="6" stroke-linecap="round">
@@ -854,7 +858,7 @@
                         </g>
                         <g class="pd-pop">
                             <rect class="pd-badge" x="50" y="196" width="142" height="28" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
-                            <text class="pd-label" x="121" y="215" text-anchor="middle" style="fill:#047857">✓ Deductions applied</text>
+                            <text class="pd-label" x="121" y="215" text-anchor="middle" style="fill:#047857">✓&#160;Deductions applied</text>
                         </g>
                         <!-- Coins moving to savings -->
                         <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
@@ -907,7 +911,7 @@
                         </g>
                         <!-- Hospital bill -->
                         <rect x="60" y="212" width="170" height="64" rx="10" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
-                        <text class="pd-label" x="76" y="236">🏥 Hospital bill</text>
+                        <text class="pd-label" x="76" y="236">🏥&#160;Hospital bill</text>
                         <g stroke="#f3f4f6" stroke-width="5" stroke-linecap="round"><line x1="76" y1="254" x2="160" y2="254"/><line x1="76" y1="266" x2="140" y2="266"/></g>
                         <g class="pd-stamp">
                             <rect x="178" y="226" width="92" height="34" rx="8" fill="rgba(236,253,245,0.92)" stroke="#10b981" stroke-width="2.5"/>
@@ -1009,7 +1013,7 @@
                         <rect x="44" y="44" width="156" height="210" rx="14" fill="#fff" stroke="#bbf7d0" stroke-width="2"/>
                         <rect x="44" y="44" width="156" height="40" rx="14" fill="#ecfdf5"/>
                         <rect x="44" y="70" width="156" height="14" fill="#ecfdf5"/>
-                        <text x="122" y="70" text-anchor="middle" style="font-size: 14px; font-weight: 800; fill: #047857;">📜 Policy</text>
+                        <text x="122" y="70" text-anchor="middle" style="font-size: 14px; font-weight: 800; fill: #047857;">📜&#160;Policy</text>
                         <g fill="#e5e7eb">
                             <rect class="pd-write" style="--i: 0;" x="64" y="104" width="116" height="8" rx="4"/>
                             <rect class="pd-write" style="--i: 1;" x="64" y="124" width="96" height="8" rx="4"/>
@@ -1279,5 +1283,6 @@
             showGoal('wealth');
         })();
     </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>

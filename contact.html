@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
     <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
     <style>
         /* ========================= CONTACT PAGE ========================= */
         .ct-section { padding: 5.5rem 0; }
@@ -926,5 +928,6 @@
             });
         })();
     </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>

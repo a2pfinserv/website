@@ -44,6 +44,24 @@ body {
     overflow-x: hidden;
 }
 
+/* ========================= TOUCH: NO TAP FLASH OR LONG-PRESS SELECTION =========================
+   Phones draw a light-blue box on whatever is tapped and select text / show a menu on press-and-hold.
+   Turn both off across the site; form fields stay selectable so visitors can still type and edit. */
+html { -webkit-tap-highlight-color: transparent; }
+@media (hover: none) {
+    body {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+    input, textarea, select, [contenteditable="true"] {
+        -webkit-user-select: text;
+        user-select: text;
+        -webkit-touch-callout: default;
+    }
+}
+img, svg { -webkit-user-drag: none; }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1834,7 +1852,6 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     border-radius: 50%;
     text-decoration: none;
-    view-transition-name: fab-contact;
 }
 
 .fab-circle {
@@ -1845,23 +1862,11 @@ h1, h2, h3, h4, h5, h6 {
     height: 62px;
     border-radius: 50%;
     color: #fff;
-    background: linear-gradient(135deg, #9aaaf7 0%, #7d90f0 100%);
-    box-shadow: 0 8px 22px rgba(102, 126, 234, 0.32);
+    /* same colour as the main buttons (e.g. "Plan My Child's Future") */
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 8px 22px rgba(102, 126, 234, 0.42);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
-/* Soft pulse rings */
-.fab-circle::before,
-.fab-circle::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid rgba(125, 144, 240, 0.45);
-    animation: fabPulse 2.6s ease-out infinite;
-}
-
-.fab-circle::after { animation-delay: 1.3s; }
 
 .fab-phone { animation: fabRing 3s ease-in-out infinite; transform-origin: 50% 50%; }
 
@@ -1912,11 +1917,6 @@ body.cl-open .fab-contact { visibility: hidden; }
     to { opacity: 1; transform: none; }
 }
 
-@keyframes fabPulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    100% { transform: scale(1.7); opacity: 0; }
-}
-
 @keyframes fabRing {
     0%, 60%, 100% { transform: rotate(0); }
     64%, 72%, 80% { transform: rotate(-14deg); }
@@ -1931,7 +1931,7 @@ body.cl-open .fab-contact { visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fab-contact, .fab-circle::before, .fab-circle::after, .fab-phone { animation: none !important; }
+    .fab-contact, .fab-phone { animation: none !important; }
 }
 
 /* ========================= SEGMENTED FILTERS (glass bubble) ========================= */
@@ -1985,7 +1985,7 @@ body.cl-open .fab-contact { visibility: hidden; }
 }
 
 @media (max-width: 600px) {
-    .seg-bubble { border-radius: 12px; }
+    .cl-filters .seg-bubble, .bl-filters .seg-bubble { border-radius: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2002,7 +2002,6 @@ body.cl-open .fab-contact { visibility: hidden; }
     display: block;
     border-radius: 50%;
     text-decoration: none;
-    view-transition-name: fab-blog;
 }
 
 .fab-blog .fab-label {
@@ -2069,7 +2068,7 @@ body.cl-open .fab-blog { visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fab-blog, .fab-blog .fab-circle::before, .fab-blog .fab-circle::after, .fab-book-page, .fab-badge { animation: none !important; }
+    .fab-blog, .fab-book-page, .fab-badge { animation: none !important; }
 }
 
 /* ========================= BOTTOM DOCK NAVIGATION (experiment) ========================= */
@@ -2108,7 +2107,10 @@ body.cl-open .fab-blog { visibility: hidden; }
 }
 
 /* Top bar spans the full width: logo and brand sit close to the screen edges */
-.dock-nav .nav-container { max-width: none; padding: 0 20px; }
+/* Logo (and, where there is room, the company name) line up with the page content's edges */
+.dock-nav .nav-container { max-width: none; padding: 0 max(2rem, calc((100% - 1200px) / 2 + 2rem)); }
+/* Wide screens: the menu sits in the middle of this bar, so the name stays near the right edge */
+@media (min-width: 1361px) { .dock-nav .nav-container { padding-right: 20px; } }
 
 /* Top bar: solid white */
 .dock-nav .navbar {
@@ -2243,50 +2245,45 @@ body.cl-open .dock { visibility: hidden; }
     .dock-nav .navbar + * { margin-top: 70px; }
 }
 
-/* Phones: full-width bar under the top bar, labels under icons */
+/* Phones: a pill-shaped bar under the top bar, like on desktop. The current page shows its icon and name in
+   the blue pill; the other pages show their icons (their names are read out to screen readers). While scrolling
+   down the bar slides up out of view exactly as far as the page moves (--dock-shift, set by script-pro.js). */
 @media (max-width: 768px) {
     .dock {
         left: 10px;
         right: 10px;
         top: 86px;
-        transform: none;
+        z-index: 999;   /* slides away underneath the top bar */
+        transform: translateY(calc(var(--dock-shift, 0px) * -1));
         justify-content: space-between;
-        gap: 2px;
+        gap: 4px;
         padding: 6px;
-        border-radius: 22px;
+        border-radius: 999px;
     }
     .dock-item {
-        flex: 1;
-        flex-direction: column;
-        gap: 3px;
-        padding: 0.5rem 0.2rem;
-        border-radius: 16px;
-        font-size: 0.66rem;
-        min-width: 0;
+        flex: 0 0 auto;
+        gap: 6px;
+        padding: 0.6rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.82rem;
     }
     .dock-long { display: none; }
-    .dock-bubble, .dock-lens { border-radius: 16px; }
-    .dock-short { display: block; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .dock-short { display: none; }
+    .dock-item.active .dock-short { display: inline; }
+    .dock-bubble, .dock-lens { border-radius: 999px; }
     .dock-item:hover { transform: none; }
-    .dock-nav .navbar + * { margin-top: 84px; }
-    .dock-nav { --nav-h: 166px; }
-    .dock-nav .nav-container { padding: 0 12px; }
+    .dock-nav .navbar + * { margin-top: 70px; }
+    .dock-nav { --nav-h: 152px; }
+
     .brand-text strong { font-size: 0.95rem; letter-spacing: 0.04em; }
     .brand-text span { font-size: 0.66rem; gap: 0.4rem; }
     .brand-text span::before, .brand-text span::after { width: 16px; }
 }
 
-/* ========================= SMOOTH PAGE CHANGES =========================
-   Browsers that support cross-page view transitions fade the page into the next one. The top bar and the glass
-   menu are identical on every page, so they are left in the page fade and simply stay put (capturing the glass
-   menu on its own made it flicker or show as a blurred square). The corner buttons are kept fixed. */
-@view-transition { navigation: auto; }
-::view-transition-old(root),
-::view-transition-new(root) { animation-duration: 0.25s; }
-::view-transition-group(fab-contact),
-::view-transition-group(fab-blog) { animation: none; }
-::view-transition-old(fab-contact), ::view-transition-old(fab-blog) { display: none; }
-::view-transition-new(fab-contact), ::view-transition-new(fab-blog) { animation: none; }
+/* ========================= PAGE CHANGES =========================
+   No cross-page fade: capturing and cross-fading whole pages (full of glass effects and animations) made page
+   switches lag and flicker, especially on phones. Each page is instead shown only once it is fully set up
+   (see the render-blocking "site-ready" marker in every page), and the menu bubble's slide shows the change. */
 
 
 /* ========================= FOOTER: "Sapno ki Express" — a little train carries your goals from left to right ========================= */
@@ -2368,10 +2365,6 @@ body.cl-open .dock { visibility: hidden; }
     .hf-train { transform: translateX(24px); }
 }
 
-/* Floating Blog / Contact buttons turn deep violet while they sit over the light footer */
-.fab-circle { transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.35s ease; }
-body.hf-near .fab-circle { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); box-shadow: 0 10px 26px rgba(79, 70, 229, 0.5); }
-body.hf-near .fab-circle::before, body.hf-near .fab-circle::after { border-color: rgba(124, 58, 237, 0.45); }
 
 
 /* ========================= RUPEE RAIN (first section of the main pages) ========================= */
@@ -2406,3 +2399,79 @@ body.reveal-foot .hm-foot { position: fixed; left: 0; right: 0; bottom: 0; z-ind
 html:has(body.reveal-foot) { background: #ffffff; }
 /* Footer animations rest while the footer is covered */
 .hm-foot:not(.hf-on) *, .hm-foot:not(.hf-on) *::before, .hm-foot:not(.hf-on) *::after { animation-play-state: paused !important; }
+
+/* Very narrow phones: a little less side space so the logo and name both fit */
+@media (max-width: 379px) { .dock-nav .nav-container { padding: 0 14px; } }
+
+
+/* ========================= WHATSAPP BUTTON (above the Contact button) ========================= */
+.fab-wa {
+    position: fixed;
+    right: 24px;
+    bottom: calc(24px + 62px + 14px);   /* sits above the Contact button */
+    z-index: 1500;
+}
+.fab-wa.solo { bottom: 24px; }          /* Contact page: no Contact button below it */
+.fab-wa-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #2fdc6f 0%, #1faa52 100%);
+    box-shadow: 0 8px 22px rgba(31, 170, 82, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.fab-wa-btn:hover, .fab-wa-btn:focus-visible { transform: scale(1.06); box-shadow: 0 12px 28px rgba(31, 170, 82, 0.5); }
+.fab-wa-btn:focus-visible { outline: 3px solid rgba(31, 170, 82, 0.4); outline-offset: 4px; }
+.fab-wa-btn svg { width: 30px; height: 30px; }
+
+/* Message picker */
+.wa-menu {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 12px);
+    width: min(300px, calc(100vw - 32px));
+    padding: 0.9rem 0.6rem 0.6rem;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 22px 50px rgba(31, 41, 55, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.96);
+    transform-origin: bottom right;
+    transition: opacity 0.22s ease, transform 0.3s cubic-bezier(.34, 1.4, .64, 1), visibility 0s 0.3s;
+}
+.fab-wa.open .wa-menu { opacity: 1; visibility: visible; transform: none; transition: opacity 0.22s ease, transform 0.3s cubic-bezier(.34, 1.4, .64, 1); }
+.wa-head { padding: 0 0.5rem 0.6rem; }
+.wa-head strong { display: block; font-size: 0.98rem; color: #1f2937; }
+.wa-head span { font-size: 0.8rem; color: var(--text-muted); }
+.wa-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.62rem 0.6rem;
+    border-radius: 12px;
+    color: #1f2937;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+.wa-menu a:hover, .wa-menu a:focus-visible { background: #ecfdf3; outline: none; }
+.wa-menu a span { width: 1.4rem; text-align: center; }
+body.cl-open .fab-wa, body.ap-open .fab-wa { visibility: hidden; }
+
+@media (max-width: 768px) {
+    .fab-wa { right: 16px; bottom: calc(16px + 56px + 12px); }
+    .fab-wa.solo { bottom: 16px; }
+    .fab-wa-btn { width: 56px; height: 56px; }
+    .fab-wa-btn svg { width: 28px; height: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .wa-menu { transition: none; }
+}

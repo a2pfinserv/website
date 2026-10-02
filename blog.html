@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-pro.css">
     <script>document.documentElement.classList.add('dock-nav');</script>
+    <!-- Hold the first paint until the end of the page (menu bar and footer are set up), so there is no half-built frame -->
+    <link rel="expect" href="#site-ready" blocking="render">
     <style>
         /* ========================= BLOG LIST ========================= */
         .bl-eyebrow { display: inline-block; padding: 0.4rem 1rem; border-radius: 999px; background: rgba(102, 126, 234, 0.1); color: var(--primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
@@ -323,9 +325,9 @@
                                 <path d="M84 52 L 180 100"/><path d="M276 52 L 180 100"/><path d="M84 150 L 180 100"/><path d="M276 150 L 180 100"/>
                             </g>
                             <g>
-                                <rect x="40" y="28" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/pbplogo.jpeg" x="50" y="34" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                                <rect x="40" y="28" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/pblogo.png" x="50" y="34" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
                                 <rect x="232" y="28" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/smcinsurancelogo.png" x="242" y="34" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
-                                <rect x="40" y="126" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/wealthylogo.jpg" x="50" y="132" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
+                                <rect x="40" y="126" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/wealthylogo.webp" x="50" y="132" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
                                 <rect x="232" y="126" width="88" height="48" rx="12" fill="#fff" stroke="#e0e7ff" stroke-width="2"/><image href="Images/njlogo.png" x="242" y="132" width="68" height="36" preserveAspectRatio="xMidYMid meet"/>
                             </g>
                             <circle class="a-ring" cx="180" cy="100" r="30" fill="none" stroke="#667eea" stroke-width="2"/>
@@ -515,5 +517,6 @@
             }
         })();
     </script>
+    <span id="site-ready" hidden></span>
 </body>
 </html>
