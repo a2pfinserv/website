@@ -15,7 +15,8 @@
         };
         const SHORT = { 'how-it-works.html': 'Process' };   // shorter labels for phones
         const dock = document.createElement('nav');
-        dock.className = 'dock';
+        dock.className = 'dock notranslate';
+        dock.setAttribute('translate', 'no');   // the menu has its own Hindi labels; Google leaves it alone
         dock.setAttribute('aria-label', 'Main');
         dock.innerHTML = [...menu.querySelectorAll('a')].map((a) => {
             const href = a.getAttribute('href');
@@ -26,6 +27,18 @@
         }).join('');
         document.body.appendChild(dock);
         document.body.classList.add('dock-nav');
+
+        // Hindi chosen (see the language switch): short, proper menu labels instead of long machine translations
+        if (/(?:^|;\s*)googtrans=\/en\/hi/.test(document.cookie)) {
+            const HI = { 'home.html': 'होम', 'products.html': 'उत्पाद', 'calculators.html': 'कैलकुलेटर', 'how-it-works.html': 'प्रक्रिया', 'about.html': 'हमारे बारे में' };
+            dock.querySelectorAll('.dock-item').forEach((it) => {
+                const t = HI[it.getAttribute('href')];
+                if (!t) return;
+                it.querySelectorAll('.dock-long, .dock-short').forEach((el) => { el.textContent = t; });
+                it.setAttribute('aria-label', t);
+                it.setAttribute('title', t);
+            });
+        }
         document.documentElement.classList.add('dock-nav');
 
         // Liquid-glass selection: a blue glass bubble sits under the current page and slides (with a little
@@ -64,6 +77,8 @@
             bubble.classList.add('no-anim'); put(bubble, cur); void bubble.offsetWidth; bubble.classList.remove('no-anim');
         };
         window.addEventListener('resize', settle);
+        // re-measure when the items change size later (fonts, translation), but never cut short the opening slide
+        if ('ResizeObserver' in window) { let ready = false; setTimeout(() => { ready = true; }, 900); const ro = new ResizeObserver(() => { if (ready) settle(); }); items.forEach((it) => ro.observe(it)); }
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
 
         items.forEach((it, i) => {
@@ -598,3 +613,218 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => { if (isOpen()) close(); }, { passive: true });
     window.addEventListener('resize', () => { if (isOpen()) place(); });
 })();
+
+// Language: English / हिन्दी, from a frosted-glass circle just outside the menu bar, to its right. Hindi uses Google's website translator
+// (loaded only when Hindi is chosen); the choice is kept in the "googtrans" cookie so every page opens in it.
+document.addEventListener('DOMContentLoaded', () => {
+    if (!document.querySelector('.dock')) return;
+    const getLang = () => (/(?:^|;\s*)googtrans=\/en\/hi/.test(document.cookie) ? 'hi' : 'en');
+    const setLang = (lang) => {
+        const host = window.location.hostname;
+        const kill = 'expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = `googtrans=; ${kill}`;
+        if (host.includes('.')) document.cookie = `googtrans=; ${kill}; domain=.${host}`;
+        if (lang === 'hi') document.cookie = 'googtrans=/en/hi; path=/';
+        window.location.reload();
+    };
+    const lang = getLang();
+
+    // the menu has its own Hindi labels (set where the menu is built), so Google leaves it alone
+    const dockEl = document.querySelector('.dock');
+    if (dockEl) { dockEl.classList.add('notranslate'); dockEl.setAttribute('translate', 'no'); }
+
+    // keep the company name and logo in English
+    document.querySelectorAll('.brand-text, .hf-id strong, .logo, .hf-logo').forEach((el) => { el.classList.add('notranslate'); el.setAttribute('translate', 'no'); });
+
+    // Hindi: write numbers and short phrases ourselves, so Google cannot scramble them ("Up to 15%" → "15% तक")
+    if (lang === 'hi') {
+        document.documentElement.classList.add('lang-hi');
+        const RULES = [
+            [/^Up to (\d+)%(\*?)$/, '$1% तक$2'],
+            [/^(\d+)\s*–\s*(\d+) (?:mo|months)$/, '$1–$2 महीने'],
+            [/^(\p{Extended_Pictographic}\uFE0F?\s*)?Every (\d+)\s*–\s*(\d+) months$/iu, (m, e, a, b) => `${e || ''}हर ${a}–${b} महीने`],
+            [/^Up to (\d+) years$/, '$1 साल तक'],
+            [/^(\d+)-minute meeting$/i, '$1 मिनट की मीटिंग'],
+            [/^Every (\d+) years$/i, 'हर $1 साल']
+        ];
+        document.querySelectorAll('body *:not(script):not(style)').forEach((el) => {
+            if (el.closest('.notranslate')) return;
+            // counters may still be mid-count: read their final value (data-count) instead of what is on screen
+            let txt;
+            if (el.querySelector('[data-count]')) {
+                const clone = el.cloneNode(true);
+                clone.querySelectorAll('[data-count]').forEach((c) => { c.textContent = c.dataset.count; });
+                txt = clone.textContent.replace(/\s+/g, ' ').trim();
+            } else txt = el.textContent.replace(/\s+/g, ' ').trim();
+            if (!txt || txt.length > 40) return;
+            // only plain text holders (their only children may be counter pieces), never whole blocks
+            if ([...el.children].some((c) => !c.hasAttribute('data-count'))) return;
+            for (const [re, to] of RULES) {
+                if (re.test(txt)) {
+                    el.textContent = txt.replace(re, to).trim();
+                    el.classList.add('notranslate');
+                    el.setAttribute('translate', 'no');
+                    break;
+                }
+            }
+        });
+    }
+
+    if (lang === 'hi') {
+        // reveal the page once Google has translated it (or after 2.5 s, e.g. when offline)
+        const reveal = () => document.documentElement.classList.remove('lang-hi-pending');
+        const watch = new MutationObserver(() => {
+            if (document.documentElement.classList.contains('translated-ltr')) { setTimeout(reveal, 120); watch.disconnect(); }
+        });
+        watch.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        setTimeout(reveal, 2500);
+        const holder = document.createElement('div');
+        holder.id = 'google_translate_element';
+        document.body.appendChild(holder);
+        window.googleTranslateElementInit = () => {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi', autoDisplay: false }, 'google_translate_element');
+        };
+        const sc = document.createElement('script');
+        sc.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        sc.async = true;
+        document.body.appendChild(sc);
+    }
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lang-fab notranslate';
+    btn.setAttribute('translate', 'no');
+    btn.setAttribute('aria-label', 'Change language');
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'lang-panel');
+    btn.title = 'Change language · भाषा बदलें';
+    btn.innerHTML = '<span class="lf-mark" aria-hidden="true"><span class="lf-hi">हिं</span><span class="lf-a">A</span></span>';
+    (document.querySelector('.page-wrap') || document.body).appendChild(btn);   // same layer as the menu, so it slides under the top bar with it
+
+    const panel = document.createElement('div');
+    panel.className = 'lang-panel notranslate';
+    panel.id = 'lang-panel';
+    panel.setAttribute('translate', 'no');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Choose language');
+    panel.dataset.lang = lang;
+    panel.innerHTML =
+        `<strong>Choose language</strong><small>भाषा चुनें</small>
+        <div class="lang-tabs">
+            <button type="button" data-set="en" aria-pressed="${lang === 'en'}">English</button>
+            <button type="button" data-set="hi" aria-pressed="${lang === 'hi'}" lang="hi">हिन्दी</button>
+            <span class="lang-line" aria-hidden="true"></span>
+        </div>
+        <p class="lang-note">Hindi is translated automatically by Google Translate.</p>`;
+    document.body.appendChild(panel);
+
+    const place = () => {
+        const r = btn.getBoundingClientRect();
+        const w = panel.offsetWidth;
+        panel.style.left = Math.max(12, Math.min(r.right - w, window.innerWidth - w - 12)) + 'px';
+        panel.style.top = (r.bottom + 10) + 'px';
+    };
+    const setOpen = (open) => { if (open) place(); panel.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!panel.classList.contains('open')); });
+    panel.querySelectorAll('[data-set]').forEach((b) => b.addEventListener('click', () => {
+        const to = b.dataset.set;
+        if (to === getLang()) { setOpen(false); return; }
+        panel.dataset.lang = to;                       // slide the underline first, then switch
+        panel.querySelectorAll('[data-set]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        setTimeout(() => setLang(to), 320);
+    }));
+    document.addEventListener('click', (e) => { if (!panel.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && panel.classList.contains('open')) { setOpen(false); btn.focus(); } });
+    window.addEventListener('scroll', () => { if (panel.classList.contains('open')) setOpen(false); }, { passive: true });
+    window.addEventListener('resize', () => { if (panel.classList.contains('open')) place(); });
+});
+
+// Suggestion box: a footer button opens a small form (Title, Name, Message). Entries are sent to a Google Apps Script
+// web app that adds a row to the Google Sheet (Title | Message | Date | Time | Customer name) and stamps the date
+// and time itself. Paste the web app's /exec link below once it is deployed; until then the form opens an email instead.
+const SUGGEST_URL = 'https://script.google.com/macros/s/AKfycbx_lvUxPLl1osLX3_tzECZfJ31-mR8OPTW-K--sPSAFuez1GmmqdoMklQxx16rT0Ek/exec';
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.hf-grid');
+    if (!grid) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'hf-sugg';
+    btn.innerHTML = '<span aria-hidden="true">💡</span><span class="sg-long">Drop your suggestion to help us serve you better</span><span class="sg-short">Share a suggestion</span>';
+    grid.appendChild(btn);
+
+    const back = document.createElement('div');
+    back.className = 'sg-backdrop';
+    const box = document.createElement('div');
+    box.className = 'sg-box';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-labelledby', 'sg-title');
+    const formHTML = `
+        <div class="sg-head">
+            <span class="sg-ic" aria-hidden="true">💡</span>
+            <div><h3 id="sg-title">Share a suggestion</h3><p>Tell us how we can serve you better. We read every message.</p></div>
+            <button type="button" class="sg-x" aria-label="Close">✕</button>
+        </div>
+        <form class="sg-form" novalidate>
+            <label class="sg-field"><span>Title <small class="sg-c" data-for="title">0/80</small></span><input name="title" maxlength="80" autocomplete="off" required></label>
+            <label class="sg-field"><span>Your name <small class="sg-c" data-for="name">0/60</small></span><input name="name" maxlength="60" autocomplete="name" required></label>
+            <label class="sg-field"><span>Message <small class="sg-c" data-for="message">0/500</small></span><textarea name="message" maxlength="500" required></textarea></label>
+            <input class="sg-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn btn-primary sg-send">Send suggestion <span aria-hidden="true">→</span></button>
+            <p class="sg-msg" aria-live="polite"></p>
+        </form>`;
+    box.innerHTML = formHTML;
+    document.body.append(back, box);
+
+    let lastFocus = null;
+    const open = () => {
+        lastFocus = document.activeElement;
+        if (!box.querySelector('form')) { box.innerHTML = formHTML; wire(); }
+        document.body.classList.add('sg-open');
+        setTimeout(() => { const f = box.querySelector('input[name="title"]'); if (f) f.focus(); }, 60);
+    };
+    const close = () => { document.body.classList.remove('sg-open'); if (lastFocus) lastFocus.focus(); };
+    btn.addEventListener('click', open);
+    back.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sg-open')) close(); });
+
+    function wire() {
+        box.querySelector('.sg-x').addEventListener('click', close);
+        const form = box.querySelector('form');
+        const msg = box.querySelector('.sg-msg');
+        form.querySelectorAll('input[maxlength], textarea').forEach((el) => {
+            const c = form.querySelector(`.sg-c[data-for="${el.name}"]`);
+            const upd = () => { if (c) c.textContent = `${el.value.length}/${el.maxLength}`; el.closest('.sg-field').classList.remove('bad'); };
+            el.addEventListener('input', upd);
+        });
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const f = (n) => form.elements.namedItem(n);
+            const data = { title: f('title').value.trim(), name: f('name').value.trim(), message: f('message').value.trim() };
+            if (f('website').value) return;                                  // bots fill the hidden field
+            const missing = ['title', 'name', 'message'].filter((k) => !data[k]);
+            missing.forEach((k) => f(k).closest('.sg-field').classList.add('bad'));
+            if (missing.length) { msg.className = 'sg-msg err'; msg.textContent = 'Please fill in the title, your name and the message.'; f(missing[0]).focus(); return; }
+            if (!SUGGEST_URL) {                                               // not connected yet: send by email instead
+                const body = `Name: ${data.name}\n\n${data.message}`;
+                window.location.href = `mailto:A2pfinserv@gmail.com?subject=${encodeURIComponent('Suggestion: ' + data.title)}&body=${encodeURIComponent(body)}`;
+                return;
+            }
+            const send = form.querySelector('.sg-send');
+            send.disabled = true; msg.className = 'sg-msg'; msg.textContent = 'Sending…';
+            try {
+                // text/plain keeps this a "simple" request, which Google Apps Script accepts from any website
+                await fetch(SUGGEST_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) });
+                box.innerHTML = '<div class="sg-done"><b aria-hidden="true">🙏</b><h3>Thank you!</h3><p>Your suggestion has reached our team. It helps us serve you better.</p><button type="button" class="btn btn-primary sg-ok">Close</button></div>';
+                box.querySelector('.sg-ok').addEventListener('click', close);
+            } catch (err) {
+                send.disabled = false;
+                msg.className = 'sg-msg err';
+                msg.textContent = 'Could not send right now. Please check your internet and try again.';
+            }
+        });
+    }
+    wire();
+});
+
