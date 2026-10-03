@@ -528,3 +528,73 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && wrap.classList.contains('open')) { setOpen(false); btn.focus(); } });
 });
+
+// Menu: tapping "About" opens a small glass dropdown (About Us, Founders) instead of going straight to the page
+(function () {
+    const dock = document.querySelector('.dock');
+    if (!dock) return;
+    const about = dock.querySelector('.dock-item[href="about.html"]');
+    if (!about) return;
+    const items = [...dock.querySelectorAll('.dock-item')];
+    const page = window.location.pathname.split('/').pop() || 'home.html';
+    const ICON_ABOUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>';
+    const ICON_TEAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg>';
+
+    about.insertAdjacentHTML('beforeend', '<svg class="dock-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>');
+    about.setAttribute('aria-haspopup', 'true');
+    about.setAttribute('aria-expanded', 'false');
+    about.setAttribute('aria-controls', 'dd-about');
+
+    const panel = document.createElement('div');
+    panel.className = 'dd-panel';
+    panel.id = 'dd-about';
+    panel.setAttribute('role', 'menu');
+    panel.setAttribute('aria-label', 'About');
+    panel.innerHTML =
+        '<span class="dd-lens" aria-hidden="true"></span>' +
+        `<a class="dd-item${page === 'about.html' ? ' is-current' : ''}" role="menuitem" href="about.html"><span class="dd-ic" aria-hidden="true">${ICON_ABOUT}</span><span class="dd-text"><strong>About Us</strong><small>Our story, values and promise</small></span></a>` +
+        `<a class="dd-item${page === 'founders.html' ? ' is-current' : ''}" role="menuitem" href="founders.html"><span class="dd-ic" aria-hidden="true">${ICON_TEAM}</span><span class="dd-text"><strong>Founders</strong><small>The people behind A2P</small></span></a>`;
+    document.body.appendChild(panel);
+    const lens = panel.querySelector('.dd-lens');
+
+    const place = () => {
+        const r = about.getBoundingClientRect();
+        const w = panel.offsetWidth;
+        const left = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
+        panel.style.left = left + 'px';
+        panel.style.top = (r.bottom + 10) + 'px';
+        panel.style.transformOrigin = `${Math.round(r.left + r.width / 2 - left)}px top`;
+    };
+    const open = () => { place(); panel.classList.add('open'); about.setAttribute('aria-expanded', 'true'); };
+    const close = () => { panel.classList.remove('open'); about.setAttribute('aria-expanded', 'false'); lens.classList.remove('on'); };
+    const isOpen = () => panel.classList.contains('open');
+
+    // capture phase: runs before the menu's own click handling (bubble slide / navigation)
+    dock.addEventListener('click', (e) => {
+        if (!e.target.closest('.dock-item[href="about.html"]')) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        isOpen() ? close() : open();
+    }, true);
+
+    // glass lens glides behind the hovered option
+    panel.querySelectorAll('.dd-item').forEach((it) => it.addEventListener('pointerenter', () => {
+        lens.style.transform = `translateY(${it.offsetTop}px)`;
+        lens.style.height = it.offsetHeight + 'px';
+        lens.classList.add('on');
+    }));
+    panel.addEventListener('pointerleave', () => lens.classList.remove('on'));
+
+    // "About Us": let the menu bubble slide to About on the next page
+    panel.querySelectorAll('.dd-item[href]').forEach((link) => link.addEventListener('click', () => {
+        const cur = items.findIndex((it) => it.classList.contains('active'));
+        const to = items.indexOf(about);
+        if (cur >= 0 && cur !== to) { try { sessionStorage.setItem('a2p-dock-from', String(cur)); } catch (err) { /* storage blocked */ } }
+        close();
+    }));
+
+    document.addEventListener('click', (e) => { if (isOpen() && !panel.contains(e.target) && !about.contains(e.target)) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { close(); about.focus(); } });
+    window.addEventListener('scroll', () => { if (isOpen()) close(); }, { passive: true });
+    window.addEventListener('resize', () => { if (isOpen()) place(); });
+})();

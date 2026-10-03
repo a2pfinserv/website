@@ -330,6 +330,23 @@
         .pd-bar { transform-box: fill-box; transform-origin: center bottom; animation: pdBar 6s ease-out infinite; animation-delay: calc(var(--i) * 0.3s); }
         .pd-coin { animation: pdCoin 6s ease-in infinite; animation-delay: calc(var(--i) * 0.3s); }
         .pd-draw { animation: pdDraw 6s ease-in-out infinite; }
+        /* SIP chart: bars, coins and the growth line share one timeline, so the line always sits on fully grown bars */
+        .sip-line { animation: sipLine 6s linear infinite; }
+        @keyframes sipLine { 0%, 2% { stroke-dashoffset: 100; opacity: 1; } 47%, 85% { stroke-dashoffset: 0; opacity: 1; } 91%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+        .sip-bar { animation-delay: 0s; animation-timing-function: ease-out; }
+        @keyframes sipBar0 { 0% { transform: scaleY(0); } 2%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        @keyframes sipBar1 { 0%, 1% { transform: scaleY(0); } 8%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        @keyframes sipBar2 { 0%, 9% { transform: scaleY(0); } 16%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        @keyframes sipBar3 { 0%, 17% { transform: scaleY(0); } 24%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        @keyframes sipBar4 { 0%, 25% { transform: scaleY(0); } 32%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        @keyframes sipBar5 { 0%, 34% { transform: scaleY(0); } 41%, 92% { transform: scaleY(1); } 99%, 100% { transform: scaleY(0); } }
+        .sip-bar[style*="--i: 0;"] { animation-name: sipBar0; }
+        .sip-bar[style*="--i: 1;"] { animation-name: sipBar1; }
+        .sip-bar[style*="--i: 2;"] { animation-name: sipBar2; }
+        .sip-bar[style*="--i: 3;"] { animation-name: sipBar3; }
+        .sip-bar[style*="--i: 4;"] { animation-name: sipBar4; }
+        .sip-bar[style*="--i: 5;"] { animation-name: sipBar5; }
+        .sip-coin { animation-delay: calc(var(--i) * 0.48s); }
         .pd-pop { transform-box: fill-box; transform-origin: center; animation: pdPopLoop 6s ease-out infinite; }
         .pd-pop-late { transform-box: fill-box; transform-origin: center; animation: pdPopLate 6s ease-out infinite; }
         .pd-fillx { transform-box: fill-box; transform-origin: left center; animation: pdFillX 6s ease-in-out infinite; }
@@ -566,21 +583,21 @@
                             <text class="pd-label" x="306" y="43" text-anchor="middle">📅&#160;SIP every month</text>
                         </g>
                         <line x1="44" y1="262" x2="364" y2="262" stroke="#c7d2fe" stroke-width="3" stroke-linecap="round"/>
-                        <rect class="pd-bar" style="--i: 0;" x="62" y="222" width="32" height="40" rx="6" fill="url(#pdBarGrad)"/>
-                        <rect class="pd-bar" style="--i: 1;" x="112" y="204" width="32" height="58" rx="6" fill="url(#pdBarGrad)"/>
-                        <rect class="pd-bar" style="--i: 2;" x="162" y="180" width="32" height="82" rx="6" fill="url(#pdBarGrad)"/>
-                        <rect class="pd-bar" style="--i: 3;" x="212" y="150" width="32" height="112" rx="6" fill="url(#pdBarGrad)"/>
-                        <rect class="pd-bar" style="--i: 4;" x="262" y="114" width="32" height="148" rx="6" fill="url(#pdBarGrad)"/>
-                        <rect class="pd-bar" style="--i: 5;" x="312" y="72" width="32" height="190" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 0;" x="62" y="222" width="32" height="40" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 1;" x="112" y="204" width="32" height="58" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 2;" x="162" y="180" width="32" height="82" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 3;" x="212" y="150" width="32" height="112" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 4;" x="262" y="114" width="32" height="148" rx="6" fill="url(#pdBarGrad)"/>
+                        <rect class="pd-bar sip-bar" style="--i: 5;" x="312" y="72" width="32" height="190" rx="6" fill="url(#pdBarGrad)"/>
                         <g font-size="11" font-weight="800" text-anchor="middle" fill="#a16207">
-                            <g class="pd-coin" style="--i: 0;"><circle cx="78" cy="206" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="78" y="210">₹</text></g>
-                            <g class="pd-coin" style="--i: 1;"><circle cx="128" cy="188" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="128" y="192">₹</text></g>
-                            <g class="pd-coin" style="--i: 2;"><circle cx="178" cy="164" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="178" y="168">₹</text></g>
-                            <g class="pd-coin" style="--i: 3;"><circle cx="228" cy="134" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="228" y="138">₹</text></g>
-                            <g class="pd-coin" style="--i: 4;"><circle cx="278" cy="98" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="278" y="102">₹</text></g>
-                            <g class="pd-coin" style="--i: 5;"><circle cx="328" cy="56" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="328" y="60">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 0;"><circle cx="78" cy="206" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="78" y="210">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 1;"><circle cx="128" cy="188" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="128" y="192">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 2;"><circle cx="178" cy="164" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="178" y="168">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 3;"><circle cx="228" cy="134" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="228" y="138">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 4;"><circle cx="278" cy="98" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="278" y="102">₹</text></g>
+                            <g class="pd-coin sip-coin" style="--i: 5;"><circle cx="328" cy="56" r="10" fill="#fef3c7" stroke="#f4a700" stroke-width="2"/><text x="328" y="60">₹</text></g>
                         </g>
-                        <path class="pd-draw" pathLength="100" stroke-dasharray="100" d="M78 214 C 110 206 120 196 128 196 S 160 176 178 172 S 212 146 228 142 S 262 110 278 106 S 314 70 328 64" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
+                        <path class="pd-draw sip-line" pathLength="100" stroke-dasharray="100" d="M62 222 L112 204 L162 180 L212 150 L262 114 L312 72 L344 60" stroke-linejoin="round" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round"/>
                         <g class="pd-pop-late">
                             <rect class="pd-badge" x="40" y="70" width="150" height="30" rx="15" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
                             <text class="pd-label" x="115" y="90" text-anchor="middle" style="fill:#047857">📈&#160;Compounding at work</text>
@@ -1158,19 +1175,21 @@
             <div class="hf-ground"></div>
         </div>
         <div class="footer-content">
-            <div class="hf-row">
+            <div class="hf-grid">
                 <div class="hf-brand">
-                    <img src="Images/logomain.png" alt="A2P Financial Services">
-                    <div>
+                    <img class="hf-logo" src="Images/logomain.png" alt="A2P Financial Services">
+                    <div class="hf-id">
                         <strong>A2P FINANCIAL SERVICES</strong>
                         <em>Aapke Sapno Ka Financial Planner</em>
+                        <span class="hf-amfi">AMFI Registered Mutual Fund Distributor</span>
                     </div>
                 </div>
-                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
-                <div class="hf-end">
-                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
-                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
-                </div>
+                <a class="hf-addr" href="https://www.google.com/maps/search/?api=1&amp;query=A-199%2C%20Street%20No.%202%2C%20Shakarpur%2C%20Delhi%20110092" target="_blank" rel="noopener">
+                    <svg class="hf-pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+                    <span><address>A-199, Street No. 2, Shakarpur,<br> <span class="nowrap">Delhi – 110092</span></address><small class="hf-dir">Get directions →</small></span>
+                </a>
+                <p class="hf-copy"><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</p>
+                <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
             </div>
         </div>
     </footer>

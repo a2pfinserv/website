@@ -497,6 +497,27 @@
             .hm-top .brand-text span::before, .hm-top .brand-text span::after { width: 28px; }
         }
 
+        /* Account offers: a premium "₹0" highlight (gold gradient with a slow shine), no box or border */
+        .acc-offer { position: relative; display: flex; align-items: center; gap: 0.9rem; margin: -0.2rem 0 1.4rem; }
+        .acc-zero {
+            font-family: 'Poppins', sans-serif; font-size: 2.6rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+            background: linear-gradient(100deg, #b7791f 0%, #f6c453 30%, #fff3c4 45%, #f6c453 60%, #b7791f 100%) 0 0 / 250% 100%;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(217, 160, 40, 0.28));
+            animation: accShine 3.8s ease-in-out infinite;
+        }
+        @keyframes accShine { 0%, 40% { background-position: 100% 0; } 100% { background-position: -60% 0; } }
+        .acc-offer-text strong { display: block; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #a16207; line-height: 1.2; }
+        .acc-offer-text small { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+        .acc-spark { position: absolute; left: 2.9rem; top: -0.55rem; font-size: 0.9rem; color: #f4b400; animation: accTwinkle 2.4s ease-in-out infinite; }
+        @keyframes accTwinkle { 0%, 100% { opacity: 0.25; transform: scale(0.7) rotate(0deg); } 50% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
+        @media (max-width: 768px) {
+            .acc-zero { font-size: 2.2rem; }
+            .acc-offer-text strong { font-size: 0.95rem; }
+            .acc-spark { left: 2.45rem; }
+        }
+        @media (prefers-reduced-motion: reduce) { .acc-zero, .acc-spark { animation: none; } }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 1200px) {
             .hm-orbit { --size: 420px; --r: 175px; }
@@ -945,6 +966,11 @@
                         </div>
                     </div>
                     <p>Invest in mutual funds through monthly SIPs or a one-time lump sum, chosen to match your goals.</p>
+                    <div class="acc-offer">
+                        <span class="acc-zero" aria-hidden="true">₹0</span>
+                        <span class="acc-offer-text"><strong>Lifetime free</strong><small>Mutual Fund &amp; SIP account</small></span>
+                        <span class="acc-spark" aria-hidden="true">✦</span>
+                    </div>
                     <ul>
                         <li>Start small with a monthly SIP</li>
                         <li>Equity, debt, hybrid and tax-saving (ELSS) funds</li>
@@ -965,6 +991,11 @@
                         </div>
                     </div>
                     <p>A Demat and trading account to invest in shares, ETFs and IPOs, opened through our trusted partner platform.</p>
+                    <div class="acc-offer">
+                        <span class="acc-zero" aria-hidden="true">₹0</span>
+                        <span class="acc-offer-text"><strong>First year free</strong><small>Demat &amp; trading account</small></span>
+                        <span class="acc-spark" aria-hidden="true">✦</span>
+                    </div>
                     <ul>
                         <li>Invest in shares, ETFs and IPOs</li>
                         <li>Easy online account opening with our help</li>
@@ -1072,19 +1103,21 @@
             <div class="hf-ground"></div>
         </div>
         <div class="footer-content">
-            <div class="hf-row">
+            <div class="hf-grid">
                 <div class="hf-brand">
-                    <img src="Images/logomain.png" alt="A2P Financial Services">
-                    <div>
+                    <img class="hf-logo" src="Images/logomain.png" alt="A2P Financial Services">
+                    <div class="hf-id">
                         <strong>A2P FINANCIAL SERVICES</strong>
                         <em>Aapke Sapno Ka Financial Planner</em>
+                        <span class="hf-amfi">AMFI Registered Mutual Fund Distributor</span>
                     </div>
                 </div>
-                <span class="hf-badge">AMFI REGISTERED MUTUAL FUND DISTRIBUTOR</span>
-                <div class="hf-end">
-                    <div><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</div>
-                    <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
-                </div>
+                <a class="hf-addr" href="https://www.google.com/maps/search/?api=1&amp;query=A-199%2C%20Street%20No.%202%2C%20Shakarpur%2C%20Delhi%20110092" target="_blank" rel="noopener">
+                    <svg class="hf-pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+                    <span><address>A-199, Street No. 2, Shakarpur,<br> <span class="nowrap">Delhi – 110092</span></address><small class="hf-dir">Get directions →</small></span>
+                </a>
+                <p class="hf-copy"><b>&copy; 2026 A2P Financial Services</b>All rights reserved · EST. 2025</p>
+                <button type="button" class="hf-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" aria-label="Back to top"><span>↑</span></button>
             </div>
         </div>
     </footer>

@@ -2297,21 +2297,62 @@ body.cl-open .dock { visibility: hidden; }
     background: linear-gradient(180deg, #ffffff 0, #ffffff 64px, #f6f8ff 92px, #eef1ff 55%, #e2e7ff 100%);
 }
 .hm-foot::before { display: none; }
-.hm-foot .footer-content { position: relative; z-index: 3; max-width: 1200px; }
-.hf-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; }
-.hf-brand { display: flex; align-items: center; gap: 0.85rem; }
-.hf-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 15px; background: #fff; padding: 5px; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2); }
-.hf-brand strong { display: block; font-size: 1.02rem; font-weight: 800; letter-spacing: 0.08em; color: #2d3a9e; }
-.hf-brand em { display: block; font-style: normal; font-size: 0.84rem; font-weight: 600; color: #a07a2c; }
-.hf-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.07em; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; white-space: nowrap; }
-.hf-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #10b981; animation: hfLive 1.8s infinite; }
-@keyframes hfLive { 0% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(110, 231, 183, 0); } 100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); } }
-.hf-end { display: flex; align-items: center; justify-content: flex-end; gap: 0.9rem; font-size: 0.8rem; line-height: 1.45; text-align: right; color: #6b7280; }
-.hf-end b { display: block; color: #374151; }
-.hf-top { width: 44px; height: 44px; flex: none; border-radius: 50%; border: none; cursor: pointer; display: grid; place-items: center; font-size: 1.15rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, #667eea, #8b5cf6); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35); transition: transform 0.25s ease; }
+/* Footer content sits within the page content's width, with extra side space on larger screens so the floating
+   Blog / WhatsApp / Contact buttons in the corners never cover it. No borders, boxes or dividing lines. */
+.hm-foot .footer-content { position: relative; z-index: 3; max-width: none; margin: 0; padding: 0 max(110px, calc((100% - 1200px) / 2 + 2rem)); }
+.hf-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "brand addr copy top";
+    align-items: center;
+    column-gap: 2.2rem;
+    padding: 0.1rem 0 0.2rem;
+}
+.hf-brand { grid-area: brand; display: flex; align-items: center; gap: 0.85rem; }
+.hf-logo { width: 56px; height: auto; flex: none; }
+.hf-id strong { display: block; font-size: 1rem; font-weight: 800; letter-spacing: 0.06em; color: #2d3a9e; white-space: nowrap; }
+.hf-id em { display: block; font-style: normal; font-size: 0.82rem; font-weight: 600; color: #a07a2c; white-space: nowrap; }
+.hf-amfi { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.25rem; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #047857; white-space: nowrap; }
+.hf-amfi::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: #10b981; animation: hfLive 1.8s infinite; }
+@keyframes hfLive { 0% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7); } 70% { box-shadow: 0 0 0 7px rgba(110, 231, 183, 0); } 100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); } }
+.hf-addr { grid-area: addr; justify-self: center; display: flex; align-items: flex-start; gap: 0.5rem; color: #374151; font-size: 0.82rem; line-height: 1.5; text-decoration: none; }
+.hf-addr .hf-pin { flex: none; width: 18px; height: 18px; margin-top: 0.1rem; color: #667eea; }
+.hf-addr address { font-style: normal; }
+.hf-dir { display: block; margin-top: 0.1rem; font-size: 0.76rem; font-weight: 700; color: #5568d3; }
+.hf-addr:hover .hf-dir { text-decoration: underline; }
+.nowrap { white-space: nowrap; }
+.hf-copy { grid-area: copy; margin: 0; text-align: right; font-size: 0.78rem; line-height: 1.5; color: #6b7280; }
+.hf-copy b { display: block; font-size: 0.82rem; color: #374151; }
+.hf-top { grid-area: top; width: 42px; height: 42px; flex: none; border-radius: 50%; border: none; cursor: pointer; display: grid; place-items: center; font-size: 1.1rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, #667eea, #8b5cf6); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35); transition: transform 0.25s ease; }
 .hf-top:hover { transform: translateY(-4px); }
 .hf-top span { display: inline-block; animation: hfBob 1.6s ease-in-out infinite; }
 @keyframes hfBob { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+
+/* Tablets: brand and ↑ on the first row, address and © on the second */
+@media (max-width: 1100px) {
+    .hf-grid { grid-template-columns: 1fr auto; grid-template-areas: "brand top" "addr copy"; row-gap: 1.1rem; }
+    .hf-addr { justify-self: start; }
+}
+
+/* Phones: brand group centred, address centred, © between the Blog and Contact buttons; no ↑ button */
+@media (max-width: 768px) {
+    .hm-foot { padding-bottom: 0; }
+    .hm-foot .footer-content { padding: 0 16px; }
+    .hf-grid { grid-template-columns: 1fr; grid-template-areas: "brand" "addr" "copy"; justify-items: center; row-gap: 0.45rem; padding: 0; }
+    .hf-logo { width: 46px; }
+    .hf-brand { gap: 0.7rem; }
+    .hf-id strong { font-size: 0.82rem; letter-spacing: 0.03em; }
+    .hf-id em { font-size: 0.72rem; }
+    .hf-amfi { font-size: 0.56rem; letter-spacing: 0; }
+    .hf-addr { justify-self: center; gap: 0.45rem; font-size: 0.72rem; }
+    .hf-addr .hf-pin { width: 16px; height: 16px; }
+    .hf-addr address { display: inline; }
+    .hf-dir { display: inline; font-size: 0.7rem; }
+    .hf-dir::before { content: ' · '; color: #9ca3af; font-weight: 400; }
+    .hf-copy { display: flex; flex-direction: column; justify-content: center; min-height: 80px; max-width: calc(100vw - 2 * 68px); text-align: center; font-size: 0.7rem; line-height: 1.4; }
+    .hf-copy b { font-size: 0.74rem; white-space: nowrap; }
+    .hf-top { display: none; }
+}
 
 /* Clouds drift left to right */
 .hf-cloud { position: absolute; z-index: 1; top: 14px; left: -140px; width: 90px; height: 26px; border-radius: 30px; background: #eef1ff; animation: hfDrift linear infinite; }
@@ -2353,19 +2394,12 @@ body.cl-open .dock { visibility: hidden; }
 @keyframes hfPuff { 0% { transform: translate(0, 0) scale(0.4); opacity: 0.9; } 100% { transform: translate(-34px, -26px) scale(1.8); opacity: 0; } }
 .hf-light { position: absolute; right: -40px; top: 8px; width: 46px; height: 16px; background: linear-gradient(90deg, rgba(253, 230, 138, 0.65), transparent); clip-path: polygon(0 35%, 100% 0, 100% 100%, 0 65%); }
 
-@media (max-width: 900px) {
-    .hf-row { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 0.9rem; }
-    .hf-brand { flex-direction: column; gap: 0.45rem; }
-    .hf-end { justify-content: center; text-align: center; }
-}
 @media (max-width: 768px) {
-    .hf-brand strong { font-size: 0.92rem; }
-    .hf-badge { font-size: 0.6rem; letter-spacing: 0.04em; padding: 0.42rem 0.8rem; }
-    .hm-foot { padding-bottom: 5.6rem; }   /* room under the track for the floating Blog / Contact buttons */
-    .hf-train { animation-duration: 11s; transform-origin: left bottom; }
+    .hf-rail { margin-bottom: 0.4rem; }
+    .hf-train { animation-duration: 11s; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .hf-train, .hf-hills, .hf-cloud, .hf-car, .hf-wheels i, .hf-puff, .hf-top span, .hf-badge::before { animation: none !important; }
+    .hf-train, .hf-hills, .hf-cloud, .hf-car, .hf-wheels i, .hf-puff, .hf-top span, .hf-amfi::before { animation: none !important; }
     .hf-train { transform: translateX(24px); }
 }
 
@@ -2478,4 +2512,77 @@ body.cl-open .fab-wa, body.ap-open .fab-wa { visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
     .wa-menu { transition: none; }
+}
+
+/* ========================= PHONES: SMALLER FLOATING BUTTONS (48px) ========================= */
+@media (max-width: 768px) {
+    .fab-contact { right: 16px; bottom: 16px; }
+    .fab-blog { left: 16px; bottom: 16px; }
+    .fab-circle, .fab-blog .fab-circle { width: 48px; height: 48px; }
+    .fab-circle svg { width: 23px; height: 23px; }
+    .fab-badge { top: -5px; right: -5px; min-width: 19px; height: 19px; padding: 0 4px; font-size: 0.66rem; border-width: 1.5px; }
+    .fab-wa { right: 16px; bottom: calc(16px + 48px + 10px); }
+    .fab-wa.solo { bottom: 16px; }
+    .fab-wa-btn { width: 48px; height: 48px; }
+    .fab-wa-btn svg { width: 25px; height: 25px; }
+}
+
+/* ========================= MENU: "ABOUT" DROPDOWN =========================
+   A frosted-glass panel that unfolds below "About" with a springy drop; its options slide in one after another.
+   No borders or dividing lines; matches the menu's liquid-glass look. */
+.dock-chev { width: 12px; height: 12px; margin-left: -0.15rem; transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1); }
+.dock-item[aria-expanded="true"] .dock-chev { transform: rotate(180deg); }
+.dd-panel {
+    position: fixed;
+    z-index: 1450;
+    width: 280px;
+    padding: 0.55rem;
+    border-radius: 22px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(245, 247, 255, 0.86));
+    backdrop-filter: blur(22px) saturate(1.8);
+    -webkit-backdrop-filter: blur(22px) saturate(1.8);
+    box-shadow: 0 24px 60px rgba(55, 65, 140, 0.22), 0 4px 14px rgba(55, 65, 140, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.92);
+    transform-origin: top center;
+    transition: opacity 0.22s ease, transform 0.42s cubic-bezier(.34, 1.45, .64, 1), visibility 0s 0.42s;
+}
+.dd-panel.open { opacity: 1; visibility: visible; transform: none; transition: opacity 0.22s ease, transform 0.42s cubic-bezier(.34, 1.45, .64, 1); }
+.dd-lens {
+    position: absolute; left: 0.55rem; right: 0.55rem; top: 0; height: 0; z-index: 0; border-radius: 16px; pointer-events: none;
+    background: linear-gradient(135deg, rgba(118, 140, 240, 0.14), rgba(139, 92, 246, 0.12));
+    opacity: 0; transition: transform 0.4s cubic-bezier(.34, 1.4, .64, 1), height 0.3s ease, opacity 0.2s ease;
+}
+.dd-lens.on { opacity: 1; }
+.dd-item {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.7rem 0.75rem;
+    border-radius: 16px;
+    color: #1f2937;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(.34, 1.4, .64, 1);
+}
+.dd-panel.open .dd-item { opacity: 1; transform: none; }
+.dd-panel.open .dd-item:nth-of-type(2) { transition-delay: 0.06s; }
+.dd-panel.open .dd-item:nth-of-type(3) { transition-delay: 0.12s; }
+.dd-ic { flex: none; width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #667eea, #8b5cf6); box-shadow: 0 8px 18px rgba(102, 126, 234, 0.32); transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1); }
+.dd-ic svg { width: 20px; height: 20px; }
+.dd-item:nth-of-type(3) .dd-ic { background: linear-gradient(135deg, #f4a700, #f5576c); box-shadow: 0 8px 18px rgba(245, 87, 108, 0.28); }
+.dd-item:hover .dd-ic, .dd-item:focus-visible .dd-ic { transform: scale(1.08) rotate(-4deg); }
+.dd-text strong { display: flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+.dd-text small { display: block; font-size: 0.78rem; color: var(--text-muted); line-height: 1.35; }
+.dd-item:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.dd-item.is-current .dd-text strong { color: var(--primary-dark); }
+.dd-item[aria-disabled="true"] { cursor: default; }
+.dd-item[aria-disabled="true"] .dd-ic { filter: saturate(0.6); opacity: 0.75; }
+.dd-soon { padding: 0.12rem 0.45rem; border-radius: 999px; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #a16207; background: #fef3c7; }
+@media (max-width: 768px) {
+    .dd-panel { width: min(280px, calc(100vw - 24px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dd-panel, .dd-item, .dd-lens, .dock-chev { transition: none !important; }
 }
